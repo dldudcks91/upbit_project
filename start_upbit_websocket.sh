@@ -1,4 +1,4 @@
-export PYTHONPATH= /home/ubuntu/upbit_project
+export PYTHONPATH=/home/ubuntu/upbit_project
 export LANG=en_US.UTF-8
 # 메모리 모니터링 스크립트 실행
 #/usr/bin/python3 /home/ubuntu/baseball_project/system_monitor/memory__monitor.py &
