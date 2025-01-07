@@ -129,15 +129,16 @@ total_list = list()
 for market in markets:
     
     try:
-        volume = volume_dic[market][formatted_time]
+        volume = float(volume_dic[market][formatted_time])
     except:
         volume = 0
     try:
-        price = price_dic[market][formatted_time]
+        price = float(price_dic[market][formatted_time])
     except:
         price = 0
-    
-    values = (formatted_time, market, price,volume)
+    amount = volume * price   
+
+    values = (formatted_time, market, price, volume, amount)
     total_list.append(values)
 #%%
 
