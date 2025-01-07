@@ -1,6 +1,6 @@
 
 import requests
-import nest_asyncio
+#import nest_asyncio
 import redis
 import websockets
 import json
@@ -8,7 +8,7 @@ import asyncio
 from datetime import datetime
 
 # IPython/Jupyter 환경에서 필요
-nest_asyncio.apply()
+#nest_asyncio.apply()
 
 def get_krw_markets():
     """업비트 KRW 마켓의 모든 거래쌍 조회"""
@@ -86,7 +86,7 @@ async def upbit_ws_client():
                         
                         # 로깅
                         current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-                        print(f"[{current_time}] Processed: {data['cd']} - Volume: {data['tv']}")
+                        #print(f"[{current_time}] Processed: {data['cd']} - Volume: {data['tv']}")
                         
                     except websockets.exceptions.ConnectionClosed:
                         print("WebSocket connection closed. Attempting to reconnect...")

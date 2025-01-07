@@ -166,8 +166,8 @@ try:
         
         sql = sql = """
                INSERT INTO tb_market
-               (log_dt, market, price, volume) 
-               VALUES (%s, %s, %s, %s)
+               (log_dt, market, price, volume, amount) 
+               VALUES (%s, %s, %s, %s, %s)
                """
         
         cursor.executemany(sql, total_list)
