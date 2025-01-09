@@ -88,6 +88,8 @@ def get_current_prices(markets, formatted_time):
 def get_current_time(current_time):   
     
     rounded_minutes = (current_time.minute -1) // 1 
+    if rounded_minutes < 0:
+        rounded_minutes = 59
     rounded_time = current_time.replace(minute=rounded_minutes, second=0, microsecond=0)
     formatted_time = rounded_time.strftime('%Y-%m-%d %H:%M:%S')
     return formatted_time
