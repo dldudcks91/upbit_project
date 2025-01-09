@@ -172,7 +172,7 @@ try:
         
         cursor.executemany(sql, total_list)
         connection.commit()
-        print(f"[{log_dt}]: Successfully inserted {len(total_list)} records")
+        print(f"[{formatted_time}]: Successfully inserted {len(total_list)} records")
 except Exception as e:
        print(f"Error: {e}")
        connection.rollback()

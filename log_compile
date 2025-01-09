@@ -1461,3 +1461,182 @@ Successfully inserted 153 records
 Total KRW markets: 154
 Successfully connected to Redis
 Successfully inserted 153 records
+Total KRW markets: 154
+Successfully connected to Redis
+Error: name 'log_dt' is not defined
+Total KRW markets: 154
+Successfully connected to Redis
+Error: name 'log_dt' is not defined
+Total KRW markets: 154
+Successfully connected to Redis
+[2025-01-09 08:13:00]: Successfully inserted 153 records
+Total KRW markets: 154
+Successfully connected to Redis
+[2025-01-09 08:14:00]: Successfully inserted 153 records
+Total KRW markets: 154
+Successfully connected to Redis
+[2025-01-09 08:15:00]: Successfully inserted 153 records
+Total KRW markets: 154
+Successfully connected to Redis
+[2025-01-09 08:16:00]: Successfully inserted 153 records
+Total KRW markets: 154
+Successfully connected to Redis
+[2025-01-09 08:17:00]: Successfully inserted 153 records
+Total KRW markets: 154
+Successfully connected to Redis
+[2025-01-09 08:18:00]: Successfully inserted 153 records
+Total KRW markets: 154
+Successfully connected to Redis
+[2025-01-09 08:19:00]: Successfully inserted 153 records
+Total KRW markets: 154
+Successfully connected to Redis
+[2025-01-09 08:20:00]: Successfully inserted 153 records
+Total KRW markets: 154
+Successfully connected to Redis
+[2025-01-09 08:21:00]: Successfully inserted 153 records
+Total KRW markets: 154
+Successfully connected to Redis
+[2025-01-09 08:22:00]: Successfully inserted 153 records
+Total KRW markets: 154
+Successfully connected to Redis
+[2025-01-09 08:23:00]: Successfully inserted 153 records
+Total KRW markets: 154
+Successfully connected to Redis
+[2025-01-09 08:24:00]: Successfully inserted 153 records
+Total KRW markets: 154
+Successfully connected to Redis
+[2025-01-09 08:25:00]: Successfully inserted 153 records
+Total KRW markets: 154
+Successfully connected to Redis
+[2025-01-09 08:26:00]: Successfully inserted 153 records
+Total KRW markets: 154
+Successfully connected to Redis
+[2025-01-09 08:27:00]: Successfully inserted 153 records
+Total KRW markets: 154
+Successfully connected to Redis
+[2025-01-09 08:28:00]: Successfully inserted 153 records
+Total KRW markets: 154
+Successfully connected to Redis
+[2025-01-09 08:29:00]: Successfully inserted 153 records
+Total KRW markets: 154
+Successfully connected to Redis
+[2025-01-09 08:30:00]: Successfully inserted 153 records
+Total KRW markets: 154
+Successfully connected to Redis
+[2025-01-09 08:31:00]: Successfully inserted 153 records
+Total KRW markets: 154
+Successfully connected to Redis
+[2025-01-09 08:32:00]: Successfully inserted 153 records
+Total KRW markets: 154
+Successfully connected to Redis
+[2025-01-09 08:33:00]: Successfully inserted 153 records
+Total KRW markets: 154
+Successfully connected to Redis
+[2025-01-09 08:34:00]: Successfully inserted 153 records
+Total KRW markets: 154
+Successfully connected to Redis
+[2025-01-09 08:35:00]: Successfully inserted 153 records
+Total KRW markets: 154
+Successfully connected to Redis
+[2025-01-09 08:36:00]: Successfully inserted 153 records
+Total KRW markets: 154
+Successfully connected to Redis
+[2025-01-09 08:37:00]: Successfully inserted 153 records
+Total KRW markets: 154
+Successfully connected to Redis
+[2025-01-09 08:38:00]: Successfully inserted 153 records
+Total KRW markets: 154
+Successfully connected to Redis
+[2025-01-09 08:39:00]: Successfully inserted 153 records
+Total KRW markets: 154
+Successfully connected to Redis
+[2025-01-09 08:40:00]: Successfully inserted 153 records
+Total KRW markets: 154
+Successfully connected to Redis
+[2025-01-09 08:41:00]: Successfully inserted 153 records
+Total KRW markets: 154
+Successfully connected to Redis
+[2025-01-09 08:42:00]: Successfully inserted 153 records
+Total KRW markets: 154
+Successfully connected to Redis
+[2025-01-09 08:43:00]: Successfully inserted 153 records
+Total KRW markets: 154
+Successfully connected to Redis
+[2025-01-09 08:44:00]: Successfully inserted 153 records
+Total KRW markets: 154
+Successfully connected to Redis
+[2025-01-09 08:45:00]: Successfully inserted 153 records
+Total KRW markets: 154
+Successfully connected to Redis
+[2025-01-09 08:46:00]: Successfully inserted 153 records
+Total KRW markets: 154
+Successfully connected to Redis
+[2025-01-09 08:47:00]: Successfully inserted 153 records
+Total KRW markets: 154
+Successfully connected to Redis
+[2025-01-09 08:48:00]: Successfully inserted 153 records
+Total KRW markets: 154
+Successfully connected to Redis
+[2025-01-09 08:49:00]: Successfully inserted 153 records
+Total KRW markets: 154
+Successfully connected to Redis
+[2025-01-09 08:50:00]: Successfully inserted 153 records
+Total KRW markets: 154
+Successfully connected to Redis
+[2025-01-09 08:51:00]: Successfully inserted 153 records
+Total KRW markets: 154
+Successfully connected to Redis
+[2025-01-09 08:52:00]: Successfully inserted 153 records
+Total KRW markets: 154
+Successfully connected to Redis
+[2025-01-09 08:53:00]: Successfully inserted 153 records
+Total KRW markets: 154
+Successfully connected to Redis
+[2025-01-09 08:54:00]: Successfully inserted 153 records
+Total KRW markets: 154
+Successfully connected to Redis
+[2025-01-09 08:55:00]: Successfully inserted 153 records
+Total KRW markets: 154
+Successfully connected to Redis
+[2025-01-09 08:56:00]: Successfully inserted 153 records
+Total KRW markets: 154
+Successfully connected to Redis
+[2025-01-09 08:57:00]: Successfully inserted 153 records
+Total KRW markets: 154
+Successfully connected to Redis
+[2025-01-09 08:58:00]: Successfully inserted 153 records
+Total KRW markets: 154
+Successfully connected to Redis
+Traceback (most recent call last):
+  File "/home/ubuntu/./upbit_project/compile.py", line 104, in <module>
+    formatted_time = get_current_time(datetime.now())
+  File "/home/ubuntu/./upbit_project/compile.py", line 91, in get_current_time
+    rounded_time = current_time.replace(minute=rounded_minutes, second=0, microsecond=0)
+ValueError: minute must be in 0..59
+Total KRW markets: 154
+Successfully connected to Redis
+[2025-01-09 09:00:00]: Successfully inserted 153 records
+Total KRW markets: 154
+Successfully connected to Redis
+[2025-01-09 09:01:00]: Successfully inserted 153 records
+Total KRW markets: 154
+Successfully connected to Redis
+[2025-01-09 09:02:00]: Successfully inserted 153 records
+Total KRW markets: 154
+Successfully connected to Redis
+[2025-01-09 09:03:00]: Successfully inserted 153 records
+Total KRW markets: 154
+Successfully connected to Redis
+[2025-01-09 09:04:00]: Successfully inserted 153 records
+Total KRW markets: 154
+Successfully connected to Redis
+[2025-01-09 09:05:00]: Successfully inserted 153 records
+Total KRW markets: 154
+Successfully connected to Redis
+[2025-01-09 09:06:00]: Successfully inserted 153 records
+Total KRW markets: 154
+Successfully connected to Redis
+[2025-01-09 09:07:00]: Successfully inserted 153 records
+Total KRW markets: 154
+Successfully connected to Redis
+[2025-01-09 09:08:00]: Successfully inserted 153 records
