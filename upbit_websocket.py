@@ -69,8 +69,8 @@ async def upbit_ws_client():
                         data = json.loads(data.decode('utf8'))
                         save_data = {"tms":data["tms"], "cd":data["cd"], "tv":data["tv"]}
                         
-                        FIVE_MINUTES = 300000
-                        base_timestamp = data['tms'] - (data['tms'] % FIVE_MINUTES)
+                        ONE_MINUTE = 60000
+                        base_timestamp = data['tms'] - (data['tms'] % MINUTE)
                         
                         # Redis 키 생성
                         key = f"trade_volume:{data['cd']}:{base_timestamp}"

@@ -87,8 +87,8 @@ def get_current_prices(markets, formatted_time):
 
 def get_current_time(current_time):   
     
-    rounded_minutes = (current_time.minute // 5) * 5 
-    rounded_time = current_time.replace(minute=rounded_minutes, second=0, microsecond=0) - timedelta(minutes=5)
+    rounded_minutes = (current_time.minute -1) // 1 
+    rounded_time = current_time.replace(minute=rounded_minutes, second=0, microsecond=0)
     formatted_time = rounded_time.strftime('%Y-%m-%d %H:%M:%S')
     return formatted_time
    
@@ -172,7 +172,7 @@ try:
         
         cursor.executemany(sql, total_list)
         connection.commit()
-        print(f"Successfully inserted {len(total_list)} records")
+        print(f"[{log_dt}]: Successfully inserted {len(total_list)} records")
 except Exception as e:
        print(f"Error: {e}")
        connection.rollback()
