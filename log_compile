@@ -11976,3 +11976,521 @@ Successfully connected to Redis
 Total KRW markets: 154
 Successfully connected to Redis
 [2025-01-11 18:23:00]: Successfully inserted 153 records
+Total KRW markets: 154
+Successfully connected to Redis
+[2025-01-11 18:24:00]: Successfully inserted 153 records
+Total KRW markets: 154
+Successfully connected to Redis
+[2025-01-11 18:25:00]: Successfully inserted 153 records
+Total KRW markets: 154
+Successfully connected to Redis
+[2025-01-11 18:26:00]: Successfully inserted 153 records
+Total KRW markets: 154
+Successfully connected to Redis
+[2025-01-11 18:27:00]: Successfully inserted 153 records
+Total KRW markets: 154
+Successfully connected to Redis
+[2025-01-11 18:28:00]: Successfully inserted 153 records
+Total KRW markets: 154
+Successfully connected to Redis
+[2025-01-11 18:29:00]: Successfully inserted 153 records
+Total KRW markets: 154
+Successfully connected to Redis
+[2025-01-11 18:30:00]: Successfully inserted 153 records
+Total KRW markets: 154
+Successfully connected to Redis
+[2025-01-11 18:31:00]: Successfully inserted 153 records
+Total KRW markets: 154
+Successfully connected to Redis
+[2025-01-11 18:32:00]: Successfully inserted 153 records
+Total KRW markets: 154
+Successfully connected to Redis
+[2025-01-11 18:33:00]: Successfully inserted 153 records
+Total KRW markets: 154
+Successfully connected to Redis
+[2025-01-11 18:34:00]: Successfully inserted 153 records
+Total KRW markets: 154
+Successfully connected to Redis
+[2025-01-11 18:35:00]: Successfully inserted 153 records
+Total KRW markets: 154
+Successfully connected to Redis
+[2025-01-11 18:36:00]: Successfully inserted 153 records
+Total KRW markets: 154
+Successfully connected to Redis
+[2025-01-11 18:37:00]: Successfully inserted 153 records
+Total KRW markets: 154
+Successfully connected to Redis
+[2025-01-11 18:38:00]: Successfully inserted 153 records
+Total KRW markets: 154
+Successfully connected to Redis
+[2025-01-11 18:39:00]: Successfully inserted 153 records
+Total KRW markets: 154
+Successfully connected to Redis
+Error: 'DataFrame' object has no attribute 'gecko_id'
+Total KRW markets: 154
+Successfully connected to Redis
+Error: 'DataFrame' object has no attribute 'gecko_id'
+Total KRW markets: 154
+Successfully connected to Redis
+             0      1  ...         4                        5
+0    KRW-1INCH  1INCH  ...    7943.0                    1inch
+1     KRW-AAVE   AAVE  ...   63453.0                     aave
+2      KRW-ADA    ADA  ...  486924.0      binance-peg-cardano
+3    KRW-AERGO  AERGO  ...     996.0                    aergo
+4     KRW-AGLD   AGLD  ...    2265.0           adventure-gold
+..         ...    ...  ...       ...                      ...
+149    KRW-XTZ    XTZ  ...   19190.0  binance-peg-tezos-token
+150   KRW-ZETA   ZETA  ...    5016.0                 stoicdao
+151    KRW-ZIL    ZIL  ...    6177.0                  zilliqa
+152    KRW-ZRO    ZRO  ...    7596.0                layerzero
+153    KRW-ZRX    ZRX  ...    6253.0                       0x
+
+[154 rows x 6 columns]
+Error: 'DataFrame' object has no attribute 'gecko_id'
+Total KRW markets: 154
+Successfully connected to Redis
+             0      1  ...         4                        5
+0    KRW-1INCH  1INCH  ...    7943.0                    1inch
+1     KRW-AAVE   AAVE  ...   63453.0                     aave
+2      KRW-ADA    ADA  ...  486924.0      binance-peg-cardano
+3    KRW-AERGO  AERGO  ...     996.0                    aergo
+4     KRW-AGLD   AGLD  ...    2265.0           adventure-gold
+..         ...    ...  ...       ...                      ...
+149    KRW-XTZ    XTZ  ...   19190.0  binance-peg-tezos-token
+150   KRW-ZETA   ZETA  ...    5016.0                 stoicdao
+151    KRW-ZIL    ZIL  ...    6177.0                  zilliqa
+152    KRW-ZRO    ZRO  ...    7596.0                layerzero
+153    KRW-ZRX    ZRX  ...    6253.0                       0x
+
+[154 rows x 6 columns]
+Error: 'DataFrame' object has no attribute 'gecko_id'
+Total KRW markets: 154
+Successfully connected to Redis
+             0      1  ...         4                        5
+0    KRW-1INCH  1INCH  ...    7943.0                    1inch
+1     KRW-AAVE   AAVE  ...   63453.0                     aave
+2      KRW-ADA    ADA  ...  486924.0      binance-peg-cardano
+3    KRW-AERGO  AERGO  ...     996.0                    aergo
+4     KRW-AGLD   AGLD  ...    2265.0           adventure-gold
+..         ...    ...  ...       ...                      ...
+149    KRW-XTZ    XTZ  ...   19190.0  binance-peg-tezos-token
+150   KRW-ZETA   ZETA  ...    5016.0                 stoicdao
+151    KRW-ZIL    ZIL  ...    6177.0                  zilliqa
+152    KRW-ZRO    ZRO  ...    7596.0                layerzero
+153    KRW-ZRX    ZRX  ...    6253.0                       0x
+
+[154 rows x 6 columns]
+Error: 'DataFrame' object has no attribute 'gecko_id'
+Total KRW markets: 154
+Successfully connected to Redis
+Error: only integers, slices (`:`), ellipsis (`...`), numpy.newaxis (`None`) and integer or boolean arrays are valid indices
+Total KRW markets: 154
+Successfully connected to Redis
+Error: only integers, slices (`:`), ellipsis (`...`), numpy.newaxis (`None`) and integer or boolean arrays are valid indices
+Total KRW markets: 154
+Successfully connected to Redis
+Error: only integers, slices (`:`), ellipsis (`...`), numpy.newaxis (`None`) and integer or boolean arrays are valid indices
+Total KRW markets: 154
+Successfully connected to Redis
+Error: only integers, slices (`:`), ellipsis (`...`), numpy.newaxis (`None`) and integer or boolean arrays are valid indices
+Total KRW markets: 154
+Successfully connected to Redis
+Error: only integers, slices (`:`), ellipsis (`...`), numpy.newaxis (`None`) and integer or boolean arrays are valid indices
+Total KRW markets: 154
+Successfully connected to Redis
+Error: only integers, slices (`:`), ellipsis (`...`), numpy.newaxis (`None`) and integer or boolean arrays are valid indices
+Total KRW markets: 154
+Successfully connected to Redis
+Error: only integers, slices (`:`), ellipsis (`...`), numpy.newaxis (`None`) and integer or boolean arrays are valid indices
+Total KRW markets: 154
+Successfully connected to Redis
+Error: only integers, slices (`:`), ellipsis (`...`), numpy.newaxis (`None`) and integer or boolean arrays are valid indices
+Total KRW markets: 154
+Successfully connected to Redis
+Error: only integers, slices (`:`), ellipsis (`...`), numpy.newaxis (`None`) and integer or boolean arrays are valid indices
+Total KRW markets: 154
+Successfully connected to Redis
+Error: only integers, slices (`:`), ellipsis (`...`), numpy.newaxis (`None`) and integer or boolean arrays are valid indices
+Total KRW markets: 154
+Successfully connected to Redis
+        market symbol  ... capitalization                 gecko_id
+0    KRW-1INCH  1INCH  ...         7943.0                    1inch
+1     KRW-AAVE   AAVE  ...        63453.0                     aave
+2      KRW-ADA    ADA  ...       486924.0      binance-peg-cardano
+3    KRW-AERGO  AERGO  ...          996.0                    aergo
+4     KRW-AGLD   AGLD  ...         2265.0           adventure-gold
+..         ...    ...  ...            ...                      ...
+149    KRW-XTZ    XTZ  ...        19190.0  binance-peg-tezos-token
+150   KRW-ZETA   ZETA  ...         5016.0                 stoicdao
+151    KRW-ZIL    ZIL  ...         6177.0                  zilliqa
+152    KRW-ZRO    ZRO  ...         7596.0                layerzero
+153    KRW-ZRX    ZRX  ...         6253.0                       0x
+
+[154 rows x 6 columns]
+Error: 'DataFrame' object has no attribute 'itrrows'
+Total KRW markets: 154
+Successfully connected to Redis
+        market symbol  ... capitalization                 gecko_id
+0    KRW-1INCH  1INCH  ...         7943.0                    1inch
+1     KRW-AAVE   AAVE  ...        63453.0                     aave
+2      KRW-ADA    ADA  ...       486924.0      binance-peg-cardano
+3    KRW-AERGO  AERGO  ...          996.0                    aergo
+4     KRW-AGLD   AGLD  ...         2265.0           adventure-gold
+..         ...    ...  ...            ...                      ...
+149    KRW-XTZ    XTZ  ...        19190.0  binance-peg-tezos-token
+150   KRW-ZETA   ZETA  ...         5016.0                 stoicdao
+151    KRW-ZIL    ZIL  ...         6177.0                  zilliqa
+152    KRW-ZRO    ZRO  ...         7596.0                layerzero
+153    KRW-ZRX    ZRX  ...         6253.0                       0x
+
+[154 rows x 6 columns]
+Error: 'krw'
+Total KRW markets: 154
+Successfully connected to Redis
+        market symbol  ... capitalization                 gecko_id
+0    KRW-1INCH  1INCH  ...         7943.0                    1inch
+1     KRW-AAVE   AAVE  ...        63453.0                     aave
+2      KRW-ADA    ADA  ...       486924.0      binance-peg-cardano
+3    KRW-AERGO  AERGO  ...          996.0                    aergo
+4     KRW-AGLD   AGLD  ...         2265.0           adventure-gold
+..         ...    ...  ...            ...                      ...
+149    KRW-XTZ    XTZ  ...        19190.0  binance-peg-tezos-token
+150   KRW-ZETA   ZETA  ...         5016.0                 stoicdao
+151    KRW-ZIL    ZIL  ...         6177.0                  zilliqa
+152    KRW-ZRO    ZRO  ...         7596.0                layerzero
+153    KRW-ZRX    ZRX  ...         6253.0                       0x
+
+[154 rows x 6 columns]
+Error: 'krw'
+  File "/home/ubuntu/./upbit_project/compile.py", line 189
+    print(foreigner_dic)
+                        ^
+SyntaxError: invalid syntax
+Total KRW markets: 154
+Successfully connected to Redis
+{'KRW-1INCH': '1inch', 'KRW-AAVE': 'aave', 'KRW-ADA': 'binance-peg-cardano', 'KRW-AERGO': 'aergo', 'KRW-AGLD': 'adventure-gold', 'KRW-AHT': 'ahatoken', 'KRW-AKT': 'akash-network', 'KRW-ALGO': 'algorand', 'KRW-ANKR': 'ankr', 'KRW-APT': 'apidae', 'KRW-AQT': 'alpha-quark-token', 'KRW-ARB': 'arbitrum', 'KRW-ARDR': 'ardor', 'KRW-ARK': 'ark', 'KRW-ASTR': 'astar', 'KRW-ATH': 'aethir', 'KRW-ATOM': 'cosmos', 'KRW-AUCTION': 'auction', 'KRW-AVAX': 'avalanche-2', 'KRW-AXS': 'axie-infinity', 'KRW-BAT': 'basic-attention-token', 'KRW-BCH': 'binance-peg-bitcoin-cash', 'KRW-BEAM': 'beam', 'KRW-BIGTIME': 'big-time', 'KRW-BLAST': 'blast', 'KRW-BLUR': 'blur', 'KRW-BONK': 'bonk', 'KRW-BORA': 'bora', 'KRW-BOUNTY': 'sentinel-protocol', 'KRW-BSV': 'bitcoin-cash-sv', 'KRW-BTC': 'batcat', 'KRW-BTG': 'bitcoin-gold', 'KRW-BTT': 'bittorrent', 'KRW-CARV': 'carv', 'KRW-CBK': 'cobak-token', 'KRW-CELO': 'celo', 'KRW-CHZ': 'chiliz', 'KRW-CKB': 'nervos-network', 'KRW-CRO': 'cronos-zkevm-bridged-cro-cronos-zkevm', 'KRW-CTC': 'creditcoin-2', 'KRW-CVC': 'civic', 'KRW-DKA': 'dkargo', 'KRW-DOGE': 'binance-peg-dogecoin', 'KRW-DOT': 'binance-peg-polkadot', 'KRW-DRIFT': 'drift-protocol', 'KRW-EGLD': 'elrond-erd-2', 'KRW-ELF': 'aelf', 'KRW-ENS': 'ethereum-name-service', 'KRW-EOS': 'binance-peg-eos', 'KRW-ETC': 'ethereum-classic', 'KRW-ETH': 'bifrost-bridged-eth-bifrost', 'KRW-FCT2': '0', 'KRW-FLOW': 'flow', 'KRW-G': 'g-2', 'KRW-GAME2': '0', 'KRW-GAS': 'gas', 'KRW-GLM': 'golem', 'KRW-GMT': 'stepn', 'KRW-GRS': 'groestlcoin', 'KRW-GRT': 'the-graph', 'KRW-HBAR': 'hedera-hashgraph', 'KRW-HIFI': 'hifi-finance', 'KRW-HIVE': 'hive', 'KRW-HPO': 'hipo-finance', 'KRW-HUNT': 'archerswap-hunter', 'KRW-ICX': 'icon', 'KRW-ID': 'everid', 'KRW-IMX': 'immutable-x', 'KRW-INJ': 'injective-protocol', 'KRW-IOST': 'iostoken', 'KRW-IOTA': 'iota', 'KRW-IQ': 'everipedia', 'KRW-JST': 'just', 'KRW-JUP': 'jupiter', 'KRW-KAVA': 'kava', 'KRW-KNC': 'kyber-network-crystal', 'KRW-LINK': 'chainlink', 'KRW-LOOM': 'loom', 'KRW-LSK': 'lisk', 'KRW-MANA': 'decentraland', 'KRW-MASK': 'mask-network', 'KRW-MBL': 'moviebloc', 'KRW-ME': 'literally-me', 'KRW-MED': 'medibloc', 'KRW-META': 'meta-2', 'KRW-MEW': 'cat-in-a-dogs-world', 'KRW-MINA': 'mina-protocol', 'KRW-MLK': 'milk-alliance', 'KRW-MNT': 'mantle', 'KRW-MOC': 'money-on-chain', 'KRW-MOCA': 'mocaverse', 'KRW-MOVE': 'bluemove', 'KRW-MTL': 'metal', 'KRW-MVL': 'mass-vehicle-ledger', 'KRW-NEAR': 'binance-peg-near-protocol', 'KRW-NEO': 'neo', 'KRW-ONDO': 'ondo-finance', 'KRW-ONG': 'ong', 'KRW-ONT': 'binance-peg-ontology', 'KRW-ORBS': 'orbs', 'KRW-PENDLE': 'pendle', 'KRW-PEPE': 'based-pepe', 'KRW-POL': 'polygon-ecosystem-token', 'KRW-POLYX': 'polymesh', 'KRW-POWR': 'power-ledger', 'KRW-PUNDIX': 'pundi-x-2', 'KRW-PYTH': 'pyth-network', 'KRW-QKC': 'quark-chain', 'KRW-QTUM': 'qtum', 'KRW-RENDER': 'render-token', 'KRW-SAFE': 'basesafe', 'KRW-SAND': 'the-sandbox', 'KRW-SBD': 'steem-dollars', 'KRW-SC': 'shark-cat', 'KRW-SEI': 'sei-network', 'KRW-SHIB': 'binance-peg-shib', 'KRW-SNT': 'sentinel-bot-ai', 'KRW-SOL': 'allbridge-bridged-sol-fantom', 'KRW-SONIC': 'sonic-2', 'KRW-STEEM': 'steem', 'KRW-STG': 'stargate-finance', 'KRW-STMX': 'storm', 'KRW-STORJ': 'storj', 'KRW-STPT': 'stp-network', 'KRW-STRAX': 'stratis', 'KRW-STRIKE': 'strike', 'KRW-STX': 'blockstack', 'KRW-SUI': 'sui', 'KRW-SXP': 'swipe', 'KRW-T': 'threshold-network-token', 'KRW-TAIKO': 'taiko', 'KRW-TFUEL': 'theta-fuel', 'KRW-THETA': 'theta-token', 'KRW-TOKAMAK': '0', 'KRW-TRX': 'osmosis-alltrx', 'KRW-TT': 'metatdex', 'KRW-UNI': 'linea-bridged-uni-linea', 'KRW-USDC': 'airdao-bridged-usdc-airdao', 'KRW-USDT': 'alcor-ibc-bridged-usdt-wax', 'KRW-UXLINK': 'uxlink', 'KRW-VANA': 'vana', 'KRW-VET': 'vechain', 'KRW-W': 'victorious', 'KRW-WAVES': 'playground-waves-floor-index', 'KRW-WAXP': 'wax', 'KRW-XEC': 'ecash', 'KRW-XEM': 'nem', 'KRW-XLM': 'stellar', 'KRW-XRP': 'binance-peg-xrp', 'KRW-XTZ': 'binance-peg-tezos-token', 'KRW-ZETA': 'stoicdao', 'KRW-ZIL': 'zilliqa', 'KRW-ZRO': 'layerzero', 'KRW-ZRX': '0x'}
+Error: 'krw'
+Total KRW markets: 154
+Successfully connected to Redis
+{'0x': {'krw': 728.63}, '1inch': {'krw': 563.02}, 'aave': {'krw': 420281}, 'adventure-gold': {'krw': 3339.44}, 'aelf': {'krw': 691.8}, 'aergo': {'krw': 201.96}, 'aethir': {'krw': 94.18}, 'ahatoken': {'krw': 11.35}, 'airdao-bridged-usdc-airdao': {'krw': 1474.0}, 'akash-network': {'krw': 4480.93}, 'alcor-ibc-bridged-usdt-wax': {'krw': 1473.85}, 'algorand': {'krw': 537.63}, 'allbridge-bridged-sol-fantom': {'krw': 272791}, 'alpha-quark-token': {'krw': 3270.21}, 'ankr': {'krw': 54.6}, 'apidae': {'krw': 0.292831}, 'arbitrum': {'krw': 1073.05}, 'archerswap-hunter': {'krw': 113.87}, 'ardor': {'krw': 169.31}, 'ark': {'krw': 936.18}, 'astar': {'krw': 89.09}, 'auction': {'krw': 22674}, 'avalanche-2': {'krw': 53749}, 'axie-infinity': {'krw': 9128.46}, 'based-pepe': {'krw': 0.00037226}, 'basesafe': {'krw': 63701}, 'basic-attention-token': {'krw': 364.26}, 'batcat': {'krw': 0.087832}, 'beam': {'krw': 73.27}, 'bifrost-bridged-eth-bifrost': {'krw': 4822798}, 'big-time': {'krw': 185.89}, 'binance-peg-bitcoin-cash': {'krw': 646269}, 'binance-peg-cardano': {'krw': 1401.73}, 'binance-peg-dogecoin': {'krw': 494.94}, 'binance-peg-eos': {'krw': 1169.86}, 'binance-peg-near-protocol': {'krw': 7393.56}, 'binance-peg-ontology': {'krw': 366.37}, 'binance-peg-polkadot': {'krw': 9767.48}, 'binance-peg-shib': {'krw': 0.03198644}, 'binance-peg-tezos-token': {'krw': 1893.81}, 'binance-peg-xrp': {'krw': 3676.4}, 'bitcoin-cash-sv': {'krw': 85059}, 'bitcoin-gold': {'krw': 17693.63}, 'bittorrent': {'krw': 0.0016968}, 'blast': {'krw': 13.23}, 'blockstack': {'krw': 2222.76}, 'bluemove': {'krw': 75.56}, 'blur': {'krw': 333.4}, 'bonk': {'krw': 0.04094121}, 'bora': {'krw': 215.73}, 'carv': {'krw': 1219.67}, 'cat-in-a-dogs-world': {'krw': 8.51}, 'celo': {'krw': 929.33}, 'chainlink': {'krw': 29439}, 'chiliz': {'krw': 120.54}, 'civic': {'krw': 257.54}, 'cobak-token': {'krw': 1345.64}, 'cosmos': {'krw': 9652.99}, 'creditcoin-2': {'krw': 1624.66}, 'cronos-zkevm-bridged-cro-cronos-zkevm': {'krw': 207.07}, 'decentraland': {'krw': 718.7}, 'dkargo': {'krw': 42.22}, 'drift-protocol': {'krw': 1730.88}, 'ecash': {'krw': 0.0544}, 'elrond-erd-2': {'krw': 48297}, 'ethereum-classic': {'krw': 37361}, 'ethereum-name-service': {'krw': 46786}, 'everid': {'krw': 50.0}, 'everipedia': {'krw': 12.49}, 'flow': {'krw': 1081.27}, 'g-2': {'krw': 0.00019817}, 'gas': {'krw': 8082.6}, 'golem': {'krw': 602.55}, 'groestlcoin': {'krw': 1086.68}, 'hedera-hashgraph': {'krw': 413.2}, 'hifi-finance': {'krw': 963.25}, 'hipo-finance': {}, 'hive': {'krw': 768.74}, 'icon': {'krw': 292.78}, 'immutable-x': {'krw': 1825.23}, 'injective-protocol': {'krw': 30971}, 'iostoken': {'krw': 10.98}, 'iota': {'krw': 480.92}, 'jupiter': {'krw': 1.055}, 'just': {'krw': 59.31}, 'kava': {'krw': 723.78}, 'kyber-network-crystal': {'krw': 875.42}, 'layerzero': {'krw': 6796.28}, 'linea-bridged-uni-linea': {'krw': 18979.15}, 'lisk': {'krw': 1558.73}, 'literally-me': {'krw': 0.178045}, 'loom': {'krw': 0.06747}, 'mantle': {'krw': 1710.35}, 'mask-network': {'krw': 4048.92}, 'mass-vehicle-ledger': {'krw': 7.47}, 'medibloc': {'krw': 17.98}, 'meta-2': {'krw': 2522575}, 'metal': {'krw': 1957.23}, 'metatdex': {}, 'milk-alliance': {'krw': 436.26}, 'mina-protocol': {'krw': 828.11}, 'mocaverse': {'krw': 356.41}, 'money-on-chain': {'krw': 160.46}, 'moviebloc': {'krw': 5.86}, 'nem': {'krw': 39.01}, 'neo': {'krw': 21816}, 'nervos-network': {'krw': 16.26}, 'ondo-finance': {'krw': 1838.92}, 'ong': {'krw': 543.4}, 'orbs': {'krw': 45.17}, 'osmosis-alltrx': {'krw': 462.24}, 'pendle': {'krw': 5687.67}, 'playground-waves-floor-index': {'krw': 110.88}, 'polygon-ecosystem-token': {'krw': 669.05}, 'polymesh': {'krw': 412.69}, 'power-ledger': {'krw': 442.56}, 'pundi-x-2': {'krw': 782.11}, 'pyth-network': {'krw': 479.42}, 'qtum': {'krw': 4749.85}, 'quark-chain': {'krw': 16.99}, 'render-token': {'krw': 10601.26}, 'sei-network': {'krw': 563.78}, 'sentinel-bot-ai': {'krw': 0.00396364}, 'sentinel-protocol': {'krw': 137.21}, 'shark-cat': {'krw': 10.23}, 'sonic-2': {'krw': 71.13}, 'stargate-finance': {'krw': 629.99}, 'steem': {'krw': 412.83}, 'steem-dollars': {'krw': 9631.01}, 'stellar': {'krw': 636.05}, 'stepn': {'krw': 206.4}, 'stoicdao': {'krw': 0.104772}, 'storj': {'krw': 809.58}, 'storm': {'krw': 9.84}, 'stp-network': {'krw': 104.92}, 'stratis': {'krw': 119.92}, 'strike': {'krw': 21666}, 'sui': {'krw': 7261.2}, 'swipe': {'krw': 501.58}, 'taiko': {'krw': 2282.32}, 'the-graph': {'krw': 298.1}, 'the-sandbox': {'krw': 862.29}, 'theta-fuel': {'krw': 101.35}, 'theta-token': {'krw': 3116.46}, 'threshold-network-token': {'krw': 45.27}, 'uxlink': {'krw': 1892.82}, 'vana': {'krw': 20793}, 'vechain': {'krw': 64.97}, 'victorious': {'krw': 0.105263}, 'wax': {'krw': 68.4}, 'zilliqa': {'krw': 31.44}}
+Error: 'krw'
+Total KRW markets: 154
+Successfully connected to Redis
+Error: '0'
+Total KRW markets: 154
+Successfully connected to Redis
+Error: '0'
+Total KRW markets: 154
+Successfully connected to Redis
+('2025-01-11 19:03:00', 'KRW-ETH', 4929000.0, 5.11908165, 25231953.45285, 4822346)
+('2025-01-11 19:03:00', 'KRW-NEO', 22210.0, 0, 0.0, 21806)
+('2025-01-11 19:03:00', 'KRW-MTL', 1967.0, 897.51523362, 1765412.46453054, 1958.34)
+('2025-01-11 19:03:00', 'KRW-XRP', 3746.0, 124501.42562414, 466382340.38802844, 3678.85)
+('2025-01-11 19:03:00', 'KRW-ETC', 38180.0, 2.61917234, 99999.9999412, 37383)
+('2025-01-11 19:03:00', 'KRW-SNT', 71.31, 51479.43417072, 3670998.4507140433, 0.00396364)
+('2025-01-11 19:03:00', 'KRW-WAVES', 2699.0, 2468.56369436, 6662653.411077641, 110.88)
+('2025-01-11 19:03:00', 'KRW-XEM', 39.98, 0, 0.0, 38.99)
+('2025-01-11 19:03:00', 'KRW-QTUM', 4839.0, 0, 0.0, 4748.7)
+('2025-01-11 19:03:00', 'KRW-LSK', 1591.0, 0, 0.0, 1560.36)
+('2025-01-11 19:03:00', 'KRW-STEEM', 421.0, 400.0, 168400.0, 413.12)
+('2025-01-11 19:03:00', 'KRW-XLM', 649.0, 68647.05180446, 44551936.62109454, 635.85)
+('2025-01-11 19:03:00', 'KRW-ARDR', 173.3, 34237.5247708, 5933363.042779641, 171.49)
+('2025-01-11 19:03:00', 'KRW-ARK', 957.6, 1065.0644319, 1019905.69998744, 936.23)
+('2025-01-11 19:03:00', 'KRW-STORJ', 826.2, 1329.15637583, 1098148.997710746, 810.03)
+('2025-01-11 19:03:00', 'KRW-GRS', 1104.0, 249222.58102199, 275141729.44827694, 1090.45)
+('2025-01-11 19:03:00', 'KRW-ADA', 1435.0, 22799.1227193, 32716741.1021955, 1400.78)
+('2025-01-11 19:03:00', 'KRW-SBD', 9700.0, 697.32717664, 6764073.613407999, 9710.07)
+('2025-01-11 19:03:00', 'KRW-POWR', 450.3, 3087.34887566, 1390233.198709698, 442.58)
+('2025-01-11 19:03:00', 'KRW-BTG', 21080.0, 6.63821714, 139933.6173112, 17602.66)
+('2025-01-11 19:03:00', 'KRW-ICX', 298.0, 0, 0.0, 292.74)
+('2025-01-11 19:03:00', 'KRW-EOS', 1186.0, 0.00546978, 6.48715908, 1169.18)
+('2025-01-11 19:03:00', 'KRW-TRX', 362.0, 32334.70142565, 11705161.916085301, 462.24)
+('2025-01-11 19:03:00', 'KRW-SC', 9.261, 1883.32973439, 17441.51667018579, 10.27)
+('2025-01-11 19:03:00', 'KRW-ONT', 364.9, 0, 0.0, 367.03)
+('2025-01-11 19:03:00', 'KRW-ZIL', 32.01, 450.00000899, 14404.5002877699, 31.45)
+('2025-01-11 19:03:00', 'KRW-POLYX', 422.2, 1099.09480862, 464037.828199364, 413.35)
+('2025-01-11 19:03:00', 'KRW-ZRX', 743.2, 0, 0.0, 728.94)
+('2025-01-11 19:03:00', 'KRW-LOOM', 101.8, 127.18723485, 12947.66050773, 0.067569)
+('2025-01-11 19:03:00', 'KRW-BCH', 660700.0, 27.99650364, 18497289.954948, 646647)
+('2025-01-11 19:03:00', 'KRW-BAT', 370.7, 0, 0.0, 364.34)
+('2025-01-11 19:03:00', 'KRW-IOST', 11.21, 217219.01624125, 2435025.172064413, 10.98)
+('2025-01-11 19:03:00', 'KRW-CVC', 262.4, 0, 0.0, 257.48)
+('2025-01-11 19:03:00', 'KRW-IQ', 12.72, 96938.66837167, 1233059.8616876425, 12.49)
+('2025-01-11 19:03:00', 'KRW-IOTA', 491.6, 75492.08190559, 37111907.46478805, 481.12)
+('2025-01-11 19:03:00', 'KRW-HIFI', 988.1, 14195.76013527, 14026830.589660287, 963.42)
+('2025-01-11 19:03:00', 'KRW-ONG', 553.3, 471.10584799, 260662.86569286697, 542.93)
+('2025-01-11 19:03:00', 'KRW-GAS', 8206.0, 1326.86306779, 10888238.33428474, 8063.91)
+('2025-01-11 19:03:00', 'KRW-BOUNTY', 137.4, 181947.77865088, 24999624.786630914, 137.77)
+('2025-01-11 19:03:00', 'KRW-ELF', 705.0, 28.00869069, 19746.12693645, 690.6)
+('2025-01-11 19:03:00', 'KRW-KNC', 891.5, 0, 0.0, 875.37)
+('2025-01-11 19:03:00', 'KRW-BSV', 86570.0, 366.3526162, 31715145.984434, 85024)
+('2025-01-11 19:03:00', 'KRW-THETA', 3181.0, 0, 0.0, 3117.02)
+('2025-01-11 19:03:00', 'KRW-QKC', 17.59, 0, 0.0, 17.02)
+('2025-01-11 19:03:00', 'KRW-BTT', 0.001724, 513381680.25972724, 885070.0167677698, 0.00169633)
+('2025-01-11 19:03:00', 'KRW-MOC', 188.2, 8156.47678818, 1535048.931535476, 160.46)
+('2025-01-11 19:03:00', 'KRW-TFUEL', 103.4, 0, 0.0, 101.37)
+('2025-01-11 19:03:00', 'KRW-MANA', 735.0, 0, 0.0, 719.05)
+('2025-01-11 19:03:00', 'KRW-ANKR', 55.72, 89458.46260069, 4984625.536110447, 54.41)
+('2025-01-11 19:03:00', 'KRW-AERGO', 206.1, 704.74187487, 145247.300410707, 201.76)
+('2025-01-11 19:03:00', 'KRW-ATOM', 9828.0, 0, 0.0, 9659.46)
+('2025-01-11 19:03:00', 'KRW-TT', 6.616, 0, 0.0, 0)
+Error: '0'
+Total KRW markets: 154
+Successfully connected to Redis
+('2025-01-11 19:04:00', 'KRW-ETH', 4924000.0, 8.41502051, 41435560.99124, 4822346)
+('2025-01-11 19:04:00', 'KRW-NEO', 22210.0, 0, 0.0, 21806)
+('2025-01-11 19:04:00', 'KRW-MTL', 1967.0, 0, 0.0, 1958.34)
+('2025-01-11 19:04:00', 'KRW-XRP', 3738.0, 223794.09557751, 836542329.2687323, 3678.85)
+('2025-01-11 19:04:00', 'KRW-ETC', 38140.0, 12.91998222, 492768.1218708, 37383)
+('2025-01-11 19:04:00', 'KRW-SNT', 71.28, 165414.20953302, 11790724.855513666, 0.00396364)
+('2025-01-11 19:04:00', 'KRW-WAVES', 2700.0, 2944.36670553, 7949790.104931001, 110.88)
+('2025-01-11 19:04:00', 'KRW-XEM', 39.98, 1000.0, 39980.0, 38.99)
+('2025-01-11 19:04:00', 'KRW-QTUM', 4860.0, 10.26483268, 49887.0868248, 4748.7)
+('2025-01-11 19:04:00', 'KRW-LSK', 1591.0, 0, 0.0, 1560.36)
+('2025-01-11 19:04:00', 'KRW-STEEM', 420.5, 531.39462992, 223451.44188136002, 413.12)
+('2025-01-11 19:04:00', 'KRW-XLM', 648.8, 21147.13553871, 13720261.537515048, 635.85)
+('2025-01-11 19:04:00', 'KRW-ARDR', 172.9, 66989.52097869, 11582488.1772155, 171.49)
+('2025-01-11 19:04:00', 'KRW-ARK', 957.6, 0, 0.0, 936.23)
+('2025-01-11 19:04:00', 'KRW-STORJ', 826.2, 0, 0.0, 810.03)
+('2025-01-11 19:04:00', 'KRW-GRS', 1111.0, 233668.03045945, 259605181.84044895, 1090.45)
+('2025-01-11 19:04:00', 'KRW-ADA', 1430.0, 16220.46213754, 23195260.8566822, 1400.78)
+('2025-01-11 19:04:00', 'KRW-SBD', 9695.0, 829.41486456, 8041177.1119091995, 9710.07)
+('2025-01-11 19:04:00', 'KRW-POWR', 451.8, 21569.97094384, 9745312.872426912, 442.58)
+('2025-01-11 19:04:00', 'KRW-BTG', 21080.0, 1.29158048, 27226.5165184, 17602.66)
+('2025-01-11 19:04:00', 'KRW-ICX', 298.0, 0, 0.0, 292.74)
+('2025-01-11 19:04:00', 'KRW-EOS', 1186.0, 0, 0.0, 1169.18)
+('2025-01-11 19:04:00', 'KRW-TRX', 362.0, 1079.63740918, 390828.74212316005, 462.24)
+('2025-01-11 19:04:00', 'KRW-SC', 9.24, 0, 0.0, 10.27)
+('2025-01-11 19:04:00', 'KRW-ONT', 366.6, 2727.76868521, 999999.9999979861, 367.03)
+('2025-01-11 19:04:00', 'KRW-ZIL', 32.01, 0, 0.0, 31.45)
+('2025-01-11 19:04:00', 'KRW-POLYX', 422.4, 473.37278106, 199952.662719744, 413.35)
+('2025-01-11 19:04:00', 'KRW-ZRX', 743.2, 0, 0.0, 728.94)
+('2025-01-11 19:04:00', 'KRW-LOOM', 101.8, 0, 0.0, 0.067569)
+('2025-01-11 19:04:00', 'KRW-BCH', 660100.0, 1.73395762, 1144585.424962, 646647)
+('2025-01-11 19:04:00', 'KRW-BAT', 370.7, 0, 0.0, 364.34)
+('2025-01-11 19:04:00', 'KRW-IOST', 11.21, 0, 0.0, 10.98)
+('2025-01-11 19:04:00', 'KRW-CVC', 262.4, 0, 0.0, 257.48)
+('2025-01-11 19:04:00', 'KRW-IQ', 12.72, 0, 0.0, 12.49)
+('2025-01-11 19:04:00', 'KRW-IOTA', 490.4, 11512.2393545, 5645602.1794468, 481.12)
+('2025-01-11 19:04:00', 'KRW-HIFI', 987.5, 69085.26220572, 68221696.42814851, 963.42)
+('2025-01-11 19:04:00', 'KRW-ONG', 553.4, 10599.22659475, 5865611.997534649, 542.93)
+('2025-01-11 19:04:00', 'KRW-GAS', 8206.0, 15.76106901, 129335.33229606, 8063.91)
+('2025-01-11 19:04:00', 'KRW-BOUNTY', 137.7, 54296.58706266, 7476640.038528281, 137.77)
+('2025-01-11 19:04:00', 'KRW-ELF', 705.0, 0, 0.0, 690.6)
+('2025-01-11 19:04:00', 'KRW-KNC', 891.5, 0, 0.0, 875.37)
+('2025-01-11 19:04:00', 'KRW-BSV', 86600.0, 30.7535212, 2663254.93592, 85024)
+('2025-01-11 19:04:00', 'KRW-THETA', 3181.0, 0, 0.0, 3117.02)
+('2025-01-11 19:04:00', 'KRW-QKC', 17.6, 797577.22184279, 14037359.104433106, 17.02)
+('2025-01-11 19:04:00', 'KRW-BTT', 0.001724, 36908715.07440266, 63630.62478827019, 0.00169633)
+('2025-01-11 19:04:00', 'KRW-MOC', 188.2, 2100.22904386, 395263.10605445196, 160.46)
+('2025-01-11 19:04:00', 'KRW-TFUEL', 103.5, 3575.013239, 370013.8702365, 101.37)
+('2025-01-11 19:04:00', 'KRW-MANA', 735.0, 0, 0.0, 719.05)
+('2025-01-11 19:04:00', 'KRW-ANKR', 55.72, 0, 0.0, 54.41)
+('2025-01-11 19:04:00', 'KRW-AERGO', 206.1, 0, 0.0, 201.76)
+('2025-01-11 19:04:00', 'KRW-ATOM', 9863.0, 0.57710635, 5691.99993005, 9659.46)
+('2025-01-11 19:04:00', 'KRW-TT', 6.616, 0, 0.0, 0)
+Error: '0'
+Total KRW markets: 154
+Successfully connected to Redis
+('2025-01-11 19:05:00', 'KRW-ETH', 4927000.0, 1.06470818, 5245817.20286, 4822346)
+('2025-01-11 19:05:00', 'KRW-NEO', 22330.0, 97.29588993, 2172617.2221369, 21806)
+('2025-01-11 19:05:00', 'KRW-MTL', 1966.0, 0, 0.0, 1958.34)
+('2025-01-11 19:05:00', 'KRW-XRP', 3739.0, 198032.22451637, 740442487.4667075, 3678.85)
+('2025-01-11 19:05:00', 'KRW-ETC', 38140.0, 26.27881274, 1002273.9179036, 37383)
+('2025-01-11 19:05:00', 'KRW-SNT', 71.28, 1455.2960157, 103733.499999096, 0.00396364)
+('2025-01-11 19:05:00', 'KRW-WAVES', 2700.0, 248.46799999, 670863.599973, 110.88)
+('2025-01-11 19:05:00', 'KRW-XEM', 39.98, 0, 0.0, 38.99)
+('2025-01-11 19:05:00', 'KRW-QTUM', 4860.0, 0, 0.0, 4748.7)
+('2025-01-11 19:05:00', 'KRW-LSK', 1591.0, 71.652, 113998.332, 1560.36)
+('2025-01-11 19:05:00', 'KRW-STEEM', 420.6, 15560.42720888, 6544715.684054929, 413.12)
+('2025-01-11 19:05:00', 'KRW-XLM', 648.3, 12700.10865277, 8233480.439590791, 635.85)
+('2025-01-11 19:05:00', 'KRW-ARDR', 173.8, 24366.29699656, 4234862.418002128, 171.49)
+('2025-01-11 19:05:00', 'KRW-ARK', 956.2, 1465.58880308, 1401396.013505096, 936.23)
+('2025-01-11 19:05:00', 'KRW-STORJ', 826.2, 0, 0.0, 810.03)
+('2025-01-11 19:05:00', 'KRW-GRS', 1105.0, 359870.51591405, 397656920.08502525, 1090.45)
+('2025-01-11 19:05:00', 'KRW-ADA', 1430.0, 549.45804795, 785725.0085685, 1400.78)
+('2025-01-11 19:05:00', 'KRW-SBD', 9709.0, 2343.44906123, 22752546.93548207, 9710.07)
+('2025-01-11 19:05:00', 'KRW-POWR', 451.8, 0, 0.0, 442.58)
+('2025-01-11 19:05:00', 'KRW-BTG', 21090.0, 116.19263628, 2450502.6991452, 17602.66)
+('2025-01-11 19:05:00', 'KRW-ICX', 298.0, 722.83099751, 215403.63725797998, 292.74)
+('2025-01-11 19:05:00', 'KRW-EOS', 1187.0, 58.97778371, 70006.62926377, 1169.18)
+('2025-01-11 19:05:00', 'KRW-TRX', 361.0, 2479.73272027, 895183.51201747, 462.24)
+('2025-01-11 19:05:00', 'KRW-SC', 9.24, 927737.5572727, 8572295.029199747, 10.27)
+('2025-01-11 19:05:00', 'KRW-ONT', 366.6, 0, 0.0, 367.03)
+('2025-01-11 19:05:00', 'KRW-ZIL', 32.01, 0, 0.0, 31.45)
+('2025-01-11 19:05:00', 'KRW-POLYX', 422.6, 49.73619175, 21018.514633550003, 413.35)
+('2025-01-11 19:05:00', 'KRW-ZRX', 743.2, 0, 0.0, 728.94)
+('2025-01-11 19:05:00', 'KRW-LOOM', 101.7, 10842.20278943, 1102652.023685031, 0.067569)
+('2025-01-11 19:05:00', 'KRW-BCH', 660100.0, 1.46450583, 966720.298383, 646647)
+('2025-01-11 19:05:00', 'KRW-BAT', 370.7, 0, 0.0, 364.34)
+('2025-01-11 19:05:00', 'KRW-IOST', 11.21, 0, 0.0, 10.98)
+('2025-01-11 19:05:00', 'KRW-CVC', 262.4, 104.79897246, 27499.250373503997, 257.48)
+('2025-01-11 19:05:00', 'KRW-IQ', 12.69, 150867.04903609, 1914502.852267982, 12.49)
+('2025-01-11 19:05:00', 'KRW-IOTA', 489.8, 32115.77820648, 15730308.165533906, 481.12)
+('2025-01-11 19:05:00', 'KRW-HIFI', 990.3, 168.44490396, 166810.988391588, 963.42)
+('2025-01-11 19:05:00', 'KRW-ONG', 553.2, 6414.53873344, 3548522.8273390085, 542.93)
+('2025-01-11 19:05:00', 'KRW-GAS', 8189.0, 242.48443254, 1985705.01807006, 8063.91)
+('2025-01-11 19:05:00', 'KRW-BOUNTY', 137.7, 123006.50311138, 16937995.478437025, 137.77)
+('2025-01-11 19:05:00', 'KRW-ELF', 704.0, 12168.36017996, 8566525.56669184, 690.6)
+('2025-01-11 19:05:00', 'KRW-KNC', 891.5, 0, 0.0, 875.37)
+('2025-01-11 19:05:00', 'KRW-BSV', 86670.0, 1.84360953, 159785.6379651, 85024)
+('2025-01-11 19:05:00', 'KRW-THETA', 3181.0, 0, 0.0, 3117.02)
+('2025-01-11 19:05:00', 'KRW-QKC', 17.59, 12823.805, 225570.72995, 17.02)
+('2025-01-11 19:05:00', 'KRW-BTT', 0.001724, 0, 0.0, 0.00169633)
+('2025-01-11 19:05:00', 'KRW-MOC', 188.2, 24925.66481128, 4691010.117482896, 160.46)
+('2025-01-11 19:05:00', 'KRW-TFUEL', 103.5, 0, 0.0, 101.37)
+('2025-01-11 19:05:00', 'KRW-MANA', 733.0, 453.4022297, 332343.8343701, 719.05)
+('2025-01-11 19:05:00', 'KRW-ANKR', 55.72, 0, 0.0, 54.41)
+('2025-01-11 19:05:00', 'KRW-AERGO', 206.2, 6911.55644306, 1425162.938558972, 201.76)
+('2025-01-11 19:05:00', 'KRW-ATOM', 9863.0, 0, 0.0, 9659.46)
+('2025-01-11 19:05:00', 'KRW-TT', 6.63, 165234.89887261, 1095507.3795254044, 0)
+Error: '0'
+Total KRW markets: 154
+Successfully connected to Redis
+KRW-ETH
+KRW-NEO
+KRW-MTL
+KRW-XRP
+KRW-ETC
+KRW-SNT
+KRW-WAVES
+KRW-XEM
+KRW-QTUM
+KRW-LSK
+KRW-STEEM
+KRW-XLM
+KRW-ARDR
+KRW-ARK
+KRW-STORJ
+KRW-GRS
+KRW-ADA
+KRW-SBD
+KRW-POWR
+KRW-BTG
+KRW-ICX
+KRW-EOS
+KRW-TRX
+KRW-SC
+KRW-ONT
+KRW-ZIL
+KRW-POLYX
+KRW-ZRX
+KRW-LOOM
+KRW-BCH
+KRW-BAT
+KRW-IOST
+KRW-CVC
+KRW-IQ
+KRW-IOTA
+KRW-HIFI
+KRW-ONG
+KRW-GAS
+KRW-BOUNTY
+KRW-ELF
+KRW-KNC
+KRW-BSV
+KRW-THETA
+KRW-QKC
+KRW-BTT
+KRW-MOC
+KRW-TFUEL
+KRW-MANA
+KRW-ANKR
+KRW-AERGO
+KRW-ATOM
+KRW-TT
+KRW-GAME2
+Error: '0'
+Total KRW markets: 154
+Successfully connected to Redis
+KRW-ETH
+KRW-NEO
+KRW-MTL
+KRW-XRP
+KRW-ETC
+KRW-SNT
+KRW-WAVES
+KRW-XEM
+KRW-QTUM
+KRW-LSK
+KRW-STEEM
+KRW-XLM
+KRW-ARDR
+KRW-ARK
+KRW-STORJ
+KRW-GRS
+KRW-ADA
+KRW-SBD
+KRW-POWR
+KRW-BTG
+KRW-ICX
+KRW-EOS
+KRW-TRX
+KRW-SC
+KRW-ONT
+KRW-ZIL
+KRW-POLYX
+KRW-ZRX
+KRW-LOOM
+KRW-BCH
+KRW-BAT
+KRW-IOST
+KRW-CVC
+KRW-IQ
+KRW-IOTA
+KRW-HIFI
+KRW-ONG
+KRW-GAS
+KRW-BOUNTY
+KRW-ELF
+KRW-KNC
+KRW-BSV
+KRW-THETA
+KRW-QKC
+KRW-BTT
+KRW-MOC
+KRW-TFUEL
+KRW-MANA
+KRW-ANKR
+KRW-AERGO
+KRW-ATOM
+KRW-TT
+KRW-GAME2
+Error: '0'
+  File "/home/ubuntu/./upbit_project/compile.py", line 205
+    if foreigner_dic[market] = '0':
+       ^^^^^^^^^^^^^^^^^^^^^
+SyntaxError: cannot assign to subscript here. Maybe you meant '==' instead of '='?
+Total KRW markets: 154
+Successfully connected to Redis
+Error: (1054, "Unknown column 'foreigner_price' in 'field list'")
+Total KRW markets: 154
+Successfully connected to Redis
+Error: (1054, "Unknown column 'price_foreign' in 'field list'")
+Total KRW markets: 154
+Successfully connected to Redis
+[2025-01-11 19:11:00]: Successfully inserted 153 records
+Total KRW markets: 154
+Successfully connected to Redis
+[2025-01-11 19:12:00]: Successfully inserted 153 records
+Total KRW markets: 154
+Successfully connected to Redis
+[2025-01-11 19:13:00]: Successfully inserted 153 records
+Total KRW markets: 154
+Successfully connected to Redis
+[2025-01-11 19:14:00]: Successfully inserted 153 records
+Total KRW markets: 154
+Successfully connected to Redis
+[2025-01-11 19:15:00]: Successfully inserted 153 records
+Total KRW markets: 154
+Successfully connected to Redis
+[2025-01-11 19:16:00]: Successfully inserted 153 records
+Total KRW markets: 154
+Successfully connected to Redis
+[2025-01-11 19:17:00]: Successfully inserted 153 records
+Total KRW markets: 154
+Successfully connected to Redis
+[2025-01-11 19:18:00]: Successfully inserted 153 records
+Total KRW markets: 154
+Successfully connected to Redis
+[2025-01-11 19:19:00]: Successfully inserted 153 records

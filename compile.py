@@ -168,12 +168,13 @@ try:
         cursor.execute(sql)
         market_info_data = pd.DataFrame(cursor.fetchall())
         
+        market_info_data.columns = ['market','symbol','korean_name','english_name','capitalization','gecko_id']
         
         
         gecko_list = list(market_info_data.gecko_id)
         
         foreigner_dic = dict()
-        for i, market in market_info_data.itrrows():
+        for i, market in market_info_data.iterrows():
             foreigner_dic[market.market] = market.gecko_id
         
         
@@ -190,6 +191,7 @@ try:
         total_list = list()
         for market in markets:
             
+            
             try:
                 volume = float(volume_dic[market][formatted_time])
             except:
@@ -199,16 +201,23 @@ try:
             except:
                 price = 0
             amount = volume * price   
-
-            foreigner_price = foreigner_data[foreigner_dic[market]]['krw']
-
+            
+            if foreigner_dic[market] == '0':
+                foreigner_price = 0
+            else:
+                foreigner_price = foreigner_data[foreigner_dic[market]].get('krw')
+                if foreigner_price == None:
+                    foreigner_price = 0
+            
+            
             values = (formatted_time, market, price, volume, amount, foreigner_price)
+            
             total_list.append(values)
         
         
         sql = """
                INSERT INTO tb_market
-               (log_dt, market, price, volume, amount, foreigner_price) 
+               (log_dt, market, price, volume, amount, price_foreign) 
                VALUES (%s, %s, %s, %s, %s, %s)
                """
         
