@@ -21,7 +21,7 @@ from datetime import datetime, timedelta
 import redis
 import requests
 import pymysql
-
+import pandas as pd
 
 
 
@@ -134,35 +134,23 @@ for key in keys:
     else:
         pass
 
-total_list = list()
-for market in markets:
-    
-    try:
-        volume = float(volume_dic[market][formatted_time])
-    except:
-        volume = 0
-    try:
-        price = float(price_dic[market][formatted_time])
-    except:
-        price = 0
-    amount = volume * price   
 
-    values = (formatted_time, market, price, volume, amount)
-    total_list.append(values)
+
+
+
+
+
+
+
+
+
+
 #%%
-
-
-
-# 사용 예시
 file_path = "/home/ubuntu/baseball_project/db_settings.yml"  # YAML 파일이 있는 폴더 경로
 with open(file_path, 'r', encoding = 'utf-8') as file:
     yaml_data = yaml.safe_load(file)
     yaml_data = yaml_data['BASEBALL']
-
-
-#MySQL 연결
-
-
+    
 connection = pymysql.connect(
    host=yaml_data['HOST'],
    user=yaml_data['USER'],
@@ -173,10 +161,55 @@ connection = pymysql.connect(
 try:
     with connection.cursor() as cursor:
         
-        sql = sql = """
+        sql = """
+        SELECT * FROM tb_market_info
+        """
+        
+        cursor.execute(sql)
+        market_info_data = pd.DataFrame(cursor.fetchall())
+        
+        
+        
+        gecko_list = list(market_info_data.gecko_id)
+        
+        foreigner_dic = dict()
+        for i, market in market_info_data.itrrows():
+            foreigner_dic[market.market] = market.gecko_id
+        
+        
+        url = "https://api.coingecko.com/api/v3/simple/price"
+        params = {
+            'ids': ','.join(gecko_list),
+            'vs_currencies': 'krw'
+        }
+        response = requests.get(url, params=params)
+        foreigner_data = response.json()
+        
+        
+        
+        total_list = list()
+        for market in markets:
+            
+            try:
+                volume = float(volume_dic[market][formatted_time])
+            except:
+                volume = 0
+            try:
+                price = float(price_dic[market][formatted_time])
+            except:
+                price = 0
+            amount = volume * price   
+
+            foreigner_price = foreigner_data[foreigner_dic[market]]['krw']
+
+            values = (formatted_time, market, price, volume, amount, foreigner_price)
+            total_list.append(values)
+        
+        
+        sql = """
                INSERT INTO tb_market
-               (log_dt, market, price, volume, amount) 
-               VALUES (%s, %s, %s, %s, %s)
+               (log_dt, market, price, volume, amount, foreigner_price) 
+               VALUES (%s, %s, %s, %s, %s, %s)
                """
         
         cursor.executemany(sql, total_list)
