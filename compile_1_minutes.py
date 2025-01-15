@@ -168,7 +168,13 @@ try:
         cursor.execute(sql)
         market_info_data = pd.DataFrame(cursor.fetchall())
         
-        market_info_data.columns = ['market','symbol','korean_name','english_name','capitalization','gecko_id']
+        cursor.execute("SHOW COLUMNS FROM tb_market_info")
+
+
+        market_info_columns = cursor.fetchall()
+        market_info_columns =  [row[0] for row in market_info_columns]
+
+        market_info_data.columns = market_info_columns
         
         
         gecko_list = list(market_info_data.gecko_id)
@@ -185,7 +191,7 @@ try:
         }
         response = requests.get(url, params=params)
         foreigner_data = response.json()
-        
+        print('Success get gecko data') 
         
         
         total_list = list()
