@@ -198,14 +198,15 @@ try:
             except:
                 price = 0
             amount = volume * price   
-            
-            if foreigner_dic[market] == '0':
-                foreigner_price = 0
-            else:
-                foreigner_price = foreigner_data[foreigner_dic[market]].get('krw')
-                if foreigner_price == None:
+            try:
+                if foreigner_dic[market] == '0':
                     foreigner_price = 0
-            
+                else:
+                    foreigner_price = foreigner_data[foreigner_dic[market]].get('krw')
+                    if foreigner_price == None:
+                        foreigner_price = 0
+            except:
+                foreigner_price = 0
             
             values = (formatted_time, market, price, volume, amount, foreigner_price)
             
