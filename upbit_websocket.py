@@ -18,7 +18,6 @@ def get_krw_markets():
     # KRW 마켓만 필터링
     krw_markets = [market['market'] for market in markets if market['market'].startswith('KRW-')]
     print(f"Total KRW markets: {len(krw_markets)}")
-    krw_markets.remove('KRW-BTC')
     return krw_markets
 
 # Redis 연결 함수
@@ -69,8 +68,8 @@ async def upbit_ws_client():
                         data = json.loads(data.decode('utf8'))
                         save_data = {"tms":data["tms"], "cd":data["cd"], "tv":data["tv"]}
                         
-                        ONE_MINUTE = 60000
-                        base_timestamp = data['tms'] - (data['tms'] % ONE_MINUTE)
+                        TEN_SECONDS = 10000
+                        base_timestamp = data['tms'] - (data['tms'] % TEN_SECONDS)
                         
                         # Redis 키 생성
                         key = f"trade_volume:{data['cd']}:{base_timestamp}"
@@ -79,7 +78,7 @@ async def upbit_ws_client():
                             # volume 값을 누적 (INCRBYFLOAT 사용)
                             r.execute_command('INCRBYFLOAT', key, str(data['tv']))
                             # TTL 설정
-                            r.expire(key, 1200)  # 20분
+                            r.expire(key, 60)  # 20분
                         except redis.RedisError as e:
                             print(f"Redis operation failed: {e}")
                             continue

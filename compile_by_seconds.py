@@ -33,7 +33,7 @@ def get_krw_markets():
     # KRW 마켓만 필터링
     krw_markets = [market['market'] for market in markets if market['market'].startswith('KRW-')]
     print(f"Total KRW markets: {len(krw_markets)}")
-    krw_markets.remove('KRW-BTC')
+    
     return krw_markets
 
 
@@ -68,40 +68,38 @@ def get_current_prices(markets, formatted_time):
        response = requests.get(url, params={"markets": markets})
        price_data = response.json()
        
-
-       
-       
        for ticker in price_data:
            market = ticker['market']
            data_dic[market] = dict()
            data_dic[market][formatted_time] = ticker['trade_price']
-           
-           
-
-       
-       
-
+ 
    except Exception as e:
        print(f"Error: {e}")
    return data_dic
 
-def get_current_time(current_time):   
+# def get_current_time(current_time):   
     
-    if current_time.minute == 0:
-        # 0분일 때는 한 시간 전으로 가고 59분으로 설정
-        rounded_time = current_time.replace(hour=current_time.hour - 1, minute=59, second=0, microsecond=0)
-        # 만약 0시인 경우 이전 날 23시로 설정
-        if rounded_time.hour < 0:
-            rounded_time = rounded_time.replace(hour=23)
-    else:
-        # 그 외의 경우는 현재 분에서 1을 빼기
-        rounded_minutes = current_time.minute - 1
-        rounded_time = current_time.replace(minute=rounded_minutes, second=0, microsecond=0)
+#     if current_time.minute == 0:
+#         # 0분일 때는 한 시간 전으로 가고 59분으로 설정
+#         rounded_time = current_time.replace(hour=current_time.hour - 1, minute=59, second=0, microsecond=0)
+#         # 만약 0시인 경우 이전 날 23시로 설정
+#         if rounded_time.hour < 0:
+#             rounded_time = rounded_time.replace(hour=23)
+#     else:
+#         # 그 외의 경우는 현재 분에서 1을 빼기
+#         rounded_minutes = current_time.minute - 1
+#         rounded_time = current_time.replace(minute=rounded_minutes, second=0, microsecond=0)
     
+#     formatted_time = rounded_time.strftime('%Y-%m-%d %H:%M:%S')
+#     return formatted_time
+   
+def get_current_time(current_time):
+    # 현재 시간을 10초 단위로 내림
+    previous_time = current_time - timedelta(seconds=10)
+    rounded_seconds = (previous_time.second // 10) * 10
+    rounded_time = current_time.replace(second=rounded_seconds, microsecond=0)
     formatted_time = rounded_time.strftime('%Y-%m-%d %H:%M:%S')
     return formatted_time
-   
-    
 #%%
 #1. markets데이터 불러옴
 markets = get_krw_markets()
@@ -133,13 +131,6 @@ for key in keys:
         count+=1
     else:
         pass
-
-
-
-
-
-
-
 
 
 
