@@ -1,0 +1,8 @@
+# Vim swap files
+*.swp
+*.swo
+*.swn
+*.swm
+
+# 또는 더 일반적으로
+.*sw?
