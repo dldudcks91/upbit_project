@@ -1,5 +1,4 @@
 import requests
-#import nest_asyncio
 import redis
 import websockets
 import json
@@ -48,12 +47,11 @@ async def process_data(queue):
            
            TEN_SECONDS = 10000
            base_timestamp = data['tms'] - (data['tms'] % TEN_SECONDS)
-           key = f"trade_volume:{data['cd']}:{base_timestamp}"
+           key = f"trade_volume:{base_timestamp}"
            
            try:
-               r.execute_command('INCRBYFLOAT', key, str(data['tv']))
+               r.hincrbyfloat(key, data['cd'], float(data['tv']))
                r.expire(key, 60)
-               current_value = r.get(key)
            except redis.RedisError as e:
                print(f"Redis operation failed: {e}")
            
