@@ -95,9 +95,9 @@ def get_current_prices(markets, formatted_time):
    
 def get_current_time(current_time):
     # 현재 시간을 10초 단위로 내림
-    previous_time = current_time - timedelta(seconds=10)
-    rounded_seconds = (previous_time.second // 10) * 10
-    rounded_time = current_time.replace(second=rounded_seconds, microsecond=0)
+    
+    rounded_seconds = (current_time.second // 10) * 10
+    rounded_time = current_time.replace(second=rounded_seconds, microsecond=0)- timedelta(seconds=10)
     formatted_time = rounded_time.strftime('%Y-%m-%d %H:%M:%S')
     return formatted_time
 #%%
@@ -170,20 +170,20 @@ try:
         
         
         
-        # gecko_list = list(market_info_data.gecko_id)
-        # foreigner_dic = dict()
-        # for i, market in market_info_data.iterrows():
-        #     foreigner_dic[market.market] = market.gecko_id
+        gecko_list = list(market_info_data.gecko_id)
+        foreigner_dic = dict()
+        for i, market in market_info_data.iterrows():
+            foreigner_dic[market.market] = market.gecko_id
         
         
-        # url = "https://api.coingecko.com/api/v3/simple/price"
-        # params = {
-        #     'ids': ','.join(gecko_list),
-        #     'vs_currencies': 'krw'
-        # }
-        # response = requests.get(url, params=params)
-        # foreigner_data = response.json()
-        # print('Success get gecko data') 
+        url = "https://api.coingecko.com/api/v3/simple/price"
+        params = {
+            'ids': ','.join(gecko_list),
+            'vs_currencies': 'krw'
+        }
+        response = requests.get(url, params=params)
+        foreigner_data = response.json()
+        print('Success get gecko data') 
         
         
         total_list = list()
@@ -222,7 +222,7 @@ try:
         
         cursor.executemany(sql, total_list)
         connection.commit()
-        print(f"[{formatted_time}]: Successfully inserted {len(total_list)} records")
+        print(f"[{datetime.now()}, {formatted_time}]: Successfully inserted {len(total_list)} records")
 except Exception as e:
        print(f"Error: {e}")
        connection.rollback()
