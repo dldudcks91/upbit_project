@@ -106,31 +106,22 @@ r = connect_redis()
 
 formatted_time = get_current_time(datetime.now())
 
-
 keys = r.keys("trade_volume:*")
 
-
 price_dic = get_current_prices(markets,formatted_time)
-volume_dic = { market: r.get(key) for key in r.keys("trade_volume:*") if (market := key.split(":")[1]) and datetime.fromtimestamp(int(key.split(":")[2])/1000).strftime('%Y-%m-%d %H:%M:%S') == formatted_time }
 
-#count=0
-# volume_dic =dict()
-# for key in keys:
-#     volume = r.get(key)
-#     _, market, timestamp_ms = key.split(":")
-#     timestamp_ms = int(timestamp_ms)
-#     dt = datetime.fromtimestamp(timestamp_ms/1000)
-#     new_formatted_time = dt.strftime('%Y-%m-%d %H:%M:%S')
+# 해시 구조에 맞게 볼륨 추출 로직 수정
+volume_dic = dict()
+for key in keys:
+    _, market, timestamp_ms = key.split(":")
+    timestamp_ms = int(timestamp_ms)
+    dt = datetime.fromtimestamp(timestamp_ms/1000)
+    new_formatted_time = dt.strftime('%Y-%m-%d %H:%M:%S')
     
-#     if new_formatted_time == formatted_time:
-        
-#         volume_dic[market] = dict()
-        
-#         volume_dic[market][formatted_time] = volume
-#         count+=1
-#     else:
-#         pass
-
+    if new_formatted_time == formatted_time:
+        # 해시 구조로 변경
+        volume = r.hget(f"trade_volume:{timestamp_ms}", market)
+        volume_dic[market] = {formatted_time: volume}
 
 
 
