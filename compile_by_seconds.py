@@ -58,24 +58,20 @@ def connect_redis():
 
 
 def get_current_prices(markets, formatted_time):
-  
-   # 업비트 API 호출
-   url = "https://api.upbit.com/v1/ticker"
-   #markets = ["KRW-BTC,KRW-ETH,KRW-XRP"]  # 원하는 마켓 추가
-   markets = markets
-   data_dic = dict()
-   try:
-       response = requests.get(url, params={"markets": markets})
-       price_data = response.json()
-       
-       for ticker in price_data:
-           market = ticker['market']
-           data_dic[market] = dict()
-           data_dic[market][formatted_time] = ticker['trade_price']
- 
-   except Exception as e:
-       print(f"Error: {e}")
-   return data_dic
+    url = "https://api.upbit.com/v1/ticker"
+    try:
+        # 최적화 포인트 1: 직접 join으로 markets 처리
+        response = requests.get(url, params={"markets": ",".join(markets)})
+        price_data = response.json()
+        
+        # 최적화 포인트 2: Dictionary Comprehension 사용
+        return {
+            ticker['market']: {formatted_time: ticker['trade_price']} 
+            for ticker in price_data
+        }
+    except Exception as e:
+        print(f"Error fetching prices: {e}")
+        return {}
 
 # def get_current_time(current_time):   
     
@@ -170,20 +166,7 @@ try:
         
         
         
-        gecko_list = list(market_info_data.gecko_id)
-        foreigner_dic = dict()
-        for i, market in market_info_data.iterrows():
-            foreigner_dic[market.market] = market.gecko_id
         
-        
-        url = "https://api.coingecko.com/api/v3/simple/price"
-        params = {
-            'ids': ','.join(gecko_list),
-            'vs_currencies': 'krw'
-        }
-        response = requests.get(url, params=params)
-        foreigner_data = response.json()
-        print('Success get gecko data') 
         
         
         total_list = list()
@@ -199,16 +182,8 @@ try:
             except:
                 price = 0
             amount = volume * price   
-            try:
-                if foreigner_dic[market] == '0':
-                    foreigner_price = 0
-                else:
-                    foreigner_price = foreigner_data[foreigner_dic[market]].get('krw')
-                    if foreigner_price == None:
-                        foreigner_price = 0
-            except:
-                foreigner_price = 0
             
+            foreigner_price = 0
             values = (formatted_time, market, price, volume, amount, foreigner_price)
             
             total_list.append(values)
