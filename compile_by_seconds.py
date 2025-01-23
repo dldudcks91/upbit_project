@@ -113,16 +113,18 @@ price_dic = get_current_prices(markets,formatted_time)
 # 해시 구조에 맞게 볼륨 추출 로직 수정
 volume_dic = dict()
 for key in keys:
-    _, market, timestamp_ms = key.split(":")
+    # 키 구조가 "trade_volume:타임스탬프" 형식
+    _, timestamp_ms = key.split(":")
     timestamp_ms = int(timestamp_ms)
     dt = datetime.fromtimestamp(timestamp_ms/1000)
     new_formatted_time = dt.strftime('%Y-%m-%d %H:%M:%S')
     
     if new_formatted_time == formatted_time:
-        # 해시 구조로 변경
-        volume = r.hget(f"trade_volume:{timestamp_ms}", market)
-        volume_dic[market] = {formatted_time: volume}
-
+        # 해당 타임스탬프의 모든 마켓 볼륨 가져오기
+        market_volumes = r.hgetall(key)
+        
+        for market, volume in market_volumes.items():
+            volume_dic[market] = {formatted_time: volume}
 
 
 
