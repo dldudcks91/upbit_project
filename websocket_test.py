@@ -38,6 +38,8 @@ try:
     r = connect_redis()
 except Exception as e:
     print(f"Redis connection failed: {e}")
+    
+    
 async def upbit_ws_client():
     uri = "wss://api.upbit.com/websocket/v1"
     # 성능 측정을 위한 변수들
