@@ -6,6 +6,7 @@ import json
 import asyncio
 from datetime import datetime
 from asyncio import Queue
+import orjson
 
 def get_krw_markets():
    """업비트 KRW 마켓의 모든 거래쌍 조회"""
@@ -53,7 +54,6 @@ async def process_data(queue):
                r.execute_command('INCRBYFLOAT', key, str(data['tv']))
                r.expire(key, 60)
                current_value = r.get(key)
-               print(f"Added volume {data['tv']} for {data['cd']}, total: {current_value}")
            except redis.RedisError as e:
                print(f"Redis operation failed: {e}")
            
@@ -80,12 +80,12 @@ async def upbit_ws_client():
                    },
                    {"format": "SIMPLE"}
                ]
-               await websocket.send(json.dumps(subscribe_fmt))
+               await websocket.send(orjson.dumps(subscribe_fmt))
                
                while True:
                    try:
                        data = await websocket.recv()
-                       data = json.loads(data.decode('utf8'))
+                       data = orjson.loads(data.decode('utf8'))
                        
                        if queue.full():
                            print("Queue is full! Data might be lost.")

@@ -168,21 +168,22 @@ try:
         market_info_data.columns = market_info_columns
         
         
-        gecko_list = list(market_info_data.gecko_id)
-        
-        foreigner_dic = dict()
-        for i, market in market_info_data.iterrows():
-            foreigner_dic[market.market] = market.gecko_id
         
         
-        url = "https://api.coingecko.com/api/v3/simple/price"
-        params = {
-            'ids': ','.join(gecko_list),
-            'vs_currencies': 'krw'
-        }
-        response = requests.get(url, params=params)
-        foreigner_data = response.json()
-        print('Success get gecko data') 
+        # gecko_list = list(market_info_data.gecko_id)
+        # foreigner_dic = dict()
+        # for i, market in market_info_data.iterrows():
+        #     foreigner_dic[market.market] = market.gecko_id
+        
+        
+        # url = "https://api.coingecko.com/api/v3/simple/price"
+        # params = {
+        #     'ids': ','.join(gecko_list),
+        #     'vs_currencies': 'krw'
+        # }
+        # response = requests.get(url, params=params)
+        # foreigner_data = response.json()
+        # print('Success get gecko data') 
         
         
         total_list = list()
