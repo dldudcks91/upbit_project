@@ -108,7 +108,7 @@ markets = get_krw_markets()
 
 
 r = connect_redis()
-
+gecko_price_dic = dict()
 while True:
     try:
         formatted_time = get_current_time(datetime.now())
@@ -151,21 +151,40 @@ while True:
         try:
             with connection.cursor() as cursor:
                 
-                # sql = """
-                # SELECT * FROM tb_market_info
-                # """
+                sql = """
+                SELECT * FROM tb_market_info
+                """
                 
-                # cursor.execute(sql)
-                # market_info_data = pd.DataFrame(cursor.fetchall())
+                cursor.execute(sql)
+                market_info_data = pd.DataFrame(cursor.fetchall())
                 
-                # cursor.execute("SHOW COLUMNS FROM tb_market_info")
+                cursor.execute("SHOW COLUMNS FROM tb_market_info")
 
 
-                # market_info_columns = cursor.fetchall()
-                # market_info_columns =  [row[0] for row in market_info_columns]
+                market_info_columns = cursor.fetchall()
+                market_info_columns =  [row[0] for row in market_info_columns]
 
-                # market_info_data.columns = market_info_columns
+                market_info_data.columns = market_info_columns
                 
+                
+                try:
+                    gecko_id_list = list(market_info_data.gecko_id)
+                    gecko_ids = ','.join(gecko_id_list)
+                   
+                    gecko_url = "https://api.coingecko.com/api/v3/simple/price"
+                    gecko_params = {
+                        'ids': gecko_ids,  # "bitcoin,ethereum" 형태로 전달
+                        'vs_currencies': 'krw'
+                    }
+    
+                    gecko_response = requests.get(gecko_url,params = gecko_params)
+                    if gecko_response.status == 200:
+                        gecko_price_dic = gecko_response.json()
+
+                except Exception as e:
+                    
+                    print(f"Error: {e}")
+
                 
 
                 total_list = list()
@@ -182,8 +201,11 @@ while True:
                         price = 0
 
                     amount = volume * price   
-                    
-                    foreigner_price = 0
+                    try:
+                        gecko_id = market_info_data[market_info_data['market'] == market]['gecko_id'].iloc[0]
+                        foreigner_price = gecko_price_dic[gecko_id]['krw']
+                    except Exception as e:
+                        foreigner_price = 0
                     
                     values = (formatted_time, market, price, volume, amount, foreigner_price)
                     
