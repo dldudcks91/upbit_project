@@ -178,7 +178,7 @@ while True:
                     }
     
                     gecko_response = requests.get(gecko_url,params = gecko_params)
-                    if gecko_response.status == 200:
+                    if gecko_response.status_code == 200:
                         gecko_price_dic = gecko_response.json()
 
                 except Exception as e:
