@@ -178,7 +178,7 @@ while True:
     
                     gecko_price_dic = requests.get(url,params = params).json()
 
-                except:
+                except Exception as e:
                     
                     print(f"Error: {e}")
 
