@@ -176,7 +176,7 @@ while True:
                         'vs_currencies': 'krw'
                     }
     
-                    gecko_price_dic = requests.get(url,params = params).json()
+                    gecko_price_dic = requests.get(gecko_url,params = gecko_params).json()
 
                 except Exception as e:
                     
