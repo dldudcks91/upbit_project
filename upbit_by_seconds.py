@@ -166,8 +166,22 @@ while True:
 
                 market_info_data.columns = market_info_columns
                 
-                
-                
+                #김치프리미엄불러오기
+                try:
+                    gecko_id_list = list(market_info_data.gecko_id)
+                    gecko_ids = ','.join(gecko_id_list)
+                    gecko_url = "https://api.coingecko.com/api/v3/simple/price"
+                    gecko_params = {
+                        'ids': gecko_ids,  # "bitcoin,ethereum" 형태로 전달
+                        'vs_currencies': 'krw'
+                    }
+    
+                    gecko_price_dic = requests.get(url,params = params).json()
+
+                except:
+                    
+                    print(f"Error: {e}")
+
                 total_list = list()
                 for market in markets:
                     
@@ -180,9 +194,13 @@ while True:
                         price = float(price_dic[market][formatted_time])
                     except:
                         price = 0
+
                     amount = volume * price   
-                    
-                    foreigner_price = 0
+                    try:
+                        gecko_id = market_info_data[market_info_data['market'] == market]['gecko_id'].iloc[0]
+                        foreigner_price = gecko_price_dic[gecko_id]
+                    except:
+                        foreigner_price = 0
                     values = (formatted_time, market, price, volume, amount, foreigner_price)
                     
                     total_list.append(values)
