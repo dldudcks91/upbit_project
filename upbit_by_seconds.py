@@ -170,6 +170,7 @@ while True:
                 try:
                     gecko_id_list = list(market_info_data.gecko_id)
                     gecko_ids = ','.join(gecko_id_list)
+                   
                     gecko_url = "https://api.coingecko.com/api/v3/simple/price"
                     gecko_params = {
                         'ids': gecko_ids,  # "bitcoin,ethereum" 형태로 전달
@@ -177,6 +178,7 @@ while True:
                     }
     
                     gecko_price_dic = requests.get(gecko_url,params = gecko_params).json()
+                   
 
                 except Exception as e:
                     
@@ -198,9 +200,10 @@ while True:
                     amount = volume * price   
                     try:
                         gecko_id = market_info_data[market_info_data['market'] == market]['gecko_id'].iloc[0]
-                        foreigner_price = gecko_price_dic[gecko_id]
-                    except:
+                        foreigner_price = gecko_price_dic[gecko_id]['krw']
+                    except Exception as e:
                         foreigner_price = 0
+                        print(f"Error: {e}")
                     values = (formatted_time, market, price, volume, amount, foreigner_price)
                     
                     total_list.append(values)
