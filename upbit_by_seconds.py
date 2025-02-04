@@ -104,6 +104,17 @@ markets = get_krw_markets()
 #2. 현재가격 불러오기
 #z = get_current_prices(markets)
 
+def wait_until_next_interval():
+    """
+    다음 10초 구간의 시작까지 대기
+    ex) 현재 23초면 30초가 될 때까지 대기
+    """
+    now = datetime.now()
+    next_interval = now + timedelta(seconds=10 - now.second % 10)
+    next_interval = next_interval.replace(microsecond=0)
+    sleep_seconds = (next_interval - now).total_seconds()
+    if sleep_seconds > 0:
+        time.sleep(sleep_seconds)
 
 
 
@@ -111,6 +122,8 @@ r = connect_redis()
 gecko_price_dic = dict()
 while True:
     try:
+
+        wait_until_next_interval()
         formatted_time = get_current_time(datetime.now())
 
         keys = r.keys("trade_volume:*")
@@ -227,8 +240,8 @@ while True:
     except Exception as e:
         print(f"Main loop error: {e}")
 
-    finally:
-        time.sleep(10)
+    
+        
 #%%
 
     
