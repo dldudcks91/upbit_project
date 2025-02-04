@@ -98,11 +98,8 @@ def get_current_time(current_time):
     formatted_time = rounded_time.strftime('%Y-%m-%d %H:%M:%S')
     return formatted_time
 #%%
-#1. markets데이터 불러옴
-markets = get_krw_markets()
 
-#2. 현재가격 불러오기
-#z = get_current_prices(markets)
+
 
 def wait_until_next_interval():
     """
@@ -116,6 +113,8 @@ def wait_until_next_interval():
     if sleep_seconds > 0:
         time.sleep(sleep_seconds)
 
+#1. markets데이터 불러옴
+markets = get_krw_markets()
 
 
 r = connect_redis()
@@ -233,6 +232,7 @@ while True:
                 
                 cursor.executemany(sql, total_list)
                 connection.commit()
+                
                 print(f"[{datetime.now()}, {formatted_time}]: Successfully inserted {len(total_list)} records")
         except Exception as e:
             print(f"Error: {e}")

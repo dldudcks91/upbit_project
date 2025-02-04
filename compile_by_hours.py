@@ -23,17 +23,17 @@ markets = get_krw_markets()
 
 #%%
 old_list = list()
+current_time = datetime.now()
+start_date = current_time.replace(minute=0, second=0, microsecond=0) - timedelta(hours=9)
+date_str = start_date.strftime('%Y-%m-%d %H:%M:%S')
 for market in markets:
-    current_time = datetime.now()
-    start_date = current_time.replace(minute=0, second=0, microsecond=0) - timedelta(hours=1)
-    date_str = start_date.strftime('%Y-%m-%d %H:%M:%S')
     for hour_range in range(1):
         
         # Change endpoint to hourly candles
         url = 'https://api.upbit.com/v1/candles/minutes/60'
         params = {
             'market': market,
-            'count': 2,  # Each request will get 100 hours of data
+            'count': 1,  # Each request will get 100 hours of data
             'to': date_str
         }
         
@@ -46,7 +46,7 @@ for market in markets:
         
         
         print(market, len(old_list), start_date.strftime('%Y-%m-%d %H:%M:%S'))
-        
+        time.sleep(0.1)
 #%%
 
 tables = ['tb_market_hour']
@@ -99,7 +99,7 @@ with conn.cursor() as cursor:
         columns =  cursor.fetchall()
         column_names = [column[0] for column in columns]
         
-        df_unique
+        
         for _, row in df_unique.iterrows():
             # 동적으로 컬럼과 값 생성
             columns = ', '.join(column_names)
