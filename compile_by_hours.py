@@ -1,6 +1,6 @@
 #%%
 import requests 
-from datetime import datetime , timedelta
+from datetime import datetime , timedelta, timezone
 import time
 import pandas as pd
 import yaml
@@ -23,8 +23,8 @@ markets = get_krw_markets()
 
 #%%
 old_list = list()
-current_time = datetime.now()
-start_date = current_time.replace(minute=0, second=0, microsecond=0) - timedelta(hours=9)
+current_time = datetime.now(tz = timezone.utc)
+start_date = current_time.replace(minute=0, second=0, microsecond=0)
 date_str = start_date.strftime('%Y-%m-%d %H:%M:%S')
 for market in markets:
     for hour_range in range(1):
