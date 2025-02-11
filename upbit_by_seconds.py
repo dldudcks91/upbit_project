@@ -206,18 +206,20 @@ while True:
                     try:
                         volume = float(volume_dic[market][formatted_time])
                     except:
-                        volume = 0
+                        volume = None
                     try:
                         price = float(price_dic[market][formatted_time])
                     except:
-                        price = 0
-
-                    amount = volume * price   
+                        price = None
+                    try:
+                        amount = volume * price   
+                    except:
+                        amount = None
                     try:
                         gecko_id = market_info_data[market_info_data['market'] == market]['gecko_id'].iloc[0]
                         foreigner_price = gecko_price_dic[gecko_id]['krw']
                     except Exception as e:
-                        foreigner_price = 0
+                        foreigner_price = None
                     
                     values = (formatted_time, market, price, volume, amount, foreigner_price)
                     
