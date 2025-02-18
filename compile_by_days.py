@@ -13,7 +13,7 @@ def get_krw_markets():
     response = requests.get(url)
     markets = response.json()
     # KRW 마켓만 필터링
-    krw_markets = [[market['market'],market['korean_name']] for market in markets if market['market'].startswith('KRW-')]
+    krw_markets = [[market['market'],market['market'][4:], market['korean_name']] for market in markets if market['market'].startswith('KRW-')]
 
     print(f"Total KRW markets: {len(krw_markets)}")
     return krw_markets
@@ -56,10 +56,11 @@ with conn.cursor() as cursor:
     
     # tb_market_now 테이블에도 동일한 market 값 삽입
     now_sql = f"""
-        INSERT INTO tb_market_now (market, korean_name) 
+        INSERT INTO tb_market_now (market, symbol, korean_name) 
         VALUES (%s, %s)
         ON DUPLICATE KEY UPDATE 
         market = VALUES(market),
+        symbol = VALUES(symbol),
         korean_name = VALUES(korean_name)
     """
     cursor.executemany(now_sql, markets)
