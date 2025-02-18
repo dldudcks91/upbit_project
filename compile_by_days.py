@@ -62,7 +62,7 @@ with conn.cursor() as cursor:
     cursor.executemany(now_sql, markets)
     
     conn.commit()
-conn.close()
+
 
 
 
