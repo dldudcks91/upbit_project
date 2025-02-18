@@ -7,6 +7,20 @@ import time
 import pymysql
 import yaml
 #%%
+def get_krw_markets():
+    """업비트 KRW 마켓의 모든 거래쌍 조회"""
+    url = "https://api.upbit.com/v1/market/all"
+    response = requests.get(url)
+    markets = response.json()
+    # KRW 마켓만 필터링
+    krw_markets = [market['market'] for market in markets if market['market'].startswith('KRW-')]
+    print(f"Total KRW markets: {len(krw_markets)}")
+    return krw_markets
+
+
+
+
+#%%
 def convert_korean_to_number(value):
     if isinstance(value, str):
         # '억원' 처리
@@ -32,6 +46,28 @@ conn = pymysql.connect(
    password=yaml_data['PASSWORD'],
    db= 'upbit'
 )
+
+markets = get_krw_markets()
+
+with conn.cursor() as cursor:
+    # supply_columns는 'market' 하나뿐이므로 더 간단하게 처리
+    
+    
+    # tb_market_now 테이블에도 동일한 market 값 삽입
+    now_sql = f"""
+        INSERT INTO tb_market_now (market) 
+        VALUES (%s)
+        ON DUPLICATE KEY UPDATE market = VALUES(market)
+    """
+    cursor.executemany(now_sql, markets)
+    
+    conn.commit()
+conn.close()
+
+
+
+
+#market_supply채우기
 with conn.cursor() as cursor:
     cursor.execute(f"SELECT symbol FROM upbit.tb_market_info")
 
@@ -78,20 +114,20 @@ for market in markets:
     new_list = [market, capitalization, max_supply, now_supply]
     old_list.append(new_list)
 #%%
+
 with conn.cursor() as cursor:
-    for old in old_list:
-        # 동적으로 컬럼과 값 생성
-        columns_str = ', '.join(supply_columns)
-        placeholders = ', '.join(['%s'] * len(supply_columns))
-        set_clause = ', '.join([f"{col} = VALUES({col})" for col in supply_columns])
-        
-        sql = f"""
-            INSERT INTO tb_market_supply ({columns_str}) 
-            VALUES ({placeholders})
-            ON DUPLICATE KEY UPDATE {set_clause}
-        """
-        # 각 행 삽입
-        cursor.execute(sql, tuple(old))
+    # 동적으로 컬럼과 값 생성
+    columns_str = ', '.join(supply_columns)
+    placeholders = ', '.join(['%s'] * len(supply_columns))
+    set_clause = ', '.join([f"{col} = VALUES({col})" for col in supply_columns])
+    
+    sql = f"""
+        INSERT INTO tb_market_supply ({columns_str}) 
+        VALUES ({placeholders})
+        ON DUPLICATE KEY UPDATE {set_clause}
+    """
+    # executemany로 모든 행 한 번에 삽입
+    cursor.executemany(sql, old_list)
     conn.commit()
-    conn.close()
+conn.close()
 #%%
