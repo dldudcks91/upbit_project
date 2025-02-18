@@ -57,7 +57,7 @@ with conn.cursor() as cursor:
     # tb_market_now 테이블에도 동일한 market 값 삽입
     now_sql = f"""
         INSERT INTO tb_market_now (market, symbol, korean_name) 
-        VALUES (%s, %s)
+        VALUES (%s, %s, %s)
         ON DUPLICATE KEY UPDATE 
         market = VALUES(market),
         symbol = VALUES(symbol),
