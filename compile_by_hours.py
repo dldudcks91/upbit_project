@@ -116,12 +116,12 @@ with conn.cursor() as cursor:
     conn.commit()
 #%%
 
-# ma_데이터 가져오기
+# ma_데이터 가져오기 250430 추가
 data_dic = dict()
 
 
 
-now = (datetime.now() - timedelta(hours=1) - timedelta(hours = 9))
+now = (datetime.now() - timedelta(hours=1))
 
 ma_dic = dict()
 with conn.cursor() as cursor:
