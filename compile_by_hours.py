@@ -30,10 +30,10 @@ for market in markets:
     for hour_range in range(1):
         
         # Change endpoint to hourly candles
-        url = 'https://api.upbit.com/v1/candles/minutes/15'
+        url = 'https://api.upbit.com/v1/candles/minutes/60'
         params = {
             'market': market,
-            'count': 15,  # Each request will get 100 hours of data
+            'count': 1,  # Each request will get 100 hours of data
             'to': date_str
         }
         
