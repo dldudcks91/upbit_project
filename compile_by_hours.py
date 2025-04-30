@@ -143,7 +143,7 @@ with conn.cursor() as cursor:
     
             
 
-conn.close()
+
 #%%
     
 markets = list(ma_data.iloc[:,0])
@@ -212,4 +212,4 @@ with conn.cursor() as cursor:
     
 conn.commit()
 
-
+conn.close()
