@@ -124,6 +124,12 @@ print(df_unique.shape)
 
 #insert
 
+conn = pymysql.connect(
+   host=yaml_data['HOST'],
+   user=yaml_data['USER'],
+   password=yaml_data['PASSWORD'],
+   db= 'bithumb'
+)
 
 
 
@@ -154,7 +160,12 @@ with conn.cursor() as cursor:
         print(f'success migration table {table}')
     conn.commit()
 #%%
-
+conn = pymysql.connect(
+   host=yaml_data['HOST'],
+   user=yaml_data['USER'],
+   password=yaml_data['PASSWORD'],
+   db= 'bithumb'
+)
 data_dic = dict()
 
 
@@ -224,7 +235,12 @@ for market in markets:
 input_data = pd.DataFrame(market_ma_dic).transpose().reset_index()
 column_names = ['market','log_dt','ma_10','ma_20','ma_34','ma_50','ma_100','ma_200','ma_400','ma_800','golden_cross_10_34','dead_cross_10_34','created_at']
 input_data.columns = column_names
-
+conn = pymysql.connect(
+   host=yaml_data['HOST'],
+   user=yaml_data['USER'],
+   password=yaml_data['PASSWORD'],
+   db= 'bithumb'
+)
 with conn.cursor() as cursor:
     
     
