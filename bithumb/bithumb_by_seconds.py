@@ -27,7 +27,7 @@ import pandas as pd
 
 
 def get_krw_markets():
-    """업비트 KRW 마켓의 모든 거래쌍 조회"""
+    """빗썸 KRW 마켓의 모든 거래쌍 조회"""
     url = "https://api.bithumb.com/v1/market/all"
     response = requests.get(url)
     markets = response.json()
@@ -104,6 +104,8 @@ def wait_until_next_interval():
 #1. markets데이터 불러옴
 markets = get_krw_markets()
 #%%
+
+#%%
 while True:
     try:
         markets = get_krw_markets()
@@ -129,39 +131,6 @@ while True:
         try:
             with connection.cursor() as cursor:
                 
-                sql = """
-                SELECT * FROM tb_market_info
-                """
-                
-                cursor.execute(sql)
-                market_info_data = pd.DataFrame(cursor.fetchall())
-                
-                cursor.execute("SHOW COLUMNS FROM tb_market_info")
-
-
-                market_info_columns = cursor.fetchall()
-                market_info_columns =  [row[0] for row in market_info_columns]
-
-                market_info_data.columns = market_info_columns
-                
-                
-                try:
-                    gecko_id_list = list(market_info_data.gecko_id)
-                    gecko_ids = ','.join(gecko_id_list)
-                   
-                    gecko_url = "https://api.coingecko.com/api/v3/simple/price"
-                    gecko_params = {
-                        'ids': gecko_ids,  # "bitcoin,ethereum" 형태로 전달
-                        'vs_currencies': 'krw'
-                    }
-    
-                    gecko_response = requests.get(gecko_url,params = gecko_params)
-                    if gecko_response.status_code == 200:
-                        gecko_price_dic = gecko_response.json()
-
-                except Exception as e:
-                    
-                    print(f"Error: {e}")
 
                 
 
