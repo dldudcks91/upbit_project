@@ -38,25 +38,6 @@ def get_krw_markets():
     return krw_markets
 
 
-def connect_redis():
-    try:
-        r = redis.Redis(
-            host='localhost', 
-            port=6379, 
-            db=0, 
-            decode_responses=True,
-            socket_connect_timeout=5
-        )
-        r.ping()  # Redis 서버 연결 테스트
-        print("Successfully connected to Redis")
-        return r
-    except redis.ConnectionError as e:
-        print(f"Could not connect to Redis: {e}")
-        print("Please make sure Redis server is running")
-        raise
-
-
-
 
 def get_current_prices(markets, formatted_time):
     url = "https://api.bithumb.com/v1/ticker"
@@ -122,46 +103,17 @@ def wait_until_next_interval():
 
 #1. markets데이터 불러옴
 markets = get_krw_markets()
-
-
-r = connect_redis()
-gecko_price_dic = dict()
-#wait_until_next_interval()
-formatted_time = get_current_time(datetime.now())
-
-keys = r.keys("trade_volume:*")
-
-price_dic = get_current_prices(markets,formatted_time)
 #%%
 while True:
     try:
-
+        markets = get_krw_markets()
         wait_until_next_interval()
         formatted_time = get_current_time(datetime.now())
 
-        keys = r.keys("trade_volume:*")
-
         price_dic = get_current_prices(markets,formatted_time)
 
-        # 해시 구조에 맞게 볼륨 추출 로직 수정
-        volume_dic = dict()
-        for key in keys:
-            # 키 구조가 "trade_volume:타임스탬프" 형식
-            _, timestamp_ms = key.split(":")
-            timestamp_ms = int(timestamp_ms)
-            dt = datetime.fromtimestamp(timestamp_ms/1000)
-            new_formatted_time = dt.strftime('%Y-%m-%d %H:%M:%S')
-            
-            if new_formatted_time == formatted_time:
-                # 해당 타임스탬프의 모든 마켓 볼륨 가져오기
-                market_volumes = r.hgetall(key)
-                
-                for market, volume in market_volumes.items():
-                    volume_dic[market] = {formatted_time: volume}
+        
 
-
-
-        #%%
         file_path = "/home/ubuntu/baseball_project/db_settings.yml"  # YAML 파일이 있는 폴더 경로
         with open(file_path, 'r', encoding = 'utf-8') as file:
             yaml_data = yaml.safe_load(file)
@@ -171,7 +123,7 @@ while True:
         host=yaml_data['HOST'],
         user=yaml_data['USER'],
         password=yaml_data['PASSWORD'],
-        db= 'upbit'
+        db= 'bithumb'
         )
 
         try:
@@ -218,32 +170,21 @@ while True:
                     
                     
                     try:
-                        volume = float(volume_dic[market][formatted_time])
-                    except:
-                        volume = None
-                    try:
                         price = float(price_dic[market][formatted_time])
                     except:
                         price = None
-                    try:
-                        amount = volume * price   
-                    except:
-                        amount = None
-                    try:
-                        gecko_id = market_info_data[market_info_data['market'] == market]['gecko_id'].iloc[0]
-                        foreigner_price = gecko_price_dic[gecko_id]['krw']
-                    except Exception as e:
-                        foreigner_price = None
                     
-                    values = (formatted_time, market, price, volume, amount, foreigner_price)
+                    
+                    
+                    values = (formatted_time, market, price)
                     
                     total_list.append(values)
                 
                 
                 sql = """
                     INSERT INTO tb_market
-                    (log_dt, market, price, volume, amount, price_foreign) 
-                    VALUES (%s, %s, %s, %s, %s, %s)
+                    (log_dt, market, price) 
+                    VALUES (%s, %s, %s)
                     """
                 
                 cursor.executemany(sql, total_list)
