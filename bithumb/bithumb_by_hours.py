@@ -23,7 +23,8 @@ markets = get_krw_markets()
 
 #%%
 old_list = list()
-current_time = datetime.now(tz = timezone.utc)
+current_time = datetime.now(tz = timezone.utc) + timedelta(hours=9)
+
 
 start_time = current_time.replace(minute=0, second=0, microsecond=0)
 
@@ -50,8 +51,9 @@ for market in markets:
         # Adjust time delta to move back 100 hours instead of 100 days
         
         
-        print(market, len(old_list), market_start_time.strftime('%Y-%m-%d %H:%M:%S'))
+        #print(market, len(old_list), market_start_time.strftime('%Y-%m-%d %H:%M:%S'))
         time.sleep(0.01)
+print(len(old_list), start_time.strftime('%Y-%m-%d %H:%M:%S'))
 #%%
 tables = ['tb_market_hour']
 
@@ -82,12 +84,13 @@ file_path = "/home/ubuntu/baseball_project/db_settings.yml"  # YAML 파일이 �
 with open(file_path, 'r', encoding = 'utf-8') as file:
     yaml_data = yaml.safe_load(file)
     yaml_data = yaml_data['BASEBALL']
-    
+
+DB = 'bithumb'
 conn = pymysql.connect(
    host=yaml_data['HOST'],
    user=yaml_data['USER'],
    password=yaml_data['PASSWORD'],
-   db= 'bithumb'
+   db= DB
 )
 
 # 쿼리 실행
@@ -109,17 +112,18 @@ with conn.cursor() as cursor:
             log_dt = pd.DataFrame(rows, columns=['log_dt'])
             data_list.append(log_dt)
             
-            print(f"{table} 마이그레이션 완료")
         
         except Exception as e:
             print(f"{table} 마이그레이션 중 오류: {e}")
 conn.close()
 #%%
+
+
 old_df = data_list[0]
 last_log_dt = old_df['log_dt'].max()
 #%%
 df_unique = df_unique[pd.to_datetime(df_unique['log_dt'])>last_log_dt]
-print(df_unique.shape)
+print(df_unique.shape, last_log_dt)
 #%%
 
 #insert
@@ -128,7 +132,7 @@ conn = pymysql.connect(
    host=yaml_data['HOST'],
    user=yaml_data['USER'],
    password=yaml_data['PASSWORD'],
-   db= 'bithumb'
+   db= DB
 )
 
 
@@ -159,12 +163,14 @@ with conn.cursor() as cursor:
     
         print(f'success migration table {table}')
     conn.commit()
+conn.close()
 #%%
+print('Start set ma')
 conn = pymysql.connect(
    host=yaml_data['HOST'],
    user=yaml_data['USER'],
    password=yaml_data['PASSWORD'],
-   db= 'bithumb'
+   db= DB
 )
 data_dic = dict()
 
@@ -239,7 +245,7 @@ conn = pymysql.connect(
    host=yaml_data['HOST'],
    user=yaml_data['USER'],
    password=yaml_data['PASSWORD'],
-   db= 'bithumb'
+   db= DB
 )
 with conn.cursor() as cursor:
     
@@ -265,3 +271,4 @@ with conn.cursor() as cursor:
 conn.commit()
 
 conn.close()
+print(f'Complete All Task: {start_time} ')

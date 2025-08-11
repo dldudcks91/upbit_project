@@ -102,9 +102,7 @@ def wait_until_next_interval():
         time.sleep(sleep_seconds)
 
 #1. markets데이터 불러옴
-markets = get_krw_markets()
-#%%
-
+#markets = get_krw_markets()
 #%%
 while True:
     try:

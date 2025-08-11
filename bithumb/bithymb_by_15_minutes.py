@@ -21,14 +21,13 @@ markets = get_krw_markets()
 
 
 
-
 #%%
 old_list = list()
-current_time = datetime.now(tz = timezone.utc) + timedelta(hours=9)
+current_time = datetime.now(tz = timezone.utc)
 
 start_time = current_time.replace(minute=0, second=0, microsecond=0)
 
-DATA_CNT = 200
+DATA_CNT = 2000
 for market in markets:
     market_start_time = start_time + timedelta(hours = 0)
     for hour_range in range(2):
