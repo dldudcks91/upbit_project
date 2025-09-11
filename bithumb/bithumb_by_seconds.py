@@ -29,7 +29,7 @@ import pandas as pd
 def get_krw_markets():
     """빗썸 KRW 마켓의 모든 거래쌍 조회"""
     url = "https://api.bithumb.com/v1/market/all"
-    response = requests.get(url)
+    response = requests.Session().get(url)
     markets = response.json()
     # KRW 마켓만 필터링
     krw_markets = [market['market'] for market in markets if market['market'].startswith('KRW-')]
@@ -48,7 +48,7 @@ def get_current_prices(markets, formatted_time):
         for i in range(len_markets//100+1):
             min_idx = i * 100
             max_idx = (i+1)*100
-            response = requests.get(url, params={"markets": ",".join(markets[min_idx:max_idx])})
+            response = requests.Session().get(url, params={"markets": ",".join(markets[min_idx:max_idx])})
             price_data = response.json()
             
             price_total_data.extend(price_data)

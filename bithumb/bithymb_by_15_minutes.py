@@ -27,15 +27,15 @@ current_time = datetime.now(tz = timezone.utc)
 
 start_time = current_time.replace(minute=0, second=0, microsecond=0)
 
-DATA_CNT = 2000
+DATA_CNT = 200
 for market in markets:
     market_start_time = start_time + timedelta(hours = 0)
-    for hour_range in range(2):
+    for hour_range in range(10):
         market_start_time += timedelta(hours = -DATA_CNT * hour_range)
         date_str = market_start_time.strftime('%Y-%m-%d %H:%M:%S')
         
         # Change endpoint to hourly candles
-        url = 'https://api.bithumb.com/v1/candles/minutes/60'
+        url = 'https://api.bithumb.com/v1/candles/minutes/15'
         params = {
             'market': market,
             'count': DATA_CNT,  # Each request will get 100 hours of data
@@ -53,7 +53,7 @@ for market in markets:
         print(market, len(old_list), market_start_time.strftime('%Y-%m-%d %H:%M:%S'))
         time.sleep(0.01)
 #%%
-tables = ['tb_market_hour']
+tables = ['tb_market_15_minutes']
 
 total_list = list()
 for data in old_list:

@@ -1,58 +1,104 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Thu Sep 11 17:00:57 2025
+
+@author: user
+"""
+
 #%%
-import requests 
+import asyncio
+import aiohttp
 from datetime import datetime , timedelta, timezone
 import time
 import pandas as pd
 import yaml
 import pymysql
+import nest_asyncio
+nest_asyncio.apply()
 
-def get_krw_markets():
-    """업비트 KRW 마켓의 모든 거래쌍 조회"""
+# 비동기 함수로 변경
+async def get_krw_markets_async():
+    """업비트 KRW 마켓의 모든 거래쌍 조회 (비동기)"""
     url = "https://api.bithumb.com/v1/market/all"
-    response = requests.get(url)
-    markets = response.json()
-    # KRW 마켓만 필터링
-    krw_markets = [market['market'] for market in markets if market['market'].startswith('KRW-')]
-    print(f"Total KRW markets: {len(krw_markets)}")
-    return krw_markets
+    async with aiohttp.ClientSession() as session:
+        async with session.get(url) as response:
+            markets = await response.json()
+            # KRW 마켓만 필터링
+            krw_markets = [market['market'] for market in markets if market['market'].startswith('KRW-')]
+            print(f"Total KRW markets: {len(krw_markets)}")
+            return krw_markets
 
+# 비동기 데이터 요청 함수
+# 업데이트된 fetch_market_data 함수
+async def fetch_market_data(session, market, start_time, data_cnt):
+    date_str = start_time.strftime('%Y-%m-%d %H:%M:%S')
+    url = 'https://api.bithumb.com/v1/candles/minutes/60'
+    params = {
+        'market': market,
+        'count': data_cnt,
+        'to': date_str
+    }
+    headers = {"accept": "application/json"}
 
-markets = get_krw_markets()
+    try:
+        async with session.get(url, params=params, headers=headers) as response:
+            # HTTP 상태 코드가 200번대인지 확인하고, 아니면 예외 발생
+            response.raise_for_status()
 
+            # 응답의 Content-Type이 JSON인지 확인
+            content_type = response.headers.get('Content-Type', '')
+            if 'application/json' in content_type:
+                return await response.json()
+            else:
+                # JSON이 아닌 응답 처리
+                print(f"경고: {market}에 대한 응답이 JSON 형식이 아닙니다. 상태 코드: {response.status}, Content-Type: {content_type}")
+                return []  # 빈 리스트 반환하여 오류가 데이터 처리를 멈추지 않게 함
+    except aiohttp.ClientResponseError as e:
+        # 4xx 또는 5xx와 같은 HTTP 오류 처리
+        print(f"{market}에 대한 HTTP 오류 발생: {e}")
+        return []
+    except Exception as e:
+        # 그 외 요청 중 발생할 수 있는 모든 오류 처리
+        print(f"{market} 데이터 요청 중 오류 발생: {e}")
+        return []
 
+# 비동기 메인 실행 함수 (수정된 부분)
+async def main_async():
+    markets = await get_krw_markets_async()
+    
+    current_time = datetime.now(tz=timezone.utc) + timedelta(hours=9)
+    start_time = current_time.replace(minute=0, second=0, microsecond=0)
+    DATA_CNT = 10
+    
+    old_list = []
+    
+    # 150개씩 배치로 나누어 요청 (수정된 부분)
+    BATCH_SIZE = 150
+    
+    async with aiohttp.ClientSession() as session:
+        for i in range(0, len(markets), BATCH_SIZE):
+            batch = markets[i:i + BATCH_SIZE]
+            
+            tasks = [fetch_market_data(session, market, start_time, DATA_CNT) for market in batch]
+            responses = await asyncio.gather(*tasks)
+            
+            for response_data in responses:
+                if isinstance(response_data, list) and response_data:
+                    old_list.extend(response_data)
+            
+            # 다음 배치를 시작하기 전에 1초 대기
+            if i + BATCH_SIZE < len(markets):
+                print(f"다음 {BATCH_SIZE}개 요청을 위해 1초 대기...")
+                await asyncio.sleep(1)
 
-#%%
-old_list = list()
-current_time = datetime.now(tz = timezone.utc) + timedelta(hours=9)
+    print(f"총 수집된 데이터 포인트: {len(old_list)}개 ({len(markets)}개 마켓)")
+    print(f"데이터 수집 시작 시간: {start_time.strftime('%Y-%m-%d %H:%M:%S')}")
+    
+    return old_list, start_time
 
-
-start_time = current_time.replace(minute=0, second=0, microsecond=0)
-start_t = time.time()
-DATA_CNT = 10
-for market in markets:
-    market_start_time = start_time + timedelta(hours = 0)
-    for hour_range in range(1):
-        market_start_time += timedelta(hours = -DATA_CNT * hour_range)
-        date_str = market_start_time.strftime('%Y-%m-%d %H:%M:%S')
-        
-        # Change endpoint to hourly candles
-        url = 'https://api.bithumb.com/v1/candles/minutes/60'
-        params = {
-            'market': market,
-            'count': DATA_CNT,  # Each request will get 100 hours of data
-            'to': date_str
-        }
-        
-        headers = {"accept": "application/json"}
-        response = requests.get(url, params=params, headers=headers)
-        
-        new_list = response.json()
-        old_list.extend(new_list)
-        # Adjust time delta to move back 100 hours instead of 100 days
-        
-        
-        #print(market, len(old_list), market_start_time.strftime('%Y-%m-%d %H:%M:%S'))
-        
+# 메인 함수 호출 및 실행
+if __name__ == '__main__':
+    old_list, start_time = asyncio.run(main_async())
 
 #%%
 tables = ['tb_market_hour']
@@ -87,10 +133,10 @@ with open(file_path, 'r', encoding = 'utf-8') as file:
 
 DB = 'bithumb'
 conn = pymysql.connect(
-   host=yaml_data['HOST'],
-   user=yaml_data['USER'],
-   password=yaml_data['PASSWORD'],
-   db= DB
+    host=yaml_data['HOST'],
+    user=yaml_data['USER'],
+    password=yaml_data['PASSWORD'],
+    db= DB
 )
 
 # 쿼리 실행
@@ -129,10 +175,10 @@ print(df_unique.shape, last_log_dt)
 #insert
 
 conn = pymysql.connect(
-   host=yaml_data['HOST'],
-   user=yaml_data['USER'],
-   password=yaml_data['PASSWORD'],
-   db= DB
+    host=yaml_data['HOST'],
+    user=yaml_data['USER'],
+    password=yaml_data['PASSWORD'],
+    db= DB
 )
 
 
@@ -161,16 +207,16 @@ with conn.cursor() as cursor:
             except:
                 continue
     
-        print(f'success migration table {table}')
+    print(f'success migration table {table}')
     conn.commit()
 conn.close()
 #%%
 print('Start set ma')
 conn = pymysql.connect(
-   host=yaml_data['HOST'],
-   user=yaml_data['USER'],
-   password=yaml_data['PASSWORD'],
-   db= DB
+    host=yaml_data['HOST'],
+    user=yaml_data['USER'],
+    password=yaml_data['PASSWORD'],
+    db= DB
 )
 data_dic = dict()
 
@@ -183,9 +229,9 @@ with conn.cursor() as cursor:
     
     
     time_list = [10, 20, 34, 50 ,100, 200, 400, 800]
-       
-    for time in time_list:        
-        ago = (now - timedelta(hours=time)).strftime('%Y-%m-%d %H:00:00')      
+        
+    for time in time_list:      
+        ago = (now - timedelta(hours=time)).strftime('%Y-%m-%d %H:00:00')     
         cursor.execute(f"SELECT market, avg(trade_price) as ma FROM tb_market_hour WHERE log_dt > '{ago}' group by market")
             
         ma_data = pd.DataFrame(cursor.fetchall())
@@ -242,10 +288,10 @@ input_data = pd.DataFrame(market_ma_dic).transpose().reset_index()
 column_names = ['market','log_dt','ma_10','ma_20','ma_34','ma_50','ma_100','ma_200','ma_400','ma_800','golden_cross_10_34','dead_cross_10_34','created_at']
 input_data.columns = column_names
 conn = pymysql.connect(
-   host=yaml_data['HOST'],
-   user=yaml_data['USER'],
-   password=yaml_data['PASSWORD'],
-   db= DB
+    host=yaml_data['HOST'],
+    user=yaml_data['USER'],
+    password=yaml_data['PASSWORD'],
+    db= DB
 )
 with conn.cursor() as cursor:
     
@@ -266,7 +312,6 @@ with conn.cursor() as cursor:
         cursor.execute(sql, tuple(row))
         
         
-
     
 conn.commit()
 
