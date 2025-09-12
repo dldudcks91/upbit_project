@@ -222,8 +222,8 @@ with db_manager.get_connection() as conn:
             ma_data = pd.DataFrame(cursor.fetchall())
             ma_dic[time_val] = ma_data
         
-        # 이전 MA 데이터 조회
-        one_hour_ago = (now - timedelta(hours = 1)).strftime('%Y-%m-%d %H:00:00')      
+        # 이전 MA 데이터 조회 (1시간 전)
+        one_hour_ago = (now - timedelta(hours=1)).strftime('%Y-%m-%d %H:00:00')      
         cursor.execute(f"SELECT * FROM tb_ma_60_minutes where log_dt = '{one_hour_ago}'")
         last_ma_data = pd.DataFrame(cursor.fetchall())
 
@@ -270,7 +270,7 @@ if not ma_dic[10].empty:
         
         market_ma_dic[market].append(is_golden_cross)
         market_ma_dic[market].append(is_dead_cross)
-        market_ma_dic[market].append(datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+        market_ma_dic[market].append(datetime.now(tz=timezone.utc).strftime('%Y-%m-%d %H:%M:%S'))
 
     #%%
     # MA 데이터 배치 INSERT
