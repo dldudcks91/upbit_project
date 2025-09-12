@@ -5,25 +5,77 @@ Created on Tue Jan  7 13:09:37 2025
 @author: user
 """
 
-# -*- coding: utf-8 -*-
-"""
-Created on Mon Jan  6 23:02:15 2025
-
-@author: 82109
-"""
-# 모든 키 조회
-
 import os
 import yaml
 import json
 from datetime import datetime, timedelta
 import time
+from contextlib import contextmanager
 
 import redis
 import requests
 import pymysql
+from pymysql import connections
 import pandas as pd
 
+
+class DatabasePool:
+    """데이터베이스 연결 풀 관리 클래스"""
+    def __init__(self, yaml_data, pool_size=5):
+        self.config = {
+            'host': yaml_data['HOST'],
+            'user': yaml_data['USER'],
+            'password': yaml_data['PASSWORD'],
+            'db': 'bithumb',
+            'charset': 'utf8mb4',
+            'autocommit': False,
+            'cursorclass': pymysql.cursors.DictCursor
+        }
+        self.pool_size = pool_size
+        self.connections = []
+        self._create_pool()
+    
+    def _create_pool(self):
+        """연결 풀 생성"""
+        for _ in range(self.pool_size):
+            try:
+                conn = pymysql.connect(**self.config)
+                self.connections.append(conn)
+            except Exception as e:
+                print(f"Connection pool creation error: {e}")
+    
+    @contextmanager
+    def get_connection(self):
+        """연결 풀에서 연결 가져오기"""
+        connection = None
+        try:
+            if self.connections:
+                connection = self.connections.pop()
+                # 연결 상태 확인 및 재연결
+                connection.ping(reconnect=True)
+                yield connection
+            else:
+                # 풀이 비어있으면 새로운 연결 생성
+                connection = pymysql.connect(**self.config)
+                yield connection
+        except Exception as e:
+            print(f"Database connection error: {e}")
+            if connection:
+                try:
+                    connection.rollback()
+                except:
+                    pass
+            raise
+        finally:
+            if connection:
+                try:
+                    # 연결을 풀에 반환
+                    if len(self.connections) < self.pool_size:
+                        self.connections.append(connection)
+                    else:
+                        connection.close()
+                except:
+                    pass
 
 
 def get_krw_markets():
@@ -36,7 +88,6 @@ def get_krw_markets():
     print(f"Total KRW markets: {len(krw_markets)}")
     
     return krw_markets
-
 
 
 def get_current_prices(markets, formatted_time):
@@ -62,31 +113,13 @@ def get_current_prices(markets, formatted_time):
         print(f"Error fetching prices: {e}")
         return {}
 
-# def get_current_time(current_time):   
-    
-#     if current_time.minute == 0:
-#         # 0분일 때는 한 시간 전으로 가고 59분으로 설정
-#         rounded_time = current_time.replace(hour=current_time.hour - 1, minute=59, second=0, microsecond=0)
-#         # 만약 0시인 경우 이전 날 23시로 설정
-#         if rounded_time.hour < 0:
-#             rounded_time = rounded_time.replace(hour=23)
-#     else:
-#         # 그 외의 경우는 현재 분에서 1을 빼기
-#         rounded_minutes = current_time.minute - 1
-#         rounded_time = current_time.replace(minute=rounded_minutes, second=0, microsecond=0)
-    
-#     formatted_time = rounded_time.strftime('%Y-%m-%d %H:%M:%S')
-#     return formatted_time
-   
+
 def get_current_time(current_time):
     # 현재 시간을 10초 단위로 내림
-    
     rounded_seconds = (current_time.second // 10) * 10
-    rounded_time = current_time.replace(second=rounded_seconds, microsecond=0)- timedelta(seconds=10)
+    rounded_time = current_time.replace(second=rounded_seconds, microsecond=0) - timedelta(seconds=10)
     formatted_time = rounded_time.strftime('%Y-%m-%d %H:%M:%S')
     return formatted_time
-#%%
-
 
 
 def wait_until_next_interval():
@@ -101,76 +134,72 @@ def wait_until_next_interval():
     if sleep_seconds > 0:
         time.sleep(sleep_seconds)
 
-#1. markets데이터 불러옴
-#markets = get_krw_markets()
-#%%
-while True:
-    try:
-        markets = get_krw_markets()
-        wait_until_next_interval()
-        formatted_time = get_current_time(datetime.now())
 
-        price_dic = get_current_prices(markets,formatted_time)
-
+def insert_market_data(db_pool, total_list):
+    """배치 INSERT 최적화 함수"""
+    if not total_list:
+        return False
         
-
-        file_path = "/home/ubuntu/baseball_project/db_settings.yml"  # YAML 파일이 있는 폴더 경로
-        with open(file_path, 'r', encoding = 'utf-8') as file:
-            yaml_data = yaml.safe_load(file)
-            yaml_data = yaml_data['BASEBALL']
-            
-        connection = pymysql.connect(
-        host=yaml_data['HOST'],
-        user=yaml_data['USER'],
-        password=yaml_data['PASSWORD'],
-        db= 'bithumb'
-        )
-
-        try:
+    # INSERT IGNORE 또는 ON DUPLICATE KEY UPDATE 사용으로 중복 데이터 처리
+    sql = """
+        INSERT INTO tb_market (log_dt, market, price) 
+        VALUES (%s, %s, %s)
+        ON DUPLICATE KEY UPDATE 
+        price = VALUES(price)
+    """
+    
+    try:
+        with db_pool.get_connection() as connection:
             with connection.cursor() as cursor:
-                
-
-                
-
-                total_list = list()
-                for market in markets:
-                    
-                    
-                    try:
-                        price = float(price_dic[market][formatted_time])
-                    except:
-                        price = None
-                    
-                    
-                    
-                    values = (formatted_time, market, price)
-                    
-                    total_list.append(values)
-                
-                
-                sql = """
-                    INSERT INTO tb_market
-                    (log_dt, market, price) 
-                    VALUES (%s, %s, %s)
-                    """
-                
+                # executemany는 이미 배치 처리되므로 그대로 사용
                 cursor.executemany(sql, total_list)
                 connection.commit()
-                
-                print(f"[{datetime.now()}, {formatted_time}]: Successfully inserted {len(total_list)} records")
-        except Exception as e:
-            print(f"Error: {e}")
-            connection.rollback()
+                print(f"[{datetime.now()}]: Successfully inserted {len(total_list)} records")
+                return True
     except Exception as e:
-        print(f"Main loop error: {e}")
+        print(f"Database insert error: {e}")
+        return False
 
-    
-        
-#%%
 
+def main():
+    """메인 실행 함수"""
+    # 설정 파일 로드
+    file_path = "/home/ubuntu/baseball_project/db_settings.yml"
+    with open(file_path, 'r', encoding='utf-8') as file:
+        yaml_data = yaml.safe_load(file)
+        yaml_data = yaml_data['BASEBALL']
     
+    # 데이터베이스 연결 풀 생성
+    db_pool = DatabasePool(yaml_data, pool_size=3)
     
-    
-    
-    
+    while True:
+        try:
+            markets = get_krw_markets()
+            wait_until_next_interval()
+            formatted_time = get_current_time(datetime.now())
+            
+            price_dic = get_current_prices(markets, formatted_time)
+            
+            # 데이터 준비 최적화
+            total_list = []
+            for market in markets:
+                try:
+                    price = float(price_dic[market][formatted_time])
+                except (KeyError, ValueError, TypeError):
+                    price = None
+                
+                total_list.append((formatted_time, market, price))
+            
+            # 배치 INSERT 실행
+            if total_list:
+                success = insert_market_data(db_pool, total_list)
+                if not success:
+                    print(f"Failed to insert data at {formatted_time}")
+                    
+        except Exception as e:
+            print(f"Main loop error: {e}")
+            time.sleep(1)  # 오류 발생 시 잠시 대기
 
+
+if __name__ == "__main__":
+    main()
