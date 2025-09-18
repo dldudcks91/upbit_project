@@ -108,7 +108,7 @@ for data in old_list:
     if data == 'name':
         continue
     
-    date = data['candle_date_time_utc'].replace('T', ' ')
+    date = data['candle_date_time_utc'][:10]
     market = data['market']
     opening_price = data['opening_price']
     trade_price = data['trade_price']
@@ -167,19 +167,10 @@ conn.close()
 
 old_df = data_list[0]
 last_date = old_df['date'].max()
-
-# last_date의 타입이 datetime 객체이므로 date 객체로 변환
 if last_date is None:
-    # 데이터가 없을 경우 기본 날짜 객체 설정
-    last_date = date(2025, 1, 1)
-else:
-    # pandas Timestamp 객체를 Python의 date 객체로 변환
-    last_date = last_date.date()
-
-# df_unique의 'date' 컬럼을 date 객체로 변환하여 비교 타입 통일
-df_unique['date'] = pd.to_datetime(df_unique['date']).dt.date
+    last_date = '2025-01-01'
+#%%
 df_unique = df_unique[df_unique['date'] > last_date]
-
 print(df_unique.shape, last_date)
 #%%
 
