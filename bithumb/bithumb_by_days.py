@@ -66,9 +66,9 @@ async def fetch_market_data(session, market, start_time, data_cnt):
 async def main_async():
     markets = await get_krw_markets_async()
     
-    current_time = datetime.now(tz=timezone.utc) + timedelta(hours=9)
+    current_time = datetime.now(tz=timezone.utc)
     start_time = current_time.replace(minute=0, second=0, microsecond=0)
-    DATA_CNT = 10
+    DATA_CNT = 200
     
     old_list = []
     
@@ -121,9 +121,9 @@ for data in old_list:
     
 #%%
 df = pd.DataFrame(total_list)
-df.columns = ['log_dt','market','opening_price','trade_price','high_price','low_pridce','volume','amount']
+df.columns = ['date','market','opening_price','trade_price','high_price','low_pridce','volume','amount']
 df = df.sort_values(by = 'market')
-df_unique = df.drop_duplicates(subset=['log_dt', 'market'])
+df_unique = df.drop_duplicates(subset=['date', 'market'])
 
 #%%
 file_path = "/home/ubuntu/baseball_project/db_settings.yml"  # YAML 파일이 있는 폴더 경로
@@ -151,12 +151,12 @@ with conn.cursor() as cursor:
             
             
             # 데이터 가져오기
-            cursor.execute(f"SELECT max(log_dt) as log_dt FROM {table}")
+            cursor.execute(f"SELECT max(date) as date FROM {table}")
             rows = cursor.fetchall()
             
             # DataFrame 생성 시 컬럼명 지정
-            log_dt = pd.DataFrame(rows, columns=['log_dt'])
-            data_list.append(log_dt)
+            date_df = pd.DataFrame(rows, columns=['date'])
+            data_list.append(date_df)
             
         
         except Exception as e:
@@ -166,12 +166,12 @@ conn.close()
 
 
 old_df = data_list[0]
-last_log_dt = old_df['log_dt'].max()
-if last_log_dt is None:
-    last_log_dt = pd.to_datetime('2025-01-01')
+last_date = old_df['date'].max()
+if last_date is None:
+    last_date = pd.to_datetime('2025-01-01')
 #%%
-df_unique = df_unique[pd.to_datetime(df_unique['log_dt'])>last_log_dt]
-print(df_unique.shape, last_log_dt)
+df_unique = df_unique[pd.to_datetime(df_unique['date'])>last_date]
+print(df_unique.shape, last_date)
 #%%
 
 #insert
@@ -224,7 +224,7 @@ data_dic = dict()
 
 
 
-now = (datetime.now() - timedelta(hours=10))
+now = datetime.now(tz=timezone.utc)
 
 ma_dic = dict()
 with conn.cursor() as cursor:
@@ -234,13 +234,13 @@ with conn.cursor() as cursor:
         
     for time in time_list:      
         ago = (now - timedelta(hours=time)).strftime('%Y-%m-%d %H:00:00')     
-        cursor.execute(f"SELECT market, avg(trade_price) as ma FROM tb_market_day WHERE log_dt > '{ago}' group by market")
+        cursor.execute(f"SELECT market, avg(trade_price) as ma FROM tb_market_day WHERE date > '{ago}' group by market")
             
         ma_data = pd.DataFrame(cursor.fetchall())
         
         ma_dic[time] = ma_data
     one_hour_ago = (now - timedelta(hours = 1)).strftime('%Y-%m-%d %H:00:00')      
-    cursor.execute(f"SELECT * FROM tb_ma_days where log_dt = '{one_hour_ago}'")
+    cursor.execute(f"SELECT * FROM tb_ma_days where date = '{one_hour_ago}'")
     last_ma_data = pd.DataFrame(cursor.fetchall())
 #%%
 markets = list(ma_data.iloc[:,0])
@@ -283,11 +283,11 @@ for market in markets:
     
     market_ma_dic[market].append(is_golden_cross)
     market_ma_dic[market].append(is_dead_cross)
-    market_ma_dic[market].append(datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+    market_ma_dic[market].append(datetime.now(tz=timezone.utc).strftime('%Y-%m-%d %H:%M:%S'))
     #%%
     
 input_data = pd.DataFrame(market_ma_dic).transpose().reset_index()
-column_names = ['market','log_dt','ma_10','ma_20','ma_34','ma_50','ma_100','ma_200','ma_400','ma_800','golden_cross_10_34','dead_cross_10_34','created_at']
+column_names = ['market','date','ma_10','ma_20','ma_34','ma_50','ma_100','ma_200','ma_400','ma_800','golden_cross_10_34','dead_cross_10_34','created_at']
 input_data.columns = column_names
 conn = pymysql.connect(
     host=yaml_data['HOST'],
