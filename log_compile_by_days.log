@@ -1,0 +1,448 @@
+Total KRW markets: 158
+Total KRW markets: 158
+Total KRW markets: 158
+Total KRW markets: 159
+Total KRW markets: 159
+Total KRW markets: 159
+Total KRW markets: 159
+Total KRW markets: 160
+Total KRW markets: 160
+Total KRW markets: 160
+Total KRW markets: 160
+Total KRW markets: 160
+Total KRW markets: 160
+Total KRW markets: 160
+Total KRW markets: 160
+Total KRW markets: 161
+Total KRW markets: 161
+Total KRW markets: 161
+Total KRW markets: 161
+Total KRW markets: 161
+Total KRW markets: 161
+Total KRW markets: 162
+Total KRW markets: 162
+Traceback (most recent call last):
+  File "/home/ubuntu/./upbit_project/compile_by_days.py", line 97, in <module>
+    response_dic = response.json()    
+  File "/usr/lib/python3/dist-packages/requests/models.py", line 900, in json
+    return complexjson.loads(self.text, **kwargs)
+  File "/usr/lib/python3.10/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+  File "/usr/lib/python3.10/json/decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "/usr/lib/python3.10/json/decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+Total KRW markets: 162
+Total KRW markets: 162
+Total KRW markets: 162
+Total KRW markets: 162
+Total KRW markets: 162
+Total KRW markets: 162
+Traceback (most recent call last):
+  File "/home/ubuntu/./upbit_project/compile_by_days.py", line 97, in <module>
+    response_dic = response.json()    
+  File "/usr/lib/python3/dist-packages/requests/models.py", line 900, in json
+    return complexjson.loads(self.text, **kwargs)
+  File "/usr/lib/python3.10/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+  File "/usr/lib/python3.10/json/decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "/usr/lib/python3.10/json/decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+Total KRW markets: 162
+Total KRW markets: 162
+Total KRW markets: 163
+Total KRW markets: 163
+Total KRW markets: 163
+Total KRW markets: 163
+Total KRW markets: 163
+Total KRW markets: 163
+Total KRW markets: 164
+Total KRW markets: 164
+Total KRW markets: 164
+Total KRW markets: 164
+Total KRW markets: 164
+Total KRW markets: 165
+Total KRW markets: 165
+Total KRW markets: 165
+Total KRW markets: 166
+Total KRW markets: 166
+Total KRW markets: 166
+Total KRW markets: 166
+Total KRW markets: 166
+Total KRW markets: 166
+Total KRW markets: 166
+Total KRW markets: 166
+Total KRW markets: 166
+Total KRW markets: 166
+Total KRW markets: 166
+Total KRW markets: 166
+Total KRW markets: 167
+Total KRW markets: 167
+Traceback (most recent call last):
+  File "/home/ubuntu/./upbit_project/compile_by_days.py", line 97, in <module>
+    response_dic = response.json()    
+  File "/usr/lib/python3/dist-packages/requests/models.py", line 900, in json
+    return complexjson.loads(self.text, **kwargs)
+  File "/usr/lib/python3.10/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+  File "/usr/lib/python3.10/json/decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "/usr/lib/python3.10/json/decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+Total KRW markets: 167
+Total KRW markets: 167
+Total KRW markets: 167
+Total KRW markets: 167
+Total KRW markets: 168
+Total KRW markets: 168
+Total KRW markets: 168
+Total KRW markets: 168
+Total KRW markets: 168
+Total KRW markets: 168
+Total KRW markets: 168
+Total KRW markets: 169
+Total KRW markets: 169
+Total KRW markets: 169
+Total KRW markets: 169
+Total KRW markets: 169
+Total KRW markets: 169
+Total KRW markets: 169
+Total KRW markets: 169
+Total KRW markets: 168
+Total KRW markets: 169
+Total KRW markets: 170
+Total KRW markets: 170
+Total KRW markets: 170
+Total KRW markets: 169
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/urllib3/connectionpool.py", line 700, in urlopen
+    httplib_response = self._make_request(
+  File "/usr/lib/python3/dist-packages/urllib3/connectionpool.py", line 383, in _make_request
+    self._validate_conn(conn)
+  File "/usr/lib/python3/dist-packages/urllib3/connectionpool.py", line 1017, in _validate_conn
+    conn.connect()
+  File "/usr/lib/python3/dist-packages/urllib3/connection.py", line 411, in connect
+    self.sock = ssl_wrap_socket(
+  File "/usr/lib/python3/dist-packages/urllib3/util/ssl_.py", line 449, in ssl_wrap_socket
+    ssl_sock = _ssl_wrap_socket_impl(
+  File "/usr/lib/python3/dist-packages/urllib3/util/ssl_.py", line 493, in _ssl_wrap_socket_impl
+    return ssl_context.wrap_socket(sock, server_hostname=server_hostname)
+  File "/usr/lib/python3.10/ssl.py", line 513, in wrap_socket
+    return self.sslsocket_class._create(
+  File "/usr/lib/python3.10/ssl.py", line 1100, in _create
+    self.do_handshake()
+  File "/usr/lib/python3.10/ssl.py", line 1371, in do_handshake
+    self._sslobj.do_handshake()
+ssl.SSLEOFError: [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1007)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/requests/adapters.py", line 439, in send
+    resp = conn.urlopen(
+  File "/usr/lib/python3/dist-packages/urllib3/connectionpool.py", line 756, in urlopen
+    retries = retries.increment(
+  File "/usr/lib/python3/dist-packages/urllib3/util/retry.py", line 576, in increment
+    raise MaxRetryError(_pool, url, error or ResponseError(cause))
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='api-manager.upbit.com', port=443): Max retries exceeded with url: /api/v1/coin_info/pub/ADA.json (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1007)')))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/./upbit_project/compile_by_days.py", line 94, in <module>
+    response = requests.get(f'https://api-manager.upbit.com/api/v1/coin_info/pub/{market}.json')
+  File "/usr/lib/python3/dist-packages/requests/api.py", line 76, in get
+    return request('get', url, params=params, **kwargs)
+  File "/usr/lib/python3/dist-packages/requests/api.py", line 61, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "/usr/lib/python3/dist-packages/requests/sessions.py", line 544, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/usr/lib/python3/dist-packages/requests/sessions.py", line 657, in send
+    r = adapter.send(request, **kwargs)
+  File "/usr/lib/python3/dist-packages/requests/adapters.py", line 514, in send
+    raise SSLError(e, request=request)
+requests.exceptions.SSLError: HTTPSConnectionPool(host='api-manager.upbit.com', port=443): Max retries exceeded with url: /api/v1/coin_info/pub/ADA.json (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1007)')))
+Total KRW markets: 169
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/urllib3/connectionpool.py", line 700, in urlopen
+    httplib_response = self._make_request(
+  File "/usr/lib/python3/dist-packages/urllib3/connectionpool.py", line 383, in _make_request
+    self._validate_conn(conn)
+  File "/usr/lib/python3/dist-packages/urllib3/connectionpool.py", line 1017, in _validate_conn
+    conn.connect()
+  File "/usr/lib/python3/dist-packages/urllib3/connection.py", line 411, in connect
+    self.sock = ssl_wrap_socket(
+  File "/usr/lib/python3/dist-packages/urllib3/util/ssl_.py", line 449, in ssl_wrap_socket
+    ssl_sock = _ssl_wrap_socket_impl(
+  File "/usr/lib/python3/dist-packages/urllib3/util/ssl_.py", line 493, in _ssl_wrap_socket_impl
+    return ssl_context.wrap_socket(sock, server_hostname=server_hostname)
+  File "/usr/lib/python3.10/ssl.py", line 513, in wrap_socket
+    return self.sslsocket_class._create(
+  File "/usr/lib/python3.10/ssl.py", line 1100, in _create
+    self.do_handshake()
+  File "/usr/lib/python3.10/ssl.py", line 1371, in do_handshake
+    self._sslobj.do_handshake()
+ssl.SSLEOFError: [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1007)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/requests/adapters.py", line 439, in send
+    resp = conn.urlopen(
+  File "/usr/lib/python3/dist-packages/urllib3/connectionpool.py", line 756, in urlopen
+    retries = retries.increment(
+  File "/usr/lib/python3/dist-packages/urllib3/util/retry.py", line 576, in increment
+    raise MaxRetryError(_pool, url, error or ResponseError(cause))
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='api-manager.upbit.com', port=443): Max retries exceeded with url: /api/v1/coin_info/pub/ADA.json (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1007)')))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/./upbit_project/compile_by_days.py", line 94, in <module>
+    response = requests.get(f'https://api-manager.upbit.com/api/v1/coin_info/pub/{market}.json')
+  File "/usr/lib/python3/dist-packages/requests/api.py", line 76, in get
+    return request('get', url, params=params, **kwargs)
+  File "/usr/lib/python3/dist-packages/requests/api.py", line 61, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "/usr/lib/python3/dist-packages/requests/sessions.py", line 544, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/usr/lib/python3/dist-packages/requests/sessions.py", line 657, in send
+    r = adapter.send(request, **kwargs)
+  File "/usr/lib/python3/dist-packages/requests/adapters.py", line 514, in send
+    raise SSLError(e, request=request)
+requests.exceptions.SSLError: HTTPSConnectionPool(host='api-manager.upbit.com', port=443): Max retries exceeded with url: /api/v1/coin_info/pub/ADA.json (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1007)')))
+Total KRW markets: 169
+Total KRW markets: 170
+Total KRW markets: 170
+Total KRW markets: 170
+Total KRW markets: 170
+Total KRW markets: 170
+Total KRW markets: 170
+Total KRW markets: 171
+Total KRW markets: 171
+Total KRW markets: 171
+Total KRW markets: 171
+Total KRW markets: 171
+Total KRW markets: 171
+Total KRW markets: 171
+Total KRW markets: 172
+Total KRW markets: 172
+Total KRW markets: 174
+Total KRW markets: 174
+Total KRW markets: 174
+Total KRW markets: 174
+Total KRW markets: 174
+Total KRW markets: 174
+Total KRW markets: 175
+Total KRW markets: 175
+Total KRW markets: 175
+Total KRW markets: 175
+Total KRW markets: 175
+Total KRW markets: 176
+Total KRW markets: 176
+Total KRW markets: 176
+Total KRW markets: 176
+Total KRW markets: 176
+Total KRW markets: 176
+Total KRW markets: 177
+Total KRW markets: 177
+Total KRW markets: 177
+Total KRW markets: 178
+Total KRW markets: 178
+Total KRW markets: 178
+Total KRW markets: 178
+Total KRW markets: 178
+Total KRW markets: 179
+Total KRW markets: 179
+Total KRW markets: 180
+Total KRW markets: 180
+Total KRW markets: 180
+Total KRW markets: 180
+Total KRW markets: 180
+Total KRW markets: 180
+Total KRW markets: 180
+Total KRW markets: 179
+Total KRW markets: 179
+Total KRW markets: 179
+Total KRW markets: 179
+Total KRW markets: 179
+Total KRW markets: 179
+Total KRW markets: 179
+Total KRW markets: 180
+Total KRW markets: 181
+Total KRW markets: 181
+Total KRW markets: 181
+Total KRW markets: 181
+Total KRW markets: 181
+Total KRW markets: 181
+Total KRW markets: 182
+Total KRW markets: 182
+Total KRW markets: 182
+Total KRW markets: 182
+Total KRW markets: 182
+Total KRW markets: 182
+Total KRW markets: 182
+Total KRW markets: 182
+Total KRW markets: 183
+Total KRW markets: 183
+Total KRW markets: 183
+Total KRW markets: 184
+Total KRW markets: 185
+Total KRW markets: 185
+Total KRW markets: 185
+Total KRW markets: 185
+Total KRW markets: 185
+Total KRW markets: 185
+Total KRW markets: 185
+Total KRW markets: 185
+Total KRW markets: 186
+Total KRW markets: 186
+Total KRW markets: 187
+Total KRW markets: 187
+Total KRW markets: 187
+Total KRW markets: 187
+Total KRW markets: 188
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pymysql/connections.py", line 649, in connect
+    sock = socket.create_connection(
+  File "/usr/lib/python3.10/socket.py", line 824, in create_connection
+    for res in getaddrinfo(host, port, 0, SOCK_STREAM):
+  File "/usr/lib/python3.10/socket.py", line 955, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+socket.gaierror: [Errno -3] Temporary failure in name resolution
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/./upbit_project/compile_by_days.py", line 44, in <module>
+    conn = pymysql.connect(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pymysql/connections.py", line 361, in __init__
+    self.connect()
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pymysql/connections.py", line 716, in connect
+    raise exc
+pymysql.err.OperationalError: (2003, "Can't connect to MySQL server on 'database-1.ch08cm8s8t6j.ap-northeast-2.rds.amazonaws.com' ([Errno -3] Temporary failure in name resolution)")
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pymysql/connections.py", line 649, in connect
+    sock = socket.create_connection(
+  File "/usr/lib/python3.10/socket.py", line 824, in create_connection
+    for res in getaddrinfo(host, port, 0, SOCK_STREAM):
+  File "/usr/lib/python3.10/socket.py", line 955, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+socket.gaierror: [Errno -3] Temporary failure in name resolution
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/./upbit_project/compile_by_days.py", line 44, in <module>
+    conn = pymysql.connect(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pymysql/connections.py", line 361, in __init__
+    self.connect()
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pymysql/connections.py", line 716, in connect
+    raise exc
+pymysql.err.OperationalError: (2003, "Can't connect to MySQL server on 'database-1.ch08cm8s8t6j.ap-northeast-2.rds.amazonaws.com' ([Errno -3] Temporary failure in name resolution)")
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pymysql/connections.py", line 649, in connect
+    sock = socket.create_connection(
+  File "/usr/lib/python3.10/socket.py", line 824, in create_connection
+    for res in getaddrinfo(host, port, 0, SOCK_STREAM):
+  File "/usr/lib/python3.10/socket.py", line 955, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+socket.gaierror: [Errno -3] Temporary failure in name resolution
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/./upbit_project/compile_by_days.py", line 44, in <module>
+    conn = pymysql.connect(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pymysql/connections.py", line 361, in __init__
+    self.connect()
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pymysql/connections.py", line 716, in connect
+    raise exc
+pymysql.err.OperationalError: (2003, "Can't connect to MySQL server on 'database-1.ch08cm8s8t6j.ap-northeast-2.rds.amazonaws.com' ([Errno -3] Temporary failure in name resolution)")
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pymysql/connections.py", line 649, in connect
+    sock = socket.create_connection(
+  File "/usr/lib/python3.10/socket.py", line 824, in create_connection
+    for res in getaddrinfo(host, port, 0, SOCK_STREAM):
+  File "/usr/lib/python3.10/socket.py", line 955, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+socket.gaierror: [Errno -3] Temporary failure in name resolution
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/./upbit_project/compile_by_days.py", line 44, in <module>
+    conn = pymysql.connect(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pymysql/connections.py", line 361, in __init__
+    self.connect()
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pymysql/connections.py", line 716, in connect
+    raise exc
+pymysql.err.OperationalError: (2003, "Can't connect to MySQL server on 'database-1.ch08cm8s8t6j.ap-northeast-2.rds.amazonaws.com' ([Errno -3] Temporary failure in name resolution)")
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pymysql/connections.py", line 649, in connect
+    sock = socket.create_connection(
+  File "/usr/lib/python3.10/socket.py", line 824, in create_connection
+    for res in getaddrinfo(host, port, 0, SOCK_STREAM):
+  File "/usr/lib/python3.10/socket.py", line 955, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+socket.gaierror: [Errno -3] Temporary failure in name resolution
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/./upbit_project/compile_by_days.py", line 44, in <module>
+    conn = pymysql.connect(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pymysql/connections.py", line 361, in __init__
+    self.connect()
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pymysql/connections.py", line 716, in connect
+    raise exc
+pymysql.err.OperationalError: (2003, "Can't connect to MySQL server on 'database-1.ch08cm8s8t6j.ap-northeast-2.rds.amazonaws.com' ([Errno -3] Temporary failure in name resolution)")
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pymysql/connections.py", line 649, in connect
+    sock = socket.create_connection(
+  File "/usr/lib/python3.10/socket.py", line 824, in create_connection
+    for res in getaddrinfo(host, port, 0, SOCK_STREAM):
+  File "/usr/lib/python3.10/socket.py", line 955, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+socket.gaierror: [Errno -3] Temporary failure in name resolution
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/./upbit_project/compile_by_days.py", line 44, in <module>
+    conn = pymysql.connect(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pymysql/connections.py", line 361, in __init__
+    self.connect()
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pymysql/connections.py", line 716, in connect
+    raise exc
+pymysql.err.OperationalError: (2003, "Can't connect to MySQL server on 'database-1.ch08cm8s8t6j.ap-northeast-2.rds.amazonaws.com' ([Errno -3] Temporary failure in name resolution)")
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pymysql/connections.py", line 649, in connect
+    sock = socket.create_connection(
+  File "/usr/lib/python3.10/socket.py", line 824, in create_connection
+    for res in getaddrinfo(host, port, 0, SOCK_STREAM):
+  File "/usr/lib/python3.10/socket.py", line 955, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+socket.gaierror: [Errno -3] Temporary failure in name resolution
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/./upbit_project/compile_by_days.py", line 44, in <module>
+    conn = pymysql.connect(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pymysql/connections.py", line 361, in __init__
+    self.connect()
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pymysql/connections.py", line 716, in connect
+    raise exc
+pymysql.err.OperationalError: (2003, "Can't connect to MySQL server on 'database-1.ch08cm8s8t6j.ap-northeast-2.rds.amazonaws.com' Total KRW markets: 197
+Total KRW markets: 199
+Total KRW markets: 199
+Total KRW markets: 199
+Total KRW markets: 199
+Total KRW markets: 201
+Total KRW markets: 201
+Total KRW markets: 202

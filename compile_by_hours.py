@@ -145,15 +145,19 @@ with conn.cursor() as cursor:
 
 
 #%%
-    
+
 markets = list(ma_data.iloc[:,0])
 market_ma_dic = {market:[now.strftime('%Y-%m-%d %H:00:00')] for market in markets}
 
 for market in markets:
     for time_ma in time_list:
         ma_time_data = ma_dic[time_ma]
-        price_ma = ma_time_data[ma_time_data.iloc[:,0] == market].iloc[0,1]
-        market_ma_dic[market].append(price_ma)
+        
+        try:
+            price_ma = ma_time_data[ma_time_data.iloc[:,0] == market].iloc[0,1]
+            market_ma_dic[market].append(price_ma)
+        except:
+            market_ma_dic[market].append(0)
         
         if time_ma == 10:
             new_ma_10 = price_ma

@@ -64,7 +64,7 @@ def get_current_prices(markets, formatted_time):
         # 최적화 포인트 1: 직접 join으로 markets 처리
         response = requests.get(url, params={"markets": ",".join(markets)})
         price_data = response.json()
-        
+                
         # 최적화 포인트 2: Dictionary Comprehension 사용
         return {
             ticker['market']: {formatted_time: ticker['trade_price']} 
@@ -128,7 +128,7 @@ while True:
         keys = r.keys("trade_volume:*")
 
         price_dic = get_current_prices(markets,formatted_time)
-
+        
         # 해시 구조에 맞게 볼륨 추출 로직 수정
         volume_dic = dict()
         for key in keys:
@@ -198,7 +198,8 @@ while True:
                     print(f"Error: {e}")
 
                 
-
+                
+                
                 total_list = list()
                 for market in markets:
                     
@@ -208,7 +209,9 @@ while True:
                     except:
                         volume = None
                     try:
-                        price = float(price_dic[market][formatted_time])
+                        price = price_dic[market][formatted_time]
+                        print(price)
+                        price = float(price)
                     except:
                         price = None
                     try:

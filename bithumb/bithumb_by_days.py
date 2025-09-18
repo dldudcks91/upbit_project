@@ -167,6 +167,8 @@ conn.close()
 
 old_df = data_list[0]
 last_log_dt = old_df['log_dt'].max()
+if last_log_dt is None:
+    last_log_dt = pd.to_datetime('2025-01-01')
 #%%
 df_unique = df_unique[pd.to_datetime(df_unique['log_dt'])>last_log_dt]
 print(df_unique.shape, last_log_dt)
