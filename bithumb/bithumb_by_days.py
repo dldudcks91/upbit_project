@@ -169,6 +169,8 @@ old_df = data_list[0]
 last_date = old_df['date'].max()
 if last_date is None:
     last_date = '2025-01-01'
+else:
+    last_date = str(last_date)
 #%%
 df_unique = df_unique[df_unique['date'] > last_date]
 print(df_unique.shape, last_date)
