@@ -222,29 +222,30 @@ conn = pymysql.connect(
 )
 data_dic = dict()
 
-
-
-now = datetime.now(tz=timezone.utc)
+# 1. 기준 날짜를 어제로 설정 (UTC 기준)
+yesterday = datetime.now(tz=timezone.utc).date() - timedelta(days=1)
 
 ma_dic = dict()
 with conn.cursor() as cursor:
     
-    
     time_list = [10, 20, 34, 50 ,100, 200, 400, 800]
-        
-    for time in time_list:      
-        ago = (now - timedelta(hours=time)).strftime('%Y-%m-%d %H:00:00')     
+    
+    for time in time_list:     
+        # 2. 'ago'를 기준 날짜에 맞게 수정
+        ago = (yesterday - timedelta(days=time)).strftime('%Y-%m-%d')
         cursor.execute(f"SELECT market, avg(trade_price) as ma FROM tb_market_day WHERE date > '{ago}' group by market")
             
         ma_data = pd.DataFrame(cursor.fetchall())
         
         ma_dic[time] = ma_data
-    one_hour_ago = (now - timedelta(hours = 1)).strftime('%Y-%m-%d %H:00:00')      
-    cursor.execute(f"SELECT * FROM tb_ma_days where date = '{one_hour_ago}'")
+    
+    # 3. 마지막 데이터 조회 쿼리를 날짜 기준으로 변경
+    last_date = yesterday.strftime('%Y-%m-%d')     
+    cursor.execute(f"SELECT * FROM tb_ma_days where date = '{last_date}'")
     last_ma_data = pd.DataFrame(cursor.fetchall())
 #%%
 markets = list(ma_data.iloc[:,0])
-market_ma_dic = {market:[now.strftime('%Y-%m-%d %H:00:00')] for market in markets}
+market_ma_dic = {market:[yesterday] for market in markets}
 
 for market in markets:
     for time_ma in time_list:
