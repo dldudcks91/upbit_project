@@ -167,7 +167,7 @@ conn.close()
 
 old_df = data_list[0]
 last_date = old_df['date'].max()
-if last_date is None:
+if pd.isna(last_date):
     last_date = '2025-01-01'
 else:
     last_date = str(last_date)
