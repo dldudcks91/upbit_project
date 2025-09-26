@@ -94,3 +94,4 @@ join_data = pd.merge(join_data,ma_days,how = 'left',on = 'market')
 #%%
 join_data['price_ratio'] = join_data['price_y'] / join_data['price_x']
 join_data['diff_200'] = join_data['price_y'] / join_data['ma_200']
+#%%

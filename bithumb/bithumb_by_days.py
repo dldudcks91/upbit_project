@@ -8,6 +8,7 @@ Created on Thu Sep 11 17:00:57 2025
 #%%
 import asyncio
 import aiohttp
+import requests
 from datetime import datetime , timedelta, timezone
 import time
 import pandas as pd
@@ -15,6 +16,20 @@ import yaml
 import pymysql
 import nest_asyncio
 nest_asyncio.apply()
+
+
+def get_krw_markets():
+    """업비트 KRW 마켓의 모든 거래쌍 조회 (비동기)"""
+    url = "https://api.bithumb.com/v1/market/all"
+    markets = requests.get(url).json()
+    
+            
+    # KRW 마켓만 필터링
+    krw_markets = [market['market'] for market in markets if market['market'].startswith('KRW-')]
+    print(f"Total KRW markets: {len(krw_markets)}")
+    return krw_markets
+
+
 
 # 비동기 함수로 변경
 async def get_krw_markets_async():
@@ -101,6 +116,75 @@ if __name__ == '__main__':
     old_list, start_time = asyncio.run(main_async())
 
 #%%
+#file_path = "/home/ubuntu/baseball_project/db_settings.yml"  # YAML 파일이 있는 폴더 경로
+file_path = "C:/Users/user/Desktop/python_text/git/baseball/baseball_homepage/config/db_settings.yml" #local
+with open(file_path, 'r', encoding = 'utf-8') as file:
+    yaml_data = yaml.safe_load(file)
+    yaml_data = yaml_data['BASEBALL']
+
+DB = 'bithumb'
+conn = pymysql.connect(
+    host=yaml_data['HOST'],
+    user=yaml_data['USER'],
+    password=yaml_data['PASSWORD'],
+    db= DB
+)
+
+#%%
+
+markets = get_krw_markets()
+tables = ['tb_market_info']
+df_unique = pd.DataFrame(markets)
+df_unique.columns = ['market']
+#%%
+with conn.cursor() as cursor:
+    
+    for table in tables:
+        # 1. 테이블 컬럼 이름 가져오기
+        cursor.execute(f"SHOW COLUMNS FROM {table}")
+        columns = cursor.fetchall()
+        column_names = [column[0] for column in columns]
+        
+        # 2. UPSERT SQL 구문 준비
+        columns_str = ', '.join(column_names)
+        placeholders = ', '.join(['%s'] * len(column_names))
+        
+        # INSERT ON DUPLICATE KEY UPDATE 절 생성
+        # 테이블의 PRIMARY/UNIQUE KEY 컬럼을 제외한 모든 컬럼을 업데이트 대상으로 지정합니다.
+        # 주의: 이 코드는 모든 컬럼을 업데이트 대상으로 포함시킵니다.
+        #       고유 키 컬럼을 제외하려면, 'column_names' 리스트에서 고유 키를 제외해야 합니다.
+        update_cols = [f"{col}=VALUES({col})" for col in column_names]
+        update_str = ', '.join(update_cols)
+        
+        # 최종 UPSERT SQL 쿼리 구문
+        sql = f"""
+            INSERT INTO {table} ({columns_str})
+            VALUES ({placeholders})
+            ON DUPLICATE KEY UPDATE {update_str}
+        """
+        
+        # 3. 데이터 삽입/업데이트 실행
+        # executemany를 사용하면 성능이 훨씬 빠르지만, 단순성을 위해 for 루프 유지
+        
+        rows_to_execute = []
+        for _, row in df_unique.iterrows():
+            rows_to_execute.append(tuple(row))
+
+        try:
+            # executemany를 사용하여 모든 행을 한 번에 실행하는 것이 성능상 유리합니다.
+            cursor.executemany(sql, rows_to_execute)
+            print(f'✅ success migration (UPSERT) table {table}')
+        except Exception as e:
+            # 오류 발생 시 해당 테이블의 오류 메시지를 출력하고 건너뜁니다.
+            print(f'❌ error migrating table {table}: {e}')
+            continue
+            
+    conn.commit()
+conn.close()
+#%%
+
+
+#%%
 tables = ['tb_market_day']
 
 total_list = list()
@@ -126,18 +210,6 @@ df = df.sort_values(by = 'market')
 df_unique = df.drop_duplicates(subset=['date', 'market'])
 
 #%%
-file_path = "/home/ubuntu/baseball_project/db_settings.yml"  # YAML 파일이 있는 폴더 경로
-with open(file_path, 'r', encoding = 'utf-8') as file:
-    yaml_data = yaml.safe_load(file)
-    yaml_data = yaml_data['BASEBALL']
-
-DB = 'bithumb'
-conn = pymysql.connect(
-    host=yaml_data['HOST'],
-    user=yaml_data['USER'],
-    password=yaml_data['PASSWORD'],
-    db= DB
-)
 
 # 쿼리 실행
 data_list = list()
