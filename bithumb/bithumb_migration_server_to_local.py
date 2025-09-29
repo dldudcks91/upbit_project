@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Fri Sep 19 13:06:33 2025
-
-@author: user
-"""
-
 import pymysql
 import paramiko
 from sshtunnel import SSHTunnelForwarder
@@ -62,9 +55,13 @@ with SSHTunnelForwarder(
                 
                 # 데이터 가져오기
                 try:
-                    cursor.execute(f"SELECT * FROM {table} order by log_dt desc limit 103000")
+                    cursor.execute(f"SELECT * FROM {table} order by log_dt desc limit 10000")
                 except:
-                    cursor.execute(f"SELECT * FROM {table} order by date desc limit 103000")
+                    try:
+                        cursor.execute(f"SELECT * FROM {table} order by date desc limit 10000")
+                        
+                    except: 
+                        cursor.execute(f"SELECT * FROM {table}")
                     
                 rows = cursor.fetchall()
                 
@@ -78,20 +75,168 @@ with SSHTunnelForwarder(
                 print(f"{table} 마이그레이션 중 오류: {e}")
     conn.close()
 tunnel.close()
+
 #%%
 
-ma_days = data_list[1]
 #%%
-from datetime import timedelta
-market_df = data_list[2]
-now_df = market_df.sort_values(by = 'log_dt', ascending = False).iloc[:414]
+import mysql.connector
+# 사용 예
 
-last_time = market_df['log_dt'].min() + timedelta(seconds = 10)
-last_df = market_df[market_df['log_dt'] == last_time]
+def truncate_all_tables(host, user, password, database):
+    try:
+        # DB 연결
+        conn = mysql.connector.connect(
+            host=host,
+            user=user,
+            password=password,
+            database=database
+        )
+        cursor = conn.cursor()
+
+        # Foreign key checks 비활성화
+        cursor.execute("SET FOREIGN_KEY_CHECKS = 0")
+
+        # 모든 테이블 이름 가져오기
+        cursor.execute(f"SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = '{database}'")
+        tables = cursor.fetchall()
+
+        # 각 테이블 truncate
+        for table in tables:
+            table_name = table[0]
+            print(f"Truncating table: {table_name}")
+            cursor.execute(f"TRUNCATE TABLE `{table_name}`")
+
+        # Foreign key checks 다시 활성화
+        cursor.execute("SET FOREIGN_KEY_CHECKS = 1")
+
+        conn.commit()
+        print("All tables have been truncated successfully")
+
+    except mysql.connector.Error as err:
+        print(f"Error: {err}")
+
+    finally:
+        if 'conn' in locals() and conn.is_connected():
+            cursor.close()
+            conn.close()
+
+
+truncate_all_tables(
+    host='localhost',
+    user='root',
+    password='an98',
+    database=DB
+)
 #%%
-join_data = pd.merge(last_df,now_df,how = 'left',on = 'market')
-join_data = pd.merge(join_data,ma_days,how = 'left',on = 'market')
+#tb_market에 넣는 data 개수줄이기
+data_list[0] = data_list[0][data_list[0].log_dt <= '2025-01-23 09:00:00']
 #%%
-join_data['price_ratio'] = join_data['price_y'] / join_data['price_x']
-join_data['diff_200'] = join_data['price_y'] / join_data['ma_200']
+import mysql.connector
+from sqlalchemy import create_engine
+
+def insert_data_to_mysql(df, host, user, password, database, table_name):
+    try:
+        # SQLAlchemy 엔진 생성
+        engine = create_engine(f'mysql+mysqlconnector://{user}:{password}@{host}/{database}')
+        
+        # DataFrame을 MySQL 테이블에 삽입
+        df.to_sql(
+            name=table_name, 
+            con=engine, 
+            if_exists='append',  # 테이블 존재 시 데이터 추가
+            index=False,          # DataFrame의 인덱스는 삽입하지 않음
+            chunksize=1000        # 대량 데이터 처리를 위한 청크 사이즈 설정
+        )
+        
+        print(f"Data successfully inserted into {table_name}")
+        
+    except Exception as e:
+        print(f"Error occurred: {e}")
+    
+    finally:
+        # SQLAlchemy는 연결 관리를 자동으로 해줌
+        if 'engine' in locals():
+            engine.dispose()
+
+# 데이터 삽입 실행
+for table, data in zip(tables, data_list):
+    insert_data_to_mysql(
+        df=data,
+        host='localhost',
+        user='root',
+        password='an98',
+        database=DB,
+        table_name=table
+    )
+
+
+
+
+
+
+
+
+
 #%%
+raw_data = data_list[1]
+#%%
+#raw_data.columns = ['log_dt','market','price','volume','amount']
+#raw_data.columns = ['market','symbol','korean_name','english_name','capitalization','gecko_id']
+#%%
+
+#raw_data['hour'] = pd.to_datetime(raw_data['log_dt']).dt.hour
+
+#%%
+from datetime import datetime
+current_time = datetime.now()
+
+market_list = pd.unique(raw_data['market'])
+
+#%%
+import numpy as np
+mean_dic = dict()
+range_data_dic = dict()
+for market in market_list:
+    window_size = 12
+    
+    market_data = raw_data[raw_data['market'] == market]
+    range_data = market_data[(market_data['log_dt'] >= '2025-01-07 23:00:00') & (market_data['log_dt'] <= '2025-01-08 00:00:00')]
+    rolling_mean = market_data['volume'].rolling(window=window_size).mean()
+    rolling_std = market_data['volume'].rolling(window=window_size).std()
+    range_data_dic[market] = range_data
+    
+    volumes = list(range_data['volume'])
+    firsts, last = volumes[:-1], volumes[-1]
+    
+    first_mean = np.mean(firsts)
+    now_ratio = last / first_mean
+    mean_dic[market] = now_ratio
+    
+#%%
+from sqlalchemy import create_engine
+
+#%%
+market_info = pd.DataFrame(market_list)
+market_info.columns = ['market']
+#%%
+db_config = {
+            'host': 'localhost',
+            'user': 'root',
+            'password': 'an98',
+            'database': DB
+        }
+        
+# SQLAlchemy engine 생성
+engine = create_engine(f"mysql+mysqlconnector://{db_config['user']}:{db_config['password']}@{db_config['host']}/{db_config['database']}")
+
+# DataFrame을 SQL 테이블로 저장
+raw_data.to_sql(name= 'tb_market_info', 
+         con=engine, 
+         if_exists='replace', 
+         index=False,
+         chunksize=1000)
+
+engine.dispose()
+#%%
+x = 1555555.5
+f'{x:,}'

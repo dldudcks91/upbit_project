@@ -116,8 +116,8 @@ if __name__ == '__main__':
     old_list, start_time = asyncio.run(main_async())
 
 #%%
-#file_path = "/home/ubuntu/baseball_project/db_settings.yml"  # YAML 파일이 있는 폴더 경로
-file_path = "C:/Users/user/Desktop/python_text/git/baseball/baseball_homepage/config/db_settings.yml" #local
+file_path = "/home/ubuntu/baseball_project/db_settings.yml"  # YAML 파일이 있는 폴더 경로
+#file_path = "C:/Users/user/Desktop/python_text/git/baseball/baseball_homepage/config/db_settings.yml" #local
 with open(file_path, 'r', encoding = 'utf-8') as file:
     yaml_data = yaml.safe_load(file)
     yaml_data = yaml_data['BASEBALL']
