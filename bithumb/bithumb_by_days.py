@@ -180,7 +180,7 @@ with conn.cursor() as cursor:
             continue
             
     conn.commit()
-conn.close()
+
 #%%
 
 
