@@ -32,7 +32,7 @@ async def get_krw_markets_async():
 # 업데이트된 fetch_market_data 함수
 async def fetch_market_data(session, market, start_time, data_cnt):
     date_str = start_time.strftime('%Y-%m-%d %H:%M:%S')
-    url = 'https://api.bithumb.com/v1/candles/minutes/60'
+    url = 'https://api.bithumb.com/v1/candles/minutes/5'
     params = {
         'market': market,
         'count': data_cnt,
@@ -66,8 +66,8 @@ async def fetch_market_data(session, market, start_time, data_cnt):
 async def main_async():
     markets = await get_krw_markets_async()
     
-    current_time = datetime.now(tz=timezone.utc)  + timedelta(hours=9)
-    start_time = current_time.replace(minute=0, second=0, microsecond=0)
+    current_time = datetime.now(tz=timezone.utc) 
+    start_time = current_time + timedelta(hours = 9)
     DATA_CNT = 10
     
     old_list = []
@@ -101,7 +101,7 @@ if __name__ == '__main__':
     old_list, start_time = asyncio.run(main_async())
 
 #%%
-tables = ['tb_market_hour']
+tables = ['tb_market_5_minutes']
 
 total_list = list()
 for data in old_list:
@@ -222,8 +222,10 @@ data_dic = dict()
 
 
 
-now = datetime.now(tz=timezone.utc) - timedelta(hours = 1)
-one_hour_ago = (now - timedelta(hours = 1)).strftime('%Y-%m-%d %H:00:00')      
+now = (datetime.now(tz=timezone.utc) - timedelta(minutes = 5))
+
+now -= timedelta(minutes=now.minute % 5, seconds=now.second, microseconds=now.microsecond)
+
 ma_dic = dict()
 with conn.cursor() as cursor:
     
@@ -231,18 +233,18 @@ with conn.cursor() as cursor:
     time_list = [10, 20, 34, 50 ,100, 200, 400, 800]
         
     for time in time_list:      
-        ago = (now - timedelta(hours=time)).strftime('%Y-%m-%d %H:00:00')     
-        cursor.execute(f"SELECT market, avg(trade_price) as ma FROM tb_market_hour WHERE log_dt > '{ago}' group by market")
+        ago = (now - timedelta(minutes=time * 5)).strftime('%Y-%m-%d %H:%M:%S')     
+        cursor.execute(f"SELECT market, avg(trade_price) as ma FROM tb_market_5_minutes WHERE log_dt > '{ago}' group by market")
             
         ma_data = pd.DataFrame(cursor.fetchall())
         
         ma_dic[time] = ma_data
-    
-    cursor.execute(f"SELECT * FROM tb_ma_60_minutes where log_dt = '{one_hour_ago}'")
+    five_minute_ago = (now - timedelta(minutes = 5)).strftime('%Y-%m-%d %H:00:00')      
+    cursor.execute(f"SELECT * FROM tb_ma_5_minutes where log_dt = '{five_minute_ago}'")
     last_ma_data = pd.DataFrame(cursor.fetchall())
 #%%
 markets = list(ma_data.iloc[:,0])
-market_ma_dic = {market:[now.strftime('%Y-%m-%d %H:00:00')] for market in markets}
+market_ma_dic = {market:[now.strftime('%Y-%m-%d %H:%M:%S')] for market in markets}
 
 for market in markets:
     for time_ma in time_list:
@@ -281,7 +283,7 @@ for market in markets:
     
     market_ma_dic[market].append(is_golden_cross)
     market_ma_dic[market].append(is_dead_cross)
-    market_ma_dic[market].append(datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+    market_ma_dic[market].append(datetime.now(tz=timezone.utc).strftime('%Y-%m-%d %H:%M:%S'))
     #%%
     
 input_data = pd.DataFrame(market_ma_dic).transpose().reset_index()
@@ -305,7 +307,7 @@ with conn.cursor() as cursor:
         placeholders = ', '.join(['%s'] * len(column_names))
         
         
-        sql = f"INSERT INTO tb_ma_60_minutes ({columns}) VALUES ({placeholders})"
+        sql = f"INSERT INTO tb_ma_5_minutes ({columns}) VALUES ({placeholders})"
         
         # 각 행 삽입
         

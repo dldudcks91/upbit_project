@@ -23,19 +23,19 @@ markets = get_krw_markets()
 
 #%%
 old_list = list()
-current_time = datetime.now(tz = timezone.utc)
+current_time = datetime.now(tz = timezone.utc) 
 
-start_time = current_time.replace(minute=0, second=0, microsecond=0)
+start_time = current_time + timedelta(hours = 9)
 
 DATA_CNT = 200
 for market in markets:
     market_start_time = start_time + timedelta(hours = 0)
-    for hour_range in range(10):
-        market_start_time += timedelta(hours = -DATA_CNT * hour_range)
+    for hour_range in range(1):
+        market_start_time += timedelta(minutes = -DATA_CNT * 5 * hour_range)
         date_str = market_start_time.strftime('%Y-%m-%d %H:%M:%S')
         
         # Change endpoint to hourly candles
-        url = 'https://api.bithumb.com/v1/candles/minutes/15'
+        url = 'https://api.bithumb.com/v1/candles/minutes/5'
         params = {
             'market': market,
             'count': DATA_CNT,  # Each request will get 100 hours of data
@@ -53,7 +53,7 @@ for market in markets:
         print(market, len(old_list), market_start_time.strftime('%Y-%m-%d %H:%M:%S'))
         time.sleep(0.01)
 #%%
-tables = ['tb_market_15_minutes']
+tables = ['tb_market_5_minutes']
 
 total_list = list()
 for data in old_list:
@@ -73,7 +73,7 @@ for data in old_list:
     
 #%%
 df = pd.DataFrame(total_list)
-df.columns = ['log_dt','market','opening_price','trade_price','high_price','low_pridce','volume','amount']
+df.columns = ['log_dt','market','opening_price','trade_price','high_price','low_price','volume','amount']
 df = df.sort_values(by = 'market')
 df_unique = df.drop_duplicates(subset=['log_dt', 'market'])
 #%%
@@ -139,13 +139,15 @@ with SSHTunnelForwarder(
 #%%
 old_df = data_list[0]
 last_log_dt = old_df['log_dt'].max()
+
+    
 #%%
 df_unique = df_unique[pd.to_datetime(df_unique['log_dt'])>last_log_dt]
 print(df_unique.shape)
 #%%
 
 #insert
-
+from sqlalchemy import create_engine
 
 
 
@@ -156,40 +158,38 @@ with SSHTunnelForwarder(
     remote_bind_address=(rds_endpoint, 3306)  # RDS 엔드포인트와 MySQL 포트
 ) as tunnel:
     
-    # 로컬 포트로 MySQL 연결
-    conn = pymysql.connect(
-        host='127.0.0.1',  # 로컬호스트
-        port=tunnel.local_bind_port,  # 동적으로 할당된 로컬 포트 
-        user=rds_username,
-        passwd=rds_password,
-        db=database_name
-    )
     
+    # 로컬 포트로 MySQL 연결
+    # conn = pymysql.connect(
+    #     host='127.0.0.1',  # 로컬호스트
+    #     port=tunnel.local_bind_port,  # 동적으로 할당된 로컬 포트 
+    #     user=rds_username,
+    #     passwd=rds_password,
+    #     db=database_name
+    # )
+    
+    db_url = (
+        f"mysql+pymysql://{rds_username}:{rds_password}@127.0.0.1:"
+        f"{tunnel.local_bind_port}/{database_name}"
+    )
+    engine = create_engine(db_url, pool_pre_ping=True)
     # 쿼리 실행
-    with conn.cursor() as cursor:
+    
         
         
-        for table in tables:
-            cursor.execute(f"SHOW COLUMNS FROM {table}")
-            
-            columns =  cursor.fetchall()
-            column_names = [column[0] for column in columns]
-            
-            
-            for _, row in df_unique.iterrows():
-                # 동적으로 컬럼과 값 생성
-                columns = ', '.join(column_names)
-                placeholders = ', '.join(['%s'] * len(column_names))
-                sql = f"INSERT INTO {table} ({columns}) VALUES ({placeholders})"
-                
-                # 각 행 삽입
-                try:
-                    cursor.execute(sql, tuple(row))
-                except:
-                    continue
+    for table in tables:
         
-            print(f'success migration table {table}')
-        conn.commit()
+        cnt = 0
+        df_unique.to_sql(
+            table,
+            con=engine,
+            if_exists='append', # 테이블이 있으면 데이터 추가
+            index=False,        # 데이터프레임 인덱스는 제외
+            method='multi',     # MySQL 대량 삽입 최적화 옵션
+            chunksize=1000      # 한 번에 1000개 행씩 처리
+        )
+        print(f'success migration table {table}')
+        
 #%%
 # ma_데이터 가져오기 250430 추가
 with SSHTunnelForwarder(
@@ -211,7 +211,10 @@ with SSHTunnelForwarder(
     
     
     
-    now = (datetime.now() - timedelta(hours=10))
+    now = (datetime.now(tz=timezone.utc) - timedelta(minutes = 5))
+    
+    now -= timedelta(minutes=now.minute % 5, seconds=now.second, microseconds=now.microsecond)
+    
     
     ma_dic = dict()
     with conn.cursor() as cursor:
@@ -220,18 +223,18 @@ with SSHTunnelForwarder(
         time_list = [10, 20, 34, 50 ,100, 200, 400, 800]
            
         for time in time_list:        
-            ago = (now - timedelta(hours=time)).strftime('%Y-%m-%d %H:00:00')      
-            cursor.execute(f"SELECT market, avg(trade_price) as ma FROM tb_market_hour WHERE log_dt > '{ago}' group by market")
+            ago = (now - timedelta(minutes=time*5)).strftime('%Y-%m-%d %H:%M:%S')      
+            cursor.execute(f"SELECT market, avg(trade_price) as ma FROM tb_market_5_minutes WHERE log_dt >= '{ago}' group by market")
                 
             ma_data = pd.DataFrame(cursor.fetchall())
             
             ma_dic[time] = ma_data
-        one_hour_ago = (now - timedelta(hours = 1)).strftime('%Y-%m-%d %H:00:00')      
-        cursor.execute(f"SELECT * FROM tb_ma_60_minutes where log_dt = '{one_hour_ago}'")
+        one_hour_ago = (now - timedelta(minutes = 5)).strftime('%Y-%m-%d %H:00:00')      
+        cursor.execute(f"SELECT * FROM tb_ma_5_minutes where log_dt = '{one_hour_ago}'")
         last_ma_data = pd.DataFrame(cursor.fetchall())
 #%%
 markets = list(ma_data.iloc[:,0])
-market_ma_dic = {market:[now.strftime('%Y-%m-%d %H:00:00')] for market in markets}
+market_ma_dic = {market:[now.strftime('%Y-%m-%d %H:%S:$M')] for market in markets}
 
 for market in markets:
     for time_ma in time_list:
@@ -270,7 +273,7 @@ for market in markets:
     
     market_ma_dic[market].append(is_golden_cross)
     market_ma_dic[market].append(is_dead_cross)
-    market_ma_dic[market].append(datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+    market_ma_dic[market].append(now)
     #%%
     
 input_data = pd.DataFrame(market_ma_dic).transpose().reset_index()
