@@ -228,7 +228,7 @@ ma_dic = dict()
 with conn.cursor() as cursor:
     
     
-    time_list = [10, 20, 34, 50 ,100, 200, 400, 800]
+    time_list = [10, 20, 34, 50 ,100, 144, 200, 400, 800]
         
     for time in time_list:      
         ago = (now - timedelta(hours=time)).strftime('%Y-%m-%d %H:00:00')     
@@ -285,7 +285,7 @@ for market in markets:
     #%%
     
 input_data = pd.DataFrame(market_ma_dic).transpose().reset_index()
-column_names = ['market','log_dt','ma_10','ma_20','ma_34','ma_50','ma_100','ma_200','ma_400','ma_800','golden_cross_10_34','dead_cross_10_34','created_at']
+column_names = ['market','log_dt','ma_10','ma_20','ma_34','ma_50','ma_100','ma_144','ma_200','ma_400','ma_800','golden_cross_10_34','dead_cross_10_34','created_at']
 input_data.columns = column_names
 conn = pymysql.connect(
     host=yaml_data['HOST'],
