@@ -88,7 +88,7 @@ async def main_async():
     old_list = []
     
     # 150개씩 배치로 나누어 요청 (수정된 부분)
-    BATCH_SIZE = 150
+    BATCH_SIZE = 30
     
     async with aiohttp.ClientSession() as session:
         for i in range(0, len(markets), BATCH_SIZE):
@@ -223,11 +223,11 @@ with conn.cursor() as cursor:
             
             
             # 데이터 가져오기
-            cursor.execute(f"SELECT max(date) as date FROM {table}")
+            cursor.execute(f"SELECT market, max(date) as date FROM {table} group by market")
             rows = cursor.fetchall()
             
             # DataFrame 생성 시 컬럼명 지정
-            date_df = pd.DataFrame(rows, columns=['date'])
+            date_df = pd.DataFrame(rows, columns=['market', 'date'])
             data_list.append(date_df)
             
         
@@ -238,14 +238,18 @@ conn.close()
 
 
 old_df = data_list[0]
-last_date = old_df['date'].max()
-if pd.isna(last_date):
-    last_date = '2025-01-01'
+last_date = old_df.groupby('market')['date'].max().reset_index()
+last_date.columns = ['market', 'last_date']
+if last_date.empty:
+    df_filterd = df_unique
 else:
-    last_date = str(last_date)
-#%%
-df_unique = df_unique[df_unique['date'] > last_date]
-print(df_unique.shape, last_date)
+
+    df_with_last = df_unique.merge(last_date, on='market', how='left')
+    
+    print('df_with_last(head):', df_with_last.head(10))
+    df_filtered = df_with_last[(pd.to_datetime(df_with_last['date']) > df_with_last['last_date']) | (df_with_last['last_date'].isna())  # 새로운 market
+    ].drop('last_log_dt', axis=1)
+    print(len(pd.unique(df_filtered['market'])), df_filtered.shape, last_date)
 #%%
 
 #insert
@@ -271,7 +275,7 @@ with conn.cursor() as cursor:
         column_names = [column[0] for column in columns]
         
         
-        for _, row in df_unique.iterrows():
+        for _, row in df_filtered.iterrows():
             # 동적으로 컬럼과 값 생성
             columns = ', '.join(column_names)
             placeholders = ', '.join(['%s'] * len(column_names))

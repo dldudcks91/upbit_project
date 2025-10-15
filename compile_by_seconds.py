@@ -22,7 +22,7 @@ import redis
 import requests
 import pymysql
 import pandas as pd
-
+import time
 
 
 def get_krw_markets():
@@ -134,7 +134,7 @@ while True:
 
 
 
-        #%%
+        
         file_path = "/home/ubuntu/baseball_project/db_settings.yml"  # YAML 파일이 있는 폴더 경로
         with open(file_path, 'r', encoding = 'utf-8') as file:
             yaml_data = yaml.safe_load(file)
