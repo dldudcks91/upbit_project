@@ -83,7 +83,7 @@ async def main_async():
     
     current_time = datetime.now(tz=timezone.utc)
     start_time = current_time.replace(minute=0, second=0, microsecond=0)
-    DATA_CNT = 200
+    DATA_CNT = 30
     
     old_list = []
     
