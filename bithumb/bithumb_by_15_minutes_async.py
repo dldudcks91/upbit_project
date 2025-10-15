@@ -167,6 +167,7 @@ conn.close()
 
 old_df = data_list[0]
 last_log_dt = old_df.groupby('market')['log_dt'].max().reset_index()
+last_log_dt.columns = ['market', 'last_log_dt']
 #%%
 df_with_last = df_unique.merge(last_log_dt, on='market', how='left')
 
