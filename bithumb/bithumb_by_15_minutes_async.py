@@ -151,11 +151,11 @@ with conn.cursor() as cursor:
             
             
             # 데이터 가져오기
-            cursor.execute(f"SELECT max(log_dt) as log_dt FROM {table}")
+            cursor.execute(f"SELECT market, max(log_dt) as log_dt FROM {table} group by market")
             rows = cursor.fetchall()
             
             # DataFrame 생성 시 컬럼명 지정
-            log_dt = pd.DataFrame(rows, columns=['log_dt'])
+            log_dt = pd.DataFrame(rows, columns=['market', 'log_dt'])
             data_list.append(log_dt)
             
         
@@ -166,10 +166,12 @@ conn.close()
 
 
 old_df = data_list[0]
-last_log_dt = old_df['log_dt'].max()
+last_log_dt = old_df.groupby('market')['log_dt'].max().reset_index()
 #%%
-df_unique = df_unique[pd.to_datetime(df_unique['log_dt'])>last_log_dt]
-print(df_unique.shape, last_log_dt)
+df_with_last = df_unique.merge(last_log_dt, on='market', how='left')
+df_filtered = df_with_last[(pd.to_datetime(df_with_last['log_dt']) > df_with_last['last_log_dt']) | (df_with_last['last_log_dt'].isna())  # 새로운 market
+].drop('last_log_dt', axis=1)
+print(len(pd.unique(df_filtered['market']), df_filterd.shape, last_log_dt)
 #%%
 
 #insert
@@ -195,7 +197,7 @@ with conn.cursor() as cursor:
         column_names = [column[0] for column in columns]
         
         
-        for _, row in df_unique.iterrows():
+        for _, row in df_filtered.iterrows():
             # 동적으로 컬럼과 값 생성
             columns = ', '.join(column_names)
             placeholders = ', '.join(['%s'] * len(column_names))
