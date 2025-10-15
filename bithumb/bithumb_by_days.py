@@ -248,7 +248,7 @@ else:
     
     print('df_with_last(head):', df_with_last.head(10))
     df_filtered = df_with_last[(pd.to_datetime(df_with_last['date']) > df_with_last['last_date']) | (df_with_last['last_date'].isna())  # 새로운 market
-    ].drop('last_log_dt', axis=1)
+    ].drop('last_date', axis=1)
     print(len(pd.unique(df_filtered['market'])), df_filtered.shape, last_date)
 #%%
 
