@@ -188,7 +188,7 @@ with db_manager.get_connection() as conn:
     with conn.cursor() as cursor:
         for table in tables:
             try:
-                cursor.execute(f"SELECT max(log_dt) as log_dt FROM {table}")
+                cursor.execute(f"SELECT market, max(log_dt) as log_dt FROM {table} group by market")
                 rows = cursor.fetchall()
                 log_dt = pd.DataFrame(rows, columns=['log_dt'])
                 data_list.append(log_dt)
@@ -197,14 +197,21 @@ with db_manager.get_connection() as conn:
 
 #%%
 old_df = data_list[0]
-last_log_dt = old_df['log_dt'].max()
-df_unique = df_unique[pd.to_datetime(df_unique['log_dt'])>last_log_dt]
+last_log_dt = old_df.groupby('market')['log_dt'].max().reset_index()
+last_log_dt.columns = ['market', 'last_log_dt']
+#%%
+df_with_last = df_unique.merge(last_log_dt, on='market', how='left')
+
+print('df_with_last(head):', df_with_last.head(10))
+df_filtered = df_with_last[(pd.to_datetime(df_with_last['log_dt']) > df_with_last['last_log_dt']) | (df_with_last['last_log_dt'].isna())  # 새로운 market
+].drop('last_log_dt', axis=1)
+print(len(pd.unique(df_filtered['market'])), df_filtered.shape, last_log_dt)
 print(df_unique.shape, last_log_dt)
 
 #%%
 # 배치 INSERT 실행
 for table in tables:
-    batch_insert_market_data(db_manager, df_unique, table)
+    batch_insert_market_data(db_manager, df_filtered, table)
 
 #%%
 print('Start set ma')
