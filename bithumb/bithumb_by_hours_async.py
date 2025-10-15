@@ -72,8 +72,8 @@ async def main_async():
     
     old_list = []
     
-    # 150개씩 배치로 나누어 요청 (수정된 부분)
-    BATCH_SIZE = 150
+    # 30개씩 배치로 나누어 요청 (수정된 부분)
+    BATCH_SIZE = 30
     
     async with aiohttp.ClientSession() as session:
         for i in range(0, len(markets), BATCH_SIZE):
