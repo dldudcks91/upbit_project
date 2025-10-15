@@ -169,9 +169,11 @@ old_df = data_list[0]
 last_log_dt = old_df.groupby('market')['log_dt'].max().reset_index()
 #%%
 df_with_last = df_unique.merge(last_log_dt, on='market', how='left')
+
+print('df_with_last(head):', df_with_last.head(10))
 df_filtered = df_with_last[(pd.to_datetime(df_with_last['log_dt']) > df_with_last['last_log_dt']) | (df_with_last['last_log_dt'].isna())  # 새로운 market
 ].drop('last_log_dt', axis=1)
-print(len(pd.unique(df_filtered['market'])), df_filterd.shape, last_log_dt)
+print(len(pd.unique(df_filtered['market'])), df_filtered.shape, last_log_dt)
 #%%
 
 #insert
