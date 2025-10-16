@@ -175,28 +175,28 @@ def main():
     # 데이터베이스 연결 풀 생성
     db_pool = DatabasePool(yaml_data, pool_size=3)
     
-    
-    try:
-        wait_until_next_interval()
-        formatted_time = get_current_time(datetime.now())
-        
-        market_dic = get_current_prices(formatted_time)
-        
-        # 데이터 준비 최적화
-        total_list = []
-        for key, value in market_dic.items():
-            total_list.append([formatted_time, key] + value)
-        
-        
-        #배치 INSERT 실행
-        if total_list:
-            success = insert_market_data(db_pool, total_list)
-            if not success:
-                print(f"Failed to insert data at {formatted_time}")
-                
-    except Exception as e:
-        print(f"Main loop error: {e}")
-        time.sleep(1)  # 오류 발생 시 잠시 대기
+    while True:
+        try:
+            wait_until_next_interval()
+            formatted_time = get_current_time(datetime.now())
+            
+            market_dic = get_current_prices(formatted_time)
+            
+            # 데이터 준비 최적화
+            total_list = []
+            for key, value in market_dic.items():
+                total_list.append([formatted_time, key] + value)
+            
+            
+            #배치 INSERT 실행
+            if total_list:
+                success = insert_market_data(db_pool, total_list)
+                if not success:
+                    print(f"Failed to insert data at {formatted_time}")
+                    
+        except Exception as e:
+            print(f"Main loop error: {e}")
+            time.sleep(1)  # 오류 발생 시 잠시 대기
 
 
 if __name__ == "__main__":
