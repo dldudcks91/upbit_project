@@ -86,7 +86,7 @@ class DatabasePool:
 
 
 
-def get_current_prices(markets, formatted_time):
+def get_current_prices(formatted_time):
     url = "https://api.bitget.com/api/v2/mix/market/tickers"
     try:
         # 최적화 포인트 1: 직접 join으로 markets 처리
@@ -97,15 +97,19 @@ def get_current_prices(markets, formatted_time):
         future_data = None
         if response_data['msg'] == 'success':
             future_data = response_data['data']
-            old_dic = list()
+            print("내려받은 데이터:", len(future_data))
+            
+            old_dic = dict()
             for data in future_data:
+                
                 market = data['symbol']
-                price = float(market['markPrice'])
+                price = float(data['markPrice'])
                 volume = float(data['quoteVolume'])
                 funding_rate = float(data['fundingRate'])
                 
-                old_dic['market'] = [price, volume, funding_rate]
+                old_dic[market] = [price, volume, funding_rate]
         # 최적화 포인트 2: Dictionary Comprehension 사용
+        
         return old_dic
             
     except Exception as e:
@@ -162,7 +166,7 @@ def insert_market_data(db_pool, total_list):
 
 def main():
     """메인 실행 함수"""
-    # 설정 파일 로드
+    #설정 파일 로드
     file_path = "/home/ubuntu/baseball_project/db_settings.yml"
     with open(file_path, 'r', encoding='utf-8') as file:
         yaml_data = yaml.safe_load(file)
@@ -171,27 +175,28 @@ def main():
     # 데이터베이스 연결 풀 생성
     db_pool = DatabasePool(yaml_data, pool_size=3)
     
-    while True:
-        try:
-            wait_until_next_interval()
-            formatted_time = get_current_time(datetime.now())
-            
-            market_dic = get_current_prices(formatted_time)
-            
-            # 데이터 준비 최적화
-            total_list = []
-            for item, value in market_dic.items():
-                total_list.append([formatted_time, item] + value)
-            
-            # 배치 INSERT 실행
-            if total_list:
-                success = insert_market_data(db_pool, total_list)
-                if not success:
-                    print(f"Failed to insert data at {formatted_time}")
-                    
-        except Exception as e:
-            print(f"Main loop error: {e}")
-            time.sleep(1)  # 오류 발생 시 잠시 대기
+    
+    try:
+        wait_until_next_interval()
+        formatted_time = get_current_time(datetime.now())
+        
+        market_dic = get_current_prices(formatted_time)
+        
+        # 데이터 준비 최적화
+        total_list = []
+        for key, value in market_dic.items():
+            total_list.append([formatted_time, key] + value)
+        
+        
+        #배치 INSERT 실행
+        if total_list:
+            success = insert_market_data(db_pool, total_list)
+            if not success:
+                print(f"Failed to insert data at {formatted_time}")
+                
+    except Exception as e:
+        print(f"Main loop error: {e}")
+        time.sleep(1)  # 오류 발생 시 잠시 대기
 
 
 if __name__ == "__main__":
