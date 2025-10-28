@@ -343,7 +343,81 @@ print(f"기존에 있던 마켓 수: {last_log_dt.shape[0]}")
 print(f"DB에 삽입될 최종 레코드 수: {df_filtered.shape[0]} (새로운 데이터)")
 
 #%%
+print('Start set ma')
+now = (datetime.now() - timedelta(hours=10))
 
+ma_dic = dict()
+with db_manager.get_connection() as conn:
+    with conn.cursor() as cursor:
+        time_list = [10, 20, 34, 50 ,100, 200, 400, 800]
+           
+        # 모든 MA 계산을 한 번의 연결에서 처리
+        for time_val in time_list:        
+            ago = (now - timedelta(hours=time_val)).strftime('%Y-%m-%d %H:00:00')      
+            cursor.execute(f"SELECT market, avg(trade_price) as ma FROM tb_market_hour_bitget WHERE log_dt > '{ago}' group by market")
+            ma_data = pd.DataFrame(cursor.fetchall())
+            ma_dic[time_val] = ma_data
+        
+        # 이전 MA 데이터 조회 (1시간 전)
+        one_hour_ago = (now - timedelta(hours=1)).strftime('%Y-%m-%d %H:00:00')      
+        cursor.execute(f"SELECT * FROM tb_ma_60_minutes_bitget where log_dt = '{one_hour_ago}'")
+        last_ma_data = pd.DataFrame(cursor.fetchall())
+
+#%%
+# MA 데이터 처리
+if not ma_dic[10].empty:
+    markets = list(ma_dic[10].iloc[:,0])
+    market_ma_dic = {market:[now.strftime('%Y-%m-%d %H:00:00')] for market in markets}
+
+    for market in markets:
+        for time_ma in time_list:
+            ma_time_data = ma_dic[time_ma]
+            
+            price_ma = ma_time_data[ma_time_data.iloc[:,0] == market]
+            if price_ma.empty:
+                price_ma = 0
+            else:
+                price_ma = price_ma.iloc[0,1]
+            market_ma_dic[market].append(price_ma)
+            
+            if time_ma == 10:
+                new_ma_10 = price_ma
+            elif time_ma == 34:
+                new_ma_34 = price_ma
+        
+        try:
+            last_ma_market_data = last_ma_data[last_ma_data.iloc[:,0] == market]
+            old_ma_10 = last_ma_market_data.iloc[0,2]
+            old_ma_34 = last_ma_market_data.iloc[0,4]
+        except:
+            old_ma_10 = 0
+            old_ma_34 = 0
+        
+        # 골든크로스/데드크로스 계산
+        if (old_ma_10 < old_ma_34) & (new_ma_10 >= new_ma_34):
+            is_golden_cross = 1
+        else:
+            is_golden_cross = 0
+            
+        if (old_ma_10 > old_ma_34) & (new_ma_10 <= new_ma_34):
+            is_dead_cross = 1
+        else:
+            is_dead_cross = 0
+        
+        market_ma_dic[market].append(is_golden_cross)
+        market_ma_dic[market].append(is_dead_cross)
+        market_ma_dic[market].append(datetime.now(tz=timezone.utc).strftime('%Y-%m-%d %H:%M:%S'))
+
+    #%%
+    # MA 데이터 배치 INSERT
+    input_data = pd.DataFrame(market_ma_dic).transpose().reset_index()
+    column_names = ['market','log_dt','ma_10','ma_20','ma_34','ma_50','ma_100','ma_200','ma_400','ma_800','golden_cross_10_34','dead_cross_10_34','created_at']
+    input_data.columns = column_names
+
+    batch_insert_ma_data(db_manager, input_data, 'tb_ma_60_minutes_bitget')
+
+print(f'Complete All Task: {start_time}')
+#%%
 # '''
 # 로컬용
 # '''
