@@ -71,7 +71,8 @@ class KakaoMessageSender:
             except Exception as e:
                 print(f'failed load token_file: {self.token_file}')
                 return False
-        
+            
+        print(f'failed load token_file: {self.token_file}')
         return False
     
     def get_authorization_url(self):
