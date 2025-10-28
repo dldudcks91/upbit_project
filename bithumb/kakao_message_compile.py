@@ -16,7 +16,7 @@ import pymysql
 from contextlib import contextmanager
 import json
 import numpy as np
-#%%
+import kakao_message_sender
 #%%
 class DatabaseManager:
 # ... (이하 동일) ...
@@ -83,5 +83,24 @@ with db_manager.get_connection() as conn:
                 print(new_data.shape)
             except Exception as e:
                 print(f"{table} 조회 중 오류: {e}")
-                
-                
+
+
+now_data, last_data = data_list
+
+now_data.columns = ['market','now_price']
+last_data.columns = ['market','last_price']
+total_data = pd.merge(now_data, last_data, on = 'market')
+total_data['diff'] = (total_data['now_price'] - total_data['last_price']) / total_data['last_price']
+filtered_data = total_data[total_data['diff'].abs() >= 0.05]
+
+# 결과 확인
+print(filtered_data)
+
+kakao_sender = kakao_message_sender.setup_kakao_sender()
+for i, row in filtered_data.iterrows():
+    market = row['market']
+    diff = row['diff']
+    text = f"{market} 데이터가 5분전 대비 {diff * 100:.1f}% 만큼 변화했습니다"
+    kakao_sender.send_text_message(text)
+
+
