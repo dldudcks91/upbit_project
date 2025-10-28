@@ -97,10 +97,21 @@ filtered_data = total_data[total_data['diff'].abs() >= 0.05]
 print(f'{now_utc} 캐치된 데이터:', filtered_data)
 
 kakao_sender = kakao_message_sender.setup_kakao_sender()
+message_lines = []
+
+# filtered_data의 각 행을 순회하며 메시지 문자열 생성 및 리스트에 추가
 for i, row in filtered_data.iterrows():
     market = row['market']
     diff = row['diff']
-    text = f"{market} 데이터가 5분전 대비 {diff * 100:.1f}% 만큼 변화했습니다"
-    kakao_sender.send_text_message(text)
+    # .1f% 포맷팅을 사용하여 메시지 생성
+    line = f"{market}: 5분전 대비 {diff * 100:.1f}%"
+    message_lines.append(line)
+
+# 리스트에 담긴 모든 메시지 문자열을 줄바꿈 문자(\n)로 연결하여 하나의 최종 메시지 생성
+final_message = "\n".join(message_lines)
+
+# 최종 메시지를 한 번에 전송
+if final_message: # 데이터가 있을 경우에만 전송
+    kakao_sender.send_text_message(final_message)
 
 
