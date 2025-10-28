@@ -67,7 +67,7 @@ db_manager = DatabaseManager(yaml_data, DB)
 
 
 now_utc = get_current_time()
-last_utc = now_utc - timedelta(second = 60)
+last_utc = now_utc - timedelta(seconds = 60)
 
 utc_list = [now_utc, last_utc]
 table = 'tb_market_bitget'
