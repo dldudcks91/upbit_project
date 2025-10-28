@@ -19,7 +19,7 @@ from datetime import datetime, timedelta
 class KakaoMessageSender:
     """카카오톡 메시지 전송 클래스"""
     
-    def __init__(self, rest_api_key, redirect_uri, client_secret=None, token_file="/home/ubuntu/upbit_project/bitget/kakao_token.json "): #kakao_token.json
+    def __init__(self, rest_api_key, redirect_uri, client_secret=None, token_file="/home/ubuntu/upbit_project/bitget/kakao_token.json"): #kakao_token.json
         """
         초기화
         
