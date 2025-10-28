@@ -111,7 +111,39 @@ def batch_insert_market_data(db_manager, df_unique, table_name):
                 conn.rollback()
 
 # batch_insert_ma_data 함수는 현재 사용되지 않으므로 생략 (필요 시 복사하여 사용)
-
+def batch_insert_ma_data(db_manager, input_data, table_name):
+    """이동평균 데이터 배치 INSERT"""
+    if input_data.empty:
+        print(f"No MA data to insert for {table_name}")
+        return
+    
+    with db_manager.get_connection() as conn:
+        with conn.cursor() as cursor:
+            column_names = ['market','log_dt','ma_10','ma_20','ma_34','ma_50','ma_100','ma_200','ma_400','ma_800','golden_cross_10_34','dead_cross_10_34','created_at']
+            
+            columns_str = ', '.join(column_names)
+            placeholders = ', '.join(['%s'] * len(column_names))
+            
+            # 중복 키 업데이트 (log_dt, market 제외)
+            update_columns = [col for col in column_names if col not in ['log_dt', 'market']]
+            update_str = ', '.join([f"{col} = VALUES({col})" for col in update_columns])
+            
+            sql = f"""
+                INSERT INTO {table_name} ({columns_str}) 
+                VALUES ({placeholders})
+                ON DUPLICATE KEY UPDATE {update_str}
+            """
+            
+            # DataFrame을 튜플 리스트로 변환
+            data_tuples = [tuple(row) for row in input_data.values]
+            
+            try:
+                cursor.executemany(sql, data_tuples)
+                conn.commit()
+                print(f'Success: Inserted {len(data_tuples)} MA records into {table_name}')
+            except Exception as e:
+                print(f'Error inserting MA data into {table_name}: {e}')
+                conn.rollback()
 async def get_bitget_candles_async(session, market, count, end_dt_kst):
 # ... (이하 동일) ...
     """
@@ -416,7 +448,7 @@ if not ma_dic[10].empty:
 
     batch_insert_ma_data(db_manager, input_data, 'tb_ma_60_minutes_bitget')
 
-print(f'Complete All Task: {start_time}')
+print(f'Complete All Task: {start_t}')
 #%%
 # '''
 # 로컬용
