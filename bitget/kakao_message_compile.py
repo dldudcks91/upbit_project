@@ -94,7 +94,7 @@ total_data['diff'] = (total_data['now_price'] - total_data['last_price']) / tota
 filtered_data = total_data[total_data['diff'].abs() >= 0.05]
 
 # 결과 확인
-print(filtered_data)
+print('캐치된 데이터:', filtered_data)
 
 kakao_sender = kakao_message_sender.setup_kakao_sender()
 for i, row in filtered_data.iterrows():
