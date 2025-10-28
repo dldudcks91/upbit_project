@@ -76,7 +76,7 @@ with db_manager.get_connection() as conn:
     with conn.cursor() as cursor:
         for utc in utc_list:
             try:
-                cursor.execute(f"SELECT market, price FROM {table} WHERE log_dt = {utc}")
+                cursor.execute(f'SELECT market, price FROM {table} WHERE log_dt = "{utc}"')
                 rows = cursor.fetchall()
                 new_data = pd.DataFrame(rows)
                 data_list.append(new_data)
