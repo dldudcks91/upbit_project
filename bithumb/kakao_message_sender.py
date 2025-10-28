@@ -319,7 +319,8 @@ def setup_kakao_sender():
     else:
         print("\n✅ 이미 토큰이 존재합니다.")
 
-
+    return sender
 # 이 파일을 직접 실행했을 때만 실행
 if __name__ == "__main__":
-    setup_kakao_sender()
+    sender = setup_kakao_sender()
+    sender.send_text_message('전송준비완료')
