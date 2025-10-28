@@ -66,8 +66,10 @@ class KakaoMessageSender:
                 if expiry_str:
                     self.token_expiry = datetime.fromisoformat(expiry_str)
                 
+                print(f'success load token_file: {self.token_file}')
                 return True
             except Exception as e:
+                print(f'failed load token_file: {self.token_file}')
                 return False
         return False
     
