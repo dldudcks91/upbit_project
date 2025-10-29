@@ -138,7 +138,7 @@ filtered_data = now_data[now_data['range'].abs() >= 0.1]
 print(f'{now_utc} 캐치된 데이터:', filtered_data)
 
 kakao_sender = kakao_message_sender.setup_kakao_sender()
-message_lines = ['지난 1시간동안 10%이상 변동']
+message_lines = ['- 지난 1시간동안 10%이상 변동 -']
 
 # filtered_data의 각 행을 순회하며 메시지 문자열 생성 및 리스트에 추가
 for i, row in filtered_data.iterrows():
@@ -147,7 +147,7 @@ for i, row in filtered_data.iterrows():
     diff = row['diff']
     
     # .1f% 포맷팅을 사용하여 메시지 생성
-    line = f"{market}) range: {range_data * 100:.1f}%, diff: {diff * 100:.1f}%"
+    line = f"{market}) r: {range_data * 100:.1f}%, d: {diff * 100:.1f}%"
     message_lines.append(line)
     
 final_message = "\n".join(message_lines)
