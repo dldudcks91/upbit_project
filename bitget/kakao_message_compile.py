@@ -109,7 +109,7 @@ db_manager = DatabaseManager(yaml_data, DB)
 # # 리스트에 담긴 모든 메시지 문자열을 줄바꿈 문자(\n)로 연결하여 하나의 최종 메시지 생성
 # final_message = "\n".join(message_lines)
 now_utc = get_current_time()
-now_utc = now_utc.replace(hour = 0, minute = 0) - timedelta(hours=1)
+now_utc = now_utc.replace(minute = 0) - timedelta(hours=1)
 last_utc = now_utc - timedelta(hours = 1)
 
 #utc_list = [now_utc, last_utc]
@@ -147,7 +147,7 @@ for i, row in filtered_data.iterrows():
     diff = row['diff']
     
     # .1f% 포맷팅을 사용하여 메시지 생성
-    line = f"{market}) r: {range_data * 100:.1f}%, d: {diff * 100:.1f}%"
+    line = f"{market}) {range_data * 100:.1f}%, {diff * 100:.1f}%"
     message_lines.append(line)
     
 final_message = "\n".join(message_lines)
