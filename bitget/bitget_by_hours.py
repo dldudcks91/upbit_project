@@ -257,7 +257,7 @@ markets = get_bitget_usdt_markets()
 
 #%%
 # 2. 데이터 수집
-DATA_CNT = 200 # 요청당 가져올 캔들 개수 <--- DATA_CNT 정의
+DATA_CNT = 10 # 요청당 가져올 캔들 개수 <--- DATA_CNT 정의
 start_t = time.time()
 
 # 현재 한국 시간 정각
