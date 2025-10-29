@@ -257,7 +257,7 @@ markets = get_bitget_usdt_markets()
 
 #%%
 # 2. 데이터 수집
-DATA_CNT = 10 # 요청당 가져올 캔들 개수 <--- DATA_CNT 정의
+DATA_CNT = 30 # 요청당 가져올 캔들 개수 <--- DATA_CNT 정의
 start_t = time.time()
 
 # 현재 한국 시간 정각
@@ -373,6 +373,7 @@ print(f"총 수집된 유니크 레코드 수: {df_unique.shape[0]}")
 print(f"기존에 있던 마켓 수: {last_log_dt.shape[0]}")
 print(f"DB에 삽입될 최종 레코드 수: {df_filtered.shape[0]} (새로운 데이터)")
 
+batch_insert_market_data(db_manager, df_filtered, 'tb_market_hour_bitget')
 #%%
 print('Start set ma')
 now = (datetime.now() - timedelta(hours=10))
