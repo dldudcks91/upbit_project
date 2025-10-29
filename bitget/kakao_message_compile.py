@@ -54,7 +54,7 @@ def get_current_time():
     now_utc = datetime.now(timezone.utc)
     # KST로 변환
     # 정시로 내림 (replace)
-    now_utc = now_utc.replace(second=0, microsecond=0) - timedelta(seconds =10)
+    now_utc = now_utc.replace(second=0, microsecond=0)
     return now_utc
 
 file_path = "/home/ubuntu/baseball_project/db_settings.yml" 
