@@ -447,7 +447,7 @@ if not ma_dic[10].empty:
 
     batch_insert_ma_data(db_manager, input_data, 'tb_ma_60_minutes_bitget')
 
-print(f'Complete All Task: {start_t}')
+print(f'Complete All Task: {datetime.now()}: {time.time() - start_t}')
 #%%
 # '''
 # 로컬용
