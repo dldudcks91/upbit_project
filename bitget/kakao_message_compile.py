@@ -123,7 +123,7 @@ with db_manager.get_connection() as conn:
             rows = cursor.fetchall()
             new_data = pd.DataFrame(rows)
             data_list.append(new_data)
-            print(new_data.shape)
+            print(now_utc, "data shape:", new_data.shape)
         except Exception as e:
             print(f"{table} 조회 중 오류: {e}")
 
