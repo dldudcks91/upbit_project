@@ -16,15 +16,14 @@ import nest_asyncio
 nest_asyncio.apply()
 #%%
 # 현재 UTC 시간을 기준으로 한국 시간 (UTC+9)의 '정시'를 계산하는 유틸리티 함수
-def get_current_kst_hour_start():
+def get_current_hour():
 # ... (이하 동일) ...
     """현재 한국 시간(KST)의 정각(00분 00초) datetime 객체 반환"""
     now_utc = datetime.now(timezone.utc)
     # KST로 변환
-    now_kst = now_utc + timedelta(hours=9)
-    # 정시로 내림 (replace)
-    start_time_kst = now_kst.replace(minute=0, second=0, microsecond=0)
-    return start_time_kst
+    
+    start_time = now_utc.replace(minute=0, second=0, microsecond=0)
+    return start_time
 
 class DatabaseManager:
 # ... (이하 동일) ...
@@ -262,7 +261,7 @@ DATA_CNT = 10 # 요청당 가져올 캔들 개수 <--- DATA_CNT 정의
 start_t = time.time()
 
 # 현재 한국 시간 정각
-current_kst_hour_start = get_current_kst_hour_start()
+current_hour = get_current_hour()
 
 # **[수정된 부분]** 'await' outside function 오류 해결을 위해 asyncio.run() 사용
 # 일반 파이썬 스크립트(.py) 실행을 위한 표준 방식입니다.
@@ -276,7 +275,7 @@ if __name__ == '__main__':
         all_candles = asyncio.run(fetch_all_candles(
             markets, 
             DATA_CNT, 
-            current_kst_hour_start, 
+            current_hour, 
             rate_limit_per_second=10
         ))
     except RuntimeError as e:
@@ -287,7 +286,7 @@ if __name__ == '__main__':
             all_candles = loop.run_until_complete(fetch_all_candles(
                 markets, 
                 DATA_CNT, 
-                current_kst_hour_start, 
+                current_hour, 
                 rate_limit_per_second=10
             ))
         else:
