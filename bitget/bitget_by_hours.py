@@ -257,7 +257,7 @@ markets = get_bitget_usdt_markets()
 
 #%%
 # 2. 데이터 수집
-DATA_CNT = 30 # 요청당 가져올 캔들 개수 <--- DATA_CNT 정의
+DATA_CNT = 200 # 요청당 가져올 캔들 개수 <--- DATA_CNT 정의
 start_t = time.time()
 
 # 현재 한국 시간 정각
@@ -314,7 +314,7 @@ for item in all_candles:
     # KST (UTC+9)로 변환
     dt_kst = dt_utc + timedelta(hours=9)
     # 데이터베이스에 저장할 포맷 (문자열)
-    log_dt = dt_kst.strftime('%Y-%m-%d %H:%M:%S')
+    log_dt = dt_utc.strftime('%Y-%m-%d %H:%M:%S')
 
     opening_price = float(data[1])
     high_price = float(data[2])
