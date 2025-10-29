@@ -147,7 +147,7 @@ for i, row in filtered_data.iterrows():
     diff = row['diff']
     
     # .1f% 포맷팅을 사용하여 메시지 생성
-    line = f"{market}) range: {range * 100:.1f}%, diff: {diff * 100:.1f}%"
+    line = f"{market}) range: {range_data * 100:.1f}%, diff: {diff * 100:.1f}%"
     message_lines.append(line)
     
 final_message = "\n".join(message_lines)
