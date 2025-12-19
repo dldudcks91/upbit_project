@@ -376,7 +376,7 @@ print(f"DB에 삽입될 최종 레코드 수: {df_filtered.shape[0]} (새로운 
 batch_insert_market_data(db_manager, df_filtered, 'tb_market_hour_bitget')
 #%%
 print('Start set ma')
-now = (datetime.now() - timedelta(hours=10))
+now = (datetime.now() - timedelta(hours=1))
 
 ma_dic = dict()
 with db_manager.get_connection() as conn:
