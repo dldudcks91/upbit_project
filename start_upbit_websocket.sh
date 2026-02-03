@@ -9,7 +9,7 @@ export LANG=en_US.UTF-8
 # 가격 데이터 수집 스크립트 실행
 #/usr/bin/python3 /home/ubuntu/upbit_project/upbit_by_seconds.py &
 
-/usr/bin/python3 /home/ubuntu/upbit_project/bithumb/bithumb_by_seconds.py &
-
+#/usr/bin/python3 /home/ubuntu/upbit_project/bithumb/bithumb_by_seconds.py &
+/usr/bin/python3 /home/ubuntu/upbit_project/bitget/bitget_by_seconds.py &
 wait
 
