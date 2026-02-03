@@ -185,12 +185,12 @@ if __name__ == '__main__':
     jobs = [('1H', 'tb_market_hour_bitget', 'tb_ma_60_minutes_bitget')]
     
     # 4시간 주기 (1, 5, 9, 13, 17, 21시)
-    #if hour % 4 == 1:
-    jobs.append(('4H', 'tb_market_4hour_bitget', 'tb_ma_4hour_bitget'))
+    if hour % 4 == 0:
+        jobs.append(('4H', 'tb_market_4hour_bitget', 'tb_ma_4hour_bitget'))
     
     # 일일 주기 (오전 9시)
-    #if hour == 9:
-    jobs.append(('1D', 'tb_market_day_bitget', 'tb_ma_day_bitget'))
+    if hour == 0:
+        jobs.append(('1D', 'tb_market_day_bitget', 'tb_ma_day_bitget'))
 
     # 3. 작업 순차 실행
     for gran, m_table, ma_table in jobs:
